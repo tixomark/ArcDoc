@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00AC885E297C2BC50047C6AF /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AC885D297C2BC50047C6AF /* LibraryViewController.swift */; };
 		00C8EF8C297C07930040C6D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8EF8B297C07930040C6D9 /* AppDelegate.swift */; };
 		00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8EF8D297C07930040C6D9 /* SceneDelegate.swift */; };
 		00C8EF90297C07930040C6D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8EF8F297C07930040C6D9 /* ViewController.swift */; };
@@ -17,7 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		00AC885D297C2BC50047C6AF /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		00C8EF88297C07930040C6D9 /* ArchdocApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArchdocApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00C8EF8B297C07930040C6D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00C8EF8D297C07930040C6D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 				00C8EF8B297C07930040C6D9 /* AppDelegate.swift */,
 				00C8EF8D297C07930040C6D9 /* SceneDelegate.swift */,
 				00C8EF8F297C07930040C6D9 /* ViewController.swift */,
-				00AC885D297C2BC50047C6AF /* LibraryViewController.swift */,
 				00C8EF91297C07930040C6D9 /* Main.storyboard */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
 				00C8EF96297C07940040C6D9 /* LaunchScreen.storyboard */,
@@ -143,7 +140,6 @@
 			files = (
 				00C8EF90297C07930040C6D9 /* ViewController.swift in Sources */,
 				00C8EF8C297C07930040C6D9 /* AppDelegate.swift in Sources */,
-				00AC885E297C2BC50047C6AF /* LibraryViewController.swift in Sources */,
 				00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
