@@ -39,6 +39,7 @@ class ArchitectureTableCell: UITableViewCell {
         mainImageView.layer.cornerRadius = 10
         mainImageView.contentMode = .scaleAspectFill
         mainImageView.clipsToBounds = true
+        self.selectionStyle = .none
 //        self.backgroundColor = .white
         
     }

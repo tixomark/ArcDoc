@@ -27,7 +27,6 @@ class MainViewController: UIViewController {
         architectureCatalogueTable.register(ArchitectureTableCell.self,
                                             forCellReuseIdentifier: Values.architectureCellID)
         architectureCatalogueTable.separatorStyle = .none
-        architectureCatalogueTable.allowsFocus = false
         // Do any additional setup after loading the view.
     }
 
@@ -44,12 +43,16 @@ extension MainViewController: UITableViewDataSource {
         
         cell.configure(imageName: presenter.architecture?[indexPath.row].imageName ?? Values.noImage)
         
+        print("createdCell\(indexPath.row)")
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.bounds.height / 4
+        let (width, height) = presenter.getArchitectureImageDimensions(index: indexPath.row)
+        let imageAspectRatio = height / width
+        let cellHeight = Float(tableView.bounds.width) * imageAspectRatio
+        return CGFloat(cellHeight)
     }
     
     
@@ -62,5 +65,13 @@ extension MainViewController: UITableViewDelegate {
 }
 
 extension MainViewController: MainViewProtocol {
+    func getDimensionsOfImage(name: String?) -> (Float, Float){
+        let imageSize = UIImage(named: name ?? Values.noImage)?.size
+        return (Float(imageSize?.width ?? 1),
+                Float(imageSize?.height ?? 1))
+    }
+    
+
+    
     
 }

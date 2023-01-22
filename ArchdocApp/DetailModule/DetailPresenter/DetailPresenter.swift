@@ -35,5 +35,8 @@ class DetailPresenter: DetailPresenterProtocol {
         view.setUIData(architectureItem: architectureItem)
     }
     
+    deinit {
+        print("deinit")
+    }
     
 }

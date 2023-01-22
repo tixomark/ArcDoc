@@ -23,6 +23,9 @@ class DetailViewController: UIViewController {
         presenter.setUIData()
         // Do any additional setup after loading the view.
     }
+    deinit {
+        print("deinit")
+    }
     
 
 }

@@ -9,6 +9,7 @@ import Foundation
 
 protocol MainViewProtocol: AnyObject {
     var presenter: MainPresenterProtocol! {get}
+    func getDimensionsOfImage(name: String?) -> (Float, Float)
 }
 
 protocol MainPresenterProtocol {
@@ -16,6 +17,7 @@ protocol MainPresenterProtocol {
     var architecture: [Architecture]? {get set}
     func getArchitecture()
     func tapOnCell(architecture: Architecture?)
+    func getArchitectureImageDimensions(index: Int) -> (Float, Float)
     
 }
 
@@ -41,6 +43,11 @@ class MainPresenter: MainPresenterProtocol {
     
     func tapOnCell(architecture: Architecture?) {
         router.showDetailModule(architectureItem: architecture)
+    }
+    
+    func getArchitectureImageDimensions(index: Int) -> (Float, Float){
+        let imageName = architecture?[index].imageName
+        return view.getDimensionsOfImage(name: imageName)
     }
     
 }
