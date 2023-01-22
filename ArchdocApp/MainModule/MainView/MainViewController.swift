@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var architectureCatalogueTable: UITableView!
     
-    var presenter: MainViewPresenterProtocol!
+    var presenter: MainPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,10 @@ extension MainViewController: UITableViewDataSource {
     
 }
 extension MainViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let architecture = presenter.architecture?[indexPath.row]
+        presenter.tapOnCell(architecture: architecture)
+    }
 }
 
 extension MainViewController: MainViewProtocol {

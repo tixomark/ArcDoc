@@ -18,6 +18,10 @@
 		9D0676E5297C52CE00A6355A /* AssemblyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */; };
 		9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E6297C55DE00A6355A /* DataProvider.swift */; };
 		9D0676E9297C622800A6355A /* ArchitectureTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E8297C622800A6355A /* ArchitectureTableCell.swift */; };
+		9D0676F3297D751100A6355A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676F2297D751100A6355A /* DetailViewController.swift */; };
+		9D0676F5297D757E00A6355A /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676F4297D757E00A6355A /* DetailPresenter.swift */; };
+		9D0676F7297D803F00A6355A /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676F6297D803F00A6355A /* Router.swift */; };
+		9D0676FD297D971500A6355A /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D0676FB297D971500A6355A /* DetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyModuleBuilder.swift; sourceTree = "<group>"; };
 		9D0676E6297C55DE00A6355A /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		9D0676E8297C622800A6355A /* ArchitectureTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchitectureTableCell.swift; sourceTree = "<group>"; };
+		9D0676F2297D751100A6355A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		9D0676F4297D757E00A6355A /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		9D0676F6297D803F00A6355A /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		9D0676FB297D971500A6355A /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +76,9 @@
 			children = (
 				00C8EF8B297C07930040C6D9 /* AppDelegate.swift */,
 				00C8EF8D297C07930040C6D9 /* SceneDelegate.swift */,
+				9D0676F6297D803F00A6355A /* Router.swift */,
 				9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */,
+				9D0676EC297D73F800A6355A /* DetailModule */,
 				9D0676DA297C41B400A6355A /* MainModule */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
 				00C8EF96297C07940040C6D9 /* LaunchScreen.storyboard */,
@@ -82,8 +92,8 @@
 			children = (
 				9D0676E6297C55DE00A6355A /* DataProvider.swift */,
 				9D0676DB297C41D300A6355A /* Model */,
-				9D0676DC297C41DD00A6355A /* View */,
-				9D0676DD297C41E200A6355A /* Presenter */,
+				9D0676DC297C41DD00A6355A /* MainView */,
+				9D0676DD297C41E200A6355A /* MainPresenter */,
 			);
 			path = MainModule;
 			sourceTree = "<group>";
@@ -96,22 +106,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		9D0676DC297C41DD00A6355A /* View */ = {
+		9D0676DC297C41DD00A6355A /* MainView */ = {
 			isa = PBXGroup;
 			children = (
 				9D0676D8297C41AE00A6355A /* MainViewController.swift */,
 				9D0676DE297C422700A6355A /* MainViewController.xib */,
 				9D0676EB297C626600A6355A /* ArchitectureTableCell */,
 			);
-			path = View;
+			path = MainView;
 			sourceTree = "<group>";
 		};
-		9D0676DD297C41E200A6355A /* Presenter */ = {
+		9D0676DD297C41E200A6355A /* MainPresenter */ = {
 			isa = PBXGroup;
 			children = (
 				9D0676E0297C424B00A6355A /* MainPresenter.swift */,
 			);
-			path = Presenter;
+			path = MainPresenter;
 			sourceTree = "<group>";
 		};
 		9D0676EB297C626600A6355A /* ArchitectureTableCell */ = {
@@ -120,6 +130,32 @@
 				9D0676E8297C622800A6355A /* ArchitectureTableCell.swift */,
 			);
 			path = ArchitectureTableCell;
+			sourceTree = "<group>";
+		};
+		9D0676EC297D73F800A6355A /* DetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				9D0676ED297D740500A6355A /* DetailView */,
+				9D0676F1297D748600A6355A /* DetailPresenter */,
+			);
+			path = DetailModule;
+			sourceTree = "<group>";
+		};
+		9D0676ED297D740500A6355A /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				9D0676F2297D751100A6355A /* DetailViewController.swift */,
+				9D0676FB297D971500A6355A /* DetailViewController.xib */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		9D0676F1297D748600A6355A /* DetailPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				9D0676F4297D757E00A6355A /* DetailPresenter.swift */,
+			);
+			path = DetailPresenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +219,7 @@
 				9D0676DF297C422700A6355A /* MainViewController.xib in Resources */,
 				00C8EF98297C07940040C6D9 /* LaunchScreen.storyboard in Resources */,
 				00C8EF95297C07940040C6D9 /* Assets.xcassets in Resources */,
+				9D0676FD297D971500A6355A /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,12 +230,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D0676F7297D803F00A6355A /* Router.swift in Sources */,
 				9D0676E1297C424B00A6355A /* MainPresenter.swift in Sources */,
 				9D0676D9297C41AE00A6355A /* MainViewController.swift in Sources */,
 				9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */,
+				9D0676F5297D757E00A6355A /* DetailPresenter.swift in Sources */,
 				9D0676E5297C52CE00A6355A /* AssemblyModuleBuilder.swift in Sources */,
 				00C8EF8C297C07930040C6D9 /* AppDelegate.swift in Sources */,
 				9D0676E9297C622800A6355A /* ArchitectureTableCell.swift in Sources */,
+				9D0676F3297D751100A6355A /* DetailViewController.swift in Sources */,
 				9D0676E3297C440600A6355A /* Architecture.swift in Sources */,
 				00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */,
 			);
