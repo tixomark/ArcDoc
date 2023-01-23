@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
+
         architectureCatalogueTable.delegate = self
         architectureCatalogueTable.dataSource = self
         architectureCatalogueTable.register(ArchitectureTableCell.self,

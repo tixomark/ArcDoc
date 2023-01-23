@@ -31,12 +31,12 @@ class ArchitectureTableCell: UITableViewCell {
         contentView.addSubview(mainImageView)
         
         NSLayoutConstraint.activate([
-            mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 5),
-            mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)])
+            mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
+            mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)])
         
-        mainImageView.layer.cornerRadius = 10
+        mainImageView.layer.cornerRadius = 20
         mainImageView.contentMode = .scaleAspectFill
         mainImageView.clipsToBounds = true
         self.selectionStyle = .none
