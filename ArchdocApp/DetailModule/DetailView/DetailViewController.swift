@@ -19,13 +19,15 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainImageView.translatesAutoresizingMaskIntoConstraints = false
         self.view.backgroundColor = .white
+        mainImageView.contentMode = .scaleAspectFit
         
         presenter.setUIData()
         // Do any additional setup after loading the view.
     }
     deinit {
-        print("deinit")
+        print("deinit detailVC")
     }
     
 

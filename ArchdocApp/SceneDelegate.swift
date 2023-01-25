@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    var screenSelector: ScreenSelectorView?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -23,12 +24,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = UINavigationController()
         let assemblyBuilder = AssemblyModuleBuilder()
-        let router = Router(navigationController: navigationController, assemblyModuleBuilder: assemblyBuilder)
+        let router = Router(navigationController: navigationController, assemblyModuleBuilder: assemblyBuilder, window: window)
         router.initialViewController()
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
+        screenSelector = assemblyBuilder.createScreenSelectorModule(router: router)
+        setScreenSelector()
+    }
+    
+    func setScreenSelector() {
+        guard let screenSelector = screenSelector, let window = window else {return}
+        window.addSubview(screenSelector)
+        
+        screenSelector.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            screenSelector.heightAnchor.constraint(equalToConstant: 50),
+            screenSelector.leadingAnchor.constraint(equalTo: window.leadingAnchor,
+                                                    constant: window.bounds.width / 5),
+            screenSelector.trailingAnchor.constraint(equalTo: window.trailingAnchor,
+                                                     constant: -(window.bounds.width / 5)),
+            screenSelector.bottomAnchor.constraint(equalTo: window.safeAreaLayoutGuide.bottomAnchor,
+                                                   constant: -20),
+            screenSelector.centerXAnchor.constraint(equalTo: window.centerXAnchor)])
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

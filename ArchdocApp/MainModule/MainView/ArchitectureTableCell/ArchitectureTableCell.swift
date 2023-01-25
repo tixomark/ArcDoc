@@ -26,21 +26,24 @@ class ArchitectureTableCell: UITableViewCell {
     }
     
     func confugureUI() {
+        print(contentView.frame.width)
         mainImageView = UIImageView()
-        mainImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(mainImageView)
         
-        NSLayoutConstraint.activate([
-            mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
-            mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)])
+        let inset: CGFloat = 10
         
+        mainImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: inset),
+            mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset)])
+        
+        mainImageView.backgroundColor = .green
         mainImageView.layer.cornerRadius = 20
-        mainImageView.contentMode = .scaleAspectFill
+        mainImageView.contentMode = .scaleAspectFit
         mainImageView.clipsToBounds = true
         self.selectionStyle = .none
-//        self.backgroundColor = .white
         
     }
     

@@ -10,22 +10,27 @@ import UIKit
 
 protocol RouterProtocol {
     var navigationController: UINavigationController? {get}
+    var aboutUsViewController: AboutUsViewController? {get}
     var assemblyModuleBuilder: AssemblyBuilderProtocol? {get}
+    var window: UIWindow? {get}
     
     func initialViewController()
     func showMainModule()
     func showDetailModule(architectureItem: Architecture?)
+    func showAboutUsModule()
     
 }
 
 class Router: RouterProtocol {
+    weak var window: UIWindow?
     var navigationController: UINavigationController?
-    
+    var aboutUsViewController: AboutUsViewController?
     var assemblyModuleBuilder: AssemblyBuilderProtocol?
     
-    init(navigationController: UINavigationController!, assemblyModuleBuilder: AssemblyBuilderProtocol!) {
+    init(navigationController: UINavigationController!, assemblyModuleBuilder: AssemblyBuilderProtocol!, window: UIWindow?) {
         self.navigationController = navigationController
         self.assemblyModuleBuilder = assemblyModuleBuilder
+        self.window = window
     }
     
     func initialViewController() {
@@ -36,7 +41,12 @@ class Router: RouterProtocol {
     }
     
     func showMainModule() {
-        
+        if let navigationController = navigationController,
+           let screenSelecor = window?.subviews.first(where: { $0 is ScreenSelectorView }) {
+            
+            window?.rootViewController = navigationController
+            window?.bringSubviewToFront(screenSelecor)
+        }
     }
     
     func showDetailModule(architectureItem: Architecture?) {
@@ -46,5 +56,15 @@ class Router: RouterProtocol {
         }
     }
     
-    
+    func showAboutUsModule() {
+        if aboutUsViewController == nil {
+            aboutUsViewController = assemblyModuleBuilder?.createAboutUsModule(router: self)
+        }
+
+        guard window?.rootViewController != aboutUsViewController else {return}
+        window?.rootViewController = aboutUsViewController
+        
+        guard let screenSelecor = window?.subviews.first(where: { $0 is ScreenSelectorView }) else {return}
+        window?.bringSubviewToFront(screenSelecor)
+    }
 }

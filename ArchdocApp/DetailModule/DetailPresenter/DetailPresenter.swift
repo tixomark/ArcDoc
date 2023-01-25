@@ -36,7 +36,7 @@ class DetailPresenter: DetailPresenterProtocol {
     }
     
     deinit {
-        print("deinit")
+        print("deinit presenter")
     }
     
 }

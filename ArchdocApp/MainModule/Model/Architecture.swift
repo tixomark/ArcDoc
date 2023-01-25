@@ -11,6 +11,7 @@ struct Architecture: Codable {
     var title: String
     var detail: String
     var imageName: String
+    var bookmark: Bool = false
     
     static var architecture: [Architecture] = [
         Architecture(title: "Усадьба Альбрехтов",

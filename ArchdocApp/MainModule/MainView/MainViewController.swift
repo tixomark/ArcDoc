@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = .white
 
         architectureCatalogueTable.delegate = self
@@ -28,7 +28,6 @@ class MainViewController: UIViewController {
         architectureCatalogueTable.register(ArchitectureTableCell.self,
                                             forCellReuseIdentifier: Values.architectureCellID)
         architectureCatalogueTable.separatorStyle = .none
-        // Do any additional setup after loading the view.
     }
 
 
@@ -41,10 +40,7 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Values.architectureCellID, for: indexPath) as! ArchitectureTableCell
-        
         cell.configure(imageName: presenter.architecture?[indexPath.row].imageName ?? Values.noImage)
-        
-        print("createdCell\(indexPath.row)")
         return cell
         
     }
@@ -52,7 +48,9 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let (width, height) = presenter.getArchitectureImageDimensions(index: indexPath.row)
         let imageAspectRatio = height / width
-        let cellHeight = Float(tableView.bounds.width) * imageAspectRatio
+        let inset: CGFloat = 10
+        let cellHeight = Float(tableView.frame.width - inset * 2) * imageAspectRatio + Float(inset) * 2
+        
         return CGFloat(cellHeight)
     }
     
@@ -71,8 +69,4 @@ extension MainViewController: MainViewProtocol {
         return (Float(imageSize?.width ?? 1),
                 Float(imageSize?.height ?? 1))
     }
-    
-
-    
-    
 }

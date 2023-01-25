@@ -9,6 +9,7 @@ import Foundation
 
 protocol DataProviderProtocol {
     func getArhitecture() -> [Architecture]
+    func getTabBatItems() -> [TabBarItem] 
 }
 
 class DataProvider: DataProviderProtocol {
@@ -16,4 +17,7 @@ class DataProvider: DataProviderProtocol {
         return Architecture.architecture
     }
     
+    func getTabBatItems() -> [TabBarItem] {
+        return TabBarItem.items
+    }
 }
