@@ -15,6 +15,7 @@ protocol DetailViewProtocol: AnyObject {
 protocol DetailPresenterProtocol {
     init(view: DetailViewProtocol, architectureItem: Architecture?, router: RouterProtocol)
     var architectureItem: Architecture? {get set}
+    var router: RouterProtocol? {get}
     func setUIData()
 }
 

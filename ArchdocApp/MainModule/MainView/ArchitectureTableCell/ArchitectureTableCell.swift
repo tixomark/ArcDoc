@@ -26,7 +26,6 @@ class ArchitectureTableCell: UITableViewCell {
     }
     
     func confugureUI() {
-        print(contentView.frame.width)
         mainImageView = UIImageView()
         contentView.addSubview(mainImageView)
         

@@ -30,6 +30,10 @@
 		9D067711298046DE00A6355A /* ScreenSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D067710298046DE00A6355A /* ScreenSelectorView.swift */; };
 		9D06771429804B3F00A6355A /* ScreenSelectorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D06771329804B3F00A6355A /* ScreenSelectorPresenter.swift */; };
 		9D0677172980559A00A6355A /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0677162980559A00A6355A /* TabBarItem.swift */; };
+		9D0677192981839800A6355A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D0677182981839800A6355A /* GoogleService-Info.plist */; };
+		9D0677782982C54300A6355A /* GirlsScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 9D0677772982C54300A6355A /* GirlsScene.scn */; };
+		9D06777D2982E1A600A6355A /* 3DSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D06777C2982E1A600A6355A /* 3DSceneViewController.swift */; };
+		9D06777F2982E1BA00A6355A /* 3DScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D06777E2982E1BA00A6355A /* 3DScenePresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +62,10 @@
 		9D067710298046DE00A6355A /* ScreenSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSelectorView.swift; sourceTree = "<group>"; };
 		9D06771329804B3F00A6355A /* ScreenSelectorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSelectorPresenter.swift; sourceTree = "<group>"; };
 		9D0677162980559A00A6355A /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		9D0677182981839800A6355A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9D0677772982C54300A6355A /* GirlsScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = GirlsScene.scn; sourceTree = "<group>"; };
+		9D06777C2982E1A600A6355A /* 3DSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DSceneViewController.swift; sourceTree = "<group>"; };
+		9D06777E2982E1BA00A6355A /* 3DScenePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DScenePresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,15 +100,16 @@
 			children = (
 				00C8EF8B297C07930040C6D9 /* AppDelegate.swift */,
 				00C8EF8D297C07930040C6D9 /* SceneDelegate.swift */,
-				9D0676F6297D803F00A6355A /* Router.swift */,
-				9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */,
-				9D0676E6297C55DE00A6355A /* DataProvider.swift */,
+				9D06775129827DCA00A6355A /* Services */,
 				9D06770D2980464800A6355A /* ScreenSelectorModule */,
 				9D0676DA297C41B400A6355A /* MainModule */,
 				9D0676EC297D73F800A6355A /* DetailModule */,
+				9D0677792982E10100A6355A /* 3DSceneModule */,
 				9D0676FE297ECAB500A6355A /* AboutUsModule */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
+				9D0677772982C54300A6355A /* GirlsScene.scn */,
 				00C8EF96297C07940040C6D9 /* LaunchScreen.storyboard */,
+				9D0677182981839800A6355A /* GoogleService-Info.plist */,
 				00C8EF99297C07940040C6D9 /* Info.plist */,
 			);
 			path = ArchdocApp;
@@ -254,6 +263,41 @@
 			path = ScreenSelectorModel;
 			sourceTree = "<group>";
 		};
+		9D06775129827DCA00A6355A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9D0676F6297D803F00A6355A /* Router.swift */,
+				9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */,
+				9D0676E6297C55DE00A6355A /* DataProvider.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9D0677792982E10100A6355A /* 3DSceneModule */ = {
+			isa = PBXGroup;
+			children = (
+				9D06777B2982E14900A6355A /* 3DSceneView */,
+				9D06777A2982E13500A6355A /* 3DScenePresenter */,
+			);
+			path = 3DSceneModule;
+			sourceTree = "<group>";
+		};
+		9D06777A2982E13500A6355A /* 3DScenePresenter */ = {
+			isa = PBXGroup;
+			children = (
+				9D06777E2982E1BA00A6355A /* 3DScenePresenter.swift */,
+			);
+			path = 3DScenePresenter;
+			sourceTree = "<group>";
+		};
+		9D06777B2982E14900A6355A /* 3DSceneView */ = {
+			isa = PBXGroup;
+			children = (
+				9D06777C2982E1A600A6355A /* 3DSceneViewController.swift */,
+			);
+			path = 3DSceneView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -270,6 +314,8 @@
 			dependencies = (
 			);
 			name = ArchdocApp;
+			packageProductDependencies = (
+			);
 			productName = ArchdocApp;
 			productReference = 00C8EF88297C07930040C6D9 /* ArchdocApp.app */;
 			productType = "com.apple.product-type.application";
@@ -298,6 +344,8 @@
 				Base,
 			);
 			mainGroup = 00C8EF7F297C07930040C6D9;
+			packageReferences = (
+			);
 			productRefGroup = 00C8EF89297C07930040C6D9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -316,7 +364,9 @@
 				9D0676DF297C422700A6355A /* MainViewController.xib in Resources */,
 				00C8EF98297C07940040C6D9 /* LaunchScreen.storyboard in Resources */,
 				00C8EF95297C07940040C6D9 /* Assets.xcassets in Resources */,
+				9D0677782982C54300A6355A /* GirlsScene.scn in Resources */,
 				9D0676FD297D971500A6355A /* DetailViewController.xib in Resources */,
+				9D0677192981839800A6355A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +384,7 @@
 				9D0676D9297C41AE00A6355A /* MainViewController.swift in Sources */,
 				9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */,
 				9D067701297ECAE000A6355A /* AboutUsViewController.swift in Sources */,
+				9D06777D2982E1A600A6355A /* 3DSceneViewController.swift in Sources */,
 				9D067709297ECC1200A6355A /* AboutUsPresenter.swift in Sources */,
 				9D06771429804B3F00A6355A /* ScreenSelectorPresenter.swift in Sources */,
 				9D0676F5297D757E00A6355A /* DetailPresenter.swift in Sources */,
@@ -344,6 +395,7 @@
 				9D0676F3297D751100A6355A /* DetailViewController.swift in Sources */,
 				9D0676E3297C440600A6355A /* Architecture.swift in Sources */,
 				00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */,
+				9D06777F2982E1BA00A6355A /* 3DScenePresenter.swift in Sources */,
 				9D067711298046DE00A6355A /* ScreenSelectorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

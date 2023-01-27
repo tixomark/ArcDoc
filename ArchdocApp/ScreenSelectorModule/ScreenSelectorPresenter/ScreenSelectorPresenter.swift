@@ -22,7 +22,7 @@ protocol ScreenSelectorPresenterProtocol {
 
 class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
     
-    let view: ScreenSelectorViewProtocol?
+    weak var view: ScreenSelectorViewProtocol?
     let router: RouterProtocol!
     let dataProvider: DataProviderProtocol?
     var tabBarItems: [TabBarItem]?
@@ -43,7 +43,6 @@ class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
         switch index {
         case 0:
             router.showMainModule()
-            
         case 1:
             router?.showAboutUsModule()
         default:

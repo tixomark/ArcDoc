@@ -41,21 +41,31 @@
                         <constraint firstAttribute="height" constant="312.66666666666669" id="kht-9x-xlN"/>
                     </constraints>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76p-ju-sEa">
+                    <rect key="frame" x="321" y="321.66666666666669" width="94" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="3DModel"/>
+                    <connections>
+                        <action selector="tap3DModelButton:" destination="-1" eventType="touchUpInside" id="VIg-ev-Nkr"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="76p-ju-sEa" firstAttribute="bottom" secondItem="VWa-3O-rqy" secondAttribute="bottom" constant="-15" id="6KQ-Z4-IPx"/>
                 <constraint firstItem="VWa-3O-rqy" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="AFP-hG-zLs"/>
                 <constraint firstItem="G6Y-RP-Zou" firstAttribute="top" secondItem="VWa-3O-rqy" secondAttribute="bottom" constant="150" id="Cci-Zs-3eu"/>
                 <constraint firstItem="VWa-3O-rqy" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="T1z-WO-Il1"/>
                 <constraint firstItem="G6Y-RP-Zou" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="TSb-aI-4LT"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vNr-KI-G3S" secondAttribute="trailing" constant="16" id="Zf1-67-ocg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="76p-ju-sEa" secondAttribute="trailing" constant="15" id="aNJ-Wj-IgD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="G6Y-RP-Zou" secondAttribute="trailing" constant="16" id="cc8-kn-akj"/>
                 <constraint firstItem="vNr-KI-G3S" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ezE-MY-D9K"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VWa-3O-rqy" secondAttribute="trailing" id="ug1-lu-dj0"/>
                 <constraint firstItem="vNr-KI-G3S" firstAttribute="top" secondItem="G6Y-RP-Zou" secondAttribute="bottom" constant="16" id="vkZ-97-UAx"/>
             </constraints>
-            <point key="canvasLocation" x="41.984732824427482" y="19.718309859154932"/>
+            <point key="canvasLocation" x="41.860465116279066" y="19.313304721030043"/>
         </view>
     </objects>
     <resources>

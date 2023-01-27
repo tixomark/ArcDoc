@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.backgroundColor = .white
+//        self.view.backgroundColor = .white
         mainImageView.contentMode = .scaleAspectFit
         
         presenter.setUIData()
@@ -28,6 +28,11 @@ class DetailViewController: UIViewController {
     }
     deinit {
         print("deinit detailVC")
+    }
+    
+    
+    @IBAction func tap3DModelButton(_ sender: Any) {
+        presenter.router?.showTriDSceneModule()
     }
     
 
