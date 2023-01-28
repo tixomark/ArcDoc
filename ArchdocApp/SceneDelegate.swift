@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
-        router.showTriDSceneModule()
+//        router.showTriDSceneModule()
         screenSelector = assemblyBuilder.createScreenSelectorModule(router: router)
         setScreenSelector()
     }
