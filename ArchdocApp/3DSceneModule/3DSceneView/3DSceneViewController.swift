@@ -7,12 +7,11 @@
 
 import UIKit
 import SceneKit
+import SceneKit.ModelIO
 
 class TriDSceneViewController: UIViewController {
     
-    var presenter: TriDScenePresenterProtocol?
-    
-    //    var topInvisible
+    var presenter: TriDScenePresenterProtocol!
     
     var sceneView: SCNView!
     var mainNode: SCNNode!
@@ -28,11 +27,9 @@ class TriDSceneViewController: UIViewController {
     
     func setUpUI() {
         view.backgroundColor = .systemBackground
-        
         sceneView = SCNView()
         view.addSubview(sceneView)
         sceneView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sceneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -41,9 +38,19 @@ class TriDSceneViewController: UIViewController {
     }
     
     func setUpScene() {
-        let scene = SCNScene(named: "GirlsScene.scn")
+//        guard let url = Bundle.main.url(forResource: "Gostilitsy3DModel", withExtension: "usdz") else { fatalError() }
+//            let scene = try! SCNScene(url: url, options: [.checkConsistency: true])
+        print(presenter.modelUrl)
+        let modelAsset = MDLAsset(url: presenter.modelUrl)
+        let scene = SCNScene(mdlAsset: modelAsset)
         sceneView.scene = scene
-        mainNode = sceneView.scene?.rootNode.childNode(withName: "Girls", recursively: false)
+        mainNode = sceneView.scene?.rootNode.childNodes.first
+        
+        let spotLight = SCNNode()
+        spotLight.light = SCNLight()
+        spotLight.light?.type = .directional
+
+        sceneView.scene?.rootNode.addChildNode(spotLight)
     }
     
     func addGestures() {

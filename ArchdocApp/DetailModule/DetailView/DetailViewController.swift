@@ -13,6 +13,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var architectureNameLabel: UILabel!
     @IBOutlet weak var architectureDescrLabel: UILabel!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var modelButton: UIButton!
     
     var presenter: DetailPresenterProtocol!
     
@@ -20,37 +21,41 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-//        self.view.backgroundColor = .white
         mainImageView.contentMode = .scaleAspectFit
         
         presenter.setUIData()
-        // Do any additional setup after loading the view.
     }
     deinit {
         print("deinit detailVC")
     }
-    
-    
+
     @IBAction func tap3DModelButton(_ sender: Any) {
-        presenter.router?.showTriDSceneModule()
+        modelButton.setTitle("Loading", for: .normal)
+        presenter.didTapOn3DViewButton()
     }
-    
 
 }
 
 extension DetailViewController: DetailViewProtocol {
+    
     func setUIData(architectureItem: Architecture?) {
-        let image = UIImage(named: presenter.architectureItem?.imageName ?? "noImage")
+        guard let arch = architectureItem else { return }
+        
+        let image: UIImage!
+        do {
+            let imageData = try Data(contentsOf: (arch.previewImageURL?.first)!)
+            image = UIImage(data: imageData)
+        } catch {
+            image = UIImage(named: "noImage")
+        }
         mainImageView.image = image
         
-        let aspectRatio = Float(image!.size.height) / Float(image!.size.width)
+        let aspectRatio = Float(image.size.height) / Float(image.size.width)
         let newImageViewHeight = aspectRatio * Float(self.view.bounds.width)
         imageHeightConstraint.constant = CGFloat(newImageViewHeight)
         
-        architectureNameLabel.text = presenter.architectureItem?.title ?? "Placeholder Title"
-        architectureDescrLabel.text = presenter.architectureItem?.detail ?? "No description for this architecture"
-        
+        architectureNameLabel.text = arch.uid
+        architectureDescrLabel.text = arch.previewImageURL?.first?.absoluteString
     }
-    
     
 }

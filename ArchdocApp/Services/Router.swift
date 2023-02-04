@@ -14,11 +14,11 @@ protocol RouterProtocol {
     var assemblyModuleBuilder: AssemblyBuilderProtocol? {get}
     var window: UIWindow? {get}
     
-    func initialViewController()
+    func initialViewController(dataProvider: DataProviderProtocol)
     func showMainModule()
-    func showDetailModule(architectureItem: Architecture?)
+    func showDetailModule(architectureItem: Architecture?, dataProvider: DataProviderProtocol)
     func showAboutUsModule()
-    func showTriDSceneModule()
+    func showTriDSceneModule(modelUrl: URL)
     
 }
 
@@ -34,9 +34,9 @@ class Router: RouterProtocol {
         self.window = window
     }
     
-    func initialViewController() {
+    func initialViewController(dataProvider: DataProviderProtocol) {
         if let navigationController = navigationController,
-           let mainVC = assemblyModuleBuilder?.createMainModule(router: self) {
+           let mainVC = assemblyModuleBuilder?.createMainModule(router: self, dataProvider: dataProvider) {
             navigationController.viewControllers = [mainVC]
         }
     }
@@ -50,10 +50,17 @@ class Router: RouterProtocol {
         }
     }
     
-    func showDetailModule(architectureItem: Architecture?) {
+    func showDetailModule(architectureItem: Architecture?, dataProvider: DataProviderProtocol) {
         if let navigationController = navigationController,
-           let detailVC = assemblyModuleBuilder?.createDetailModule(architecture: architectureItem, router: self) {
+           let detailVC = assemblyModuleBuilder?.createDetailModule(architecture: architectureItem, router: self, dataProvider: dataProvider) {
             navigationController.pushViewController(detailVC, animated: true)
+        }
+    }
+    
+    func showTriDSceneModule(modelUrl: URL) {
+        if let navigationController = navigationController,
+           let triDSceneVC = assemblyModuleBuilder?.createTriDSceneModule(router: self, modelUrl: modelUrl) {
+            navigationController.pushViewController(triDSceneVC, animated: true)
         }
     }
     
@@ -69,10 +76,4 @@ class Router: RouterProtocol {
         window?.bringSubviewToFront(screenSelecor)
     }
     
-    func showTriDSceneModule() {
-        if let navigationController = navigationController,
-           let triDSceneVC = assemblyModuleBuilder?.createTriDSceneModule(router: self) {
-            navigationController.pushViewController(triDSceneVC, animated: true)
-        }
-    }
 }

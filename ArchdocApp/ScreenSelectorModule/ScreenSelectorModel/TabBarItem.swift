@@ -14,6 +14,8 @@ struct TabBarItem {
     var selectedStateImageName: String
     
     static let items: [TabBarItem] = [
-        TabBarItem(name: "Catalogue", normalStateImageName: "list", selectedStateImageName: ""),
+        TabBarItem(name: "Models", normalStateImageName: "modelList", selectedStateImageName: ""),
+        TabBarItem(name: "Arc Cards", normalStateImageName: "cardList", selectedStateImageName: ""),
+        TabBarItem(name: "Literature", normalStateImageName: "literatureList", selectedStateImageName: ""),
         TabBarItem(name: "About Us", normalStateImageName: "info", selectedStateImageName: "")]
 }

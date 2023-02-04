@@ -9,26 +9,29 @@ import Foundation
 import UIKit
 
 protocol AssemblyBuilderProtocol {
-    func createMainModule(router: RouterProtocol) -> UIViewController
-    func createDetailModule(architecture item: Architecture?, router: RouterProtocol) -> UIViewController
+    func createMainModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> UIViewController
+    func createDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> UIViewController
+    func createTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController
+    
     func createAboutUsModule(router: RouterProtocol) -> AboutUsViewController
     func createScreenSelectorModule(router: RouterProtocol) -> ScreenSelectorView
-    func createTriDSceneModule(router: RouterProtocol) -> TriDSceneViewController
 }
 
 class AssemblyModuleBuilder: AssemblyBuilderProtocol {
-    func createMainModule(router: RouterProtocol) -> UIViewController {
+    func createMainModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> UIViewController {
         let view = MainViewController()
-        let dataProvider = DataProvider()
         let presenter = MainPresenter(view: view, dataProvider: dataProvider, router: router)
         view.presenter = presenter
+        
         return view
     }
     
-    func createDetailModule(architecture item: Architecture?, router: RouterProtocol) -> UIViewController {
+    func createDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> UIViewController {
         let view = DetailViewController()
-        let presenter = DetailPresenter(view: view, architectureItem: item, router: router)
+        let presenter = DetailPresenter(view: view, architectureItem: item,
+                                        router: router, dataProvider: dataProvider)
         view.presenter = presenter
+        
         return view
     }
     
@@ -36,6 +39,7 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
         let view = AboutUsViewController()
         let presenter = AboutUsPresenter(view: view, router: router)
         view.presenter = presenter
+        
         return view
     }
 
@@ -48,11 +52,11 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
         return view
     }
     
-    func createTriDSceneModule(router: RouterProtocol) -> TriDSceneViewController {
+    func createTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController {
         let view = TriDSceneViewController()
-        let presenter = TriDScenePresenter(view: view, router: router)
+        let presenter = TriDScenePresenter(view: view, router: router, modelUrl: modelUrl)
         view.presenter = presenter
-        return view
         
+        return view
     }
 }

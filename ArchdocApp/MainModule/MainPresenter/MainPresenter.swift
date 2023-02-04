@@ -9,7 +9,8 @@ import Foundation
 
 protocol MainViewProtocol: AnyObject {
     var presenter: MainPresenterProtocol! {get}
-    func getDimensionsOfImage(name: String?) -> (Float, Float)
+    func getDimensionsOfImage(url: URL) -> CGSize? 
+    func reloadTable()
 }
 
 protocol MainPresenterProtocol {
@@ -17,7 +18,7 @@ protocol MainPresenterProtocol {
     var architecture: [Architecture]? {get set}
     func getArchitecture()
     func tapOnCell(architecture: Architecture?)
-    func getArchitectureImageDimensions(index: Int) -> (Float, Float)
+    func getArchitectureImageDimensions(index: Int) -> CGSize
     
 }
 
@@ -37,18 +38,27 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func getArchitecture() {
-        
-        architecture = dataProvider?.getArhitecture()
+        dataProvider.getArhitectureList(completion: { architecture in
+            self.architecture = architecture
+            DispatchQueue.main.async { 
+                self.view.reloadTable()
+            }
+        })
     }
     
     func tapOnCell(architecture: Architecture?) {
-        router.showDetailModule(architectureItem: architecture)
+        router.showDetailModule(architectureItem: architecture, dataProvider: dataProvider)
     }
     
-    func getArchitectureImageDimensions(index: Int) -> (Float, Float){
-        let imageName = architecture?[index].imageName
-        return view.getDimensionsOfImage(name: imageName)
+    func getArchitectureImageDimensions(index: Int) -> CGSize {
+        var dimensions: CGSize?
+        if let imageUrl = architecture?[index].previewImageURL?.first {
+            dimensions = view.getDimensionsOfImage(url: imageUrl)
+        }
+        return dimensions ?? CGSize(width: 1, height: 1)
     }
+    
+    
     
 }
 

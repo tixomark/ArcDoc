@@ -15,6 +15,7 @@
                 <outlet property="architectureNameLabel" destination="G6Y-RP-Zou" id="DrP-BL-zBq"/>
                 <outlet property="imageHeightConstraint" destination="kht-9x-xlN" id="aCR-in-AKm"/>
                 <outlet property="mainImageView" destination="VWa-3O-rqy" id="esO-OW-5uw"/>
+                <outlet property="modelButton" destination="76p-ju-sEa" id="CD0-WD-GLB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

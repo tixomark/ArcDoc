@@ -10,6 +10,7 @@ import UIKit
 class ArchitectureTableCell: UITableViewCell {
     
     var mainImageView: UIImageView!
+    var architectureNameLabel: UILabel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,15 +29,26 @@ class ArchitectureTableCell: UITableViewCell {
     func confugureUI() {
         mainImageView = UIImageView()
         contentView.addSubview(mainImageView)
+        architectureNameLabel = UILabel()
+        contentView.addSubview(architectureNameLabel)
         
         let inset: CGFloat = 10
         
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
+        architectureNameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: inset),
-            mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
             mainImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             mainImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset)])
+        
+        NSLayoutConstraint.activate([
+            architectureNameLabel.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: inset),
+            architectureNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            architectureNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            architectureNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset)])
+        architectureNameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        architectureNameLabel.backgroundColor = .magenta
         
         mainImageView.backgroundColor = .green
         mainImageView.layer.cornerRadius = 20
@@ -46,9 +58,16 @@ class ArchitectureTableCell: UITableViewCell {
         
     }
     
-    func configure(imageName: String) {
-        mainImageView?.image = UIImage(named: imageName)
+    func configure(architecture: Architecture?) {
+        guard let arch = architecture else { return }
+        if let imageUrl = arch.previewImageURL?.first,
+            let data = try? Data(contentsOf: imageUrl) {
+            mainImageView?.image = UIImage(data: data)
+        } else {
+            mainImageView?.image = UIImage(named: "noImage")
+        }
         
+        architectureNameLabel.text = arch.title + " " + arch.uid
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

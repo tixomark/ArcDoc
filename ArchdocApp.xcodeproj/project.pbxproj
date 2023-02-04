@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		004B664A2985BB4800428DA4 /* Gostilitsy3DModel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 004B66492985BB4800428DA4 /* Gostilitsy3DModel.usdz */; };
 		00C8EF8C297C07930040C6D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8EF8B297C07930040C6D9 /* AppDelegate.swift */; };
 		00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C8EF8D297C07930040C6D9 /* SceneDelegate.swift */; };
 		00C8EF95297C07940040C6D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00C8EF94297C07940040C6D9 /* Assets.xcassets */; };
@@ -31,14 +30,14 @@
 		9D067711298046DE00A6355A /* ScreenSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D067710298046DE00A6355A /* ScreenSelectorView.swift */; };
 		9D06771429804B3F00A6355A /* ScreenSelectorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D06771329804B3F00A6355A /* ScreenSelectorPresenter.swift */; };
 		9D0677172980559A00A6355A /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0677162980559A00A6355A /* TabBarItem.swift */; };
-		9D0677192981839800A6355A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D0677182981839800A6355A /* GoogleService-Info.plist */; };
-		9D0677782982C54300A6355A /* GirlsScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 9D0677772982C54300A6355A /* GirlsScene.scn */; };
 		9D06777D2982E1A600A6355A /* 3DSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D06777C2982E1A600A6355A /* 3DSceneViewController.swift */; };
 		9D06777F2982E1BA00A6355A /* 3DScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D06777E2982E1BA00A6355A /* 3DScenePresenter.swift */; };
+		9D48DE7629893AE4003531B5 /* JSONDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE7529893AE4003531B5 /* JSONDataStructures.swift */; };
+		9D48DE7929893FD3003531B5 /* SketchfabAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE7829893FD3003531B5 /* SketchfabAPI.swift */; };
+		9D48DE7D298BE9AB003531B5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE7C298BE9AB003531B5 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		004B66492985BB4800428DA4 /* Gostilitsy3DModel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Gostilitsy3DModel.usdz; sourceTree = "<group>"; };
 		00C8EF88297C07930040C6D9 /* ArchdocApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArchdocApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00C8EF8B297C07930040C6D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00C8EF8D297C07930040C6D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,10 +63,11 @@
 		9D067710298046DE00A6355A /* ScreenSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSelectorView.swift; sourceTree = "<group>"; };
 		9D06771329804B3F00A6355A /* ScreenSelectorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSelectorPresenter.swift; sourceTree = "<group>"; };
 		9D0677162980559A00A6355A /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
-		9D0677182981839800A6355A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9D0677772982C54300A6355A /* GirlsScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = GirlsScene.scn; sourceTree = "<group>"; };
 		9D06777C2982E1A600A6355A /* 3DSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DSceneViewController.swift; sourceTree = "<group>"; };
 		9D06777E2982E1BA00A6355A /* 3DScenePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DScenePresenter.swift; sourceTree = "<group>"; };
+		9D48DE7529893AE4003531B5 /* JSONDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDataStructures.swift; sourceTree = "<group>"; };
+		9D48DE7829893FD3003531B5 /* SketchfabAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchfabAPI.swift; sourceTree = "<group>"; };
+		9D48DE7C298BE9AB003531B5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,10 +109,7 @@
 				9D0677792982E10100A6355A /* 3DSceneModule */,
 				9D0676FE297ECAB500A6355A /* AboutUsModule */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
-				9D0677772982C54300A6355A /* GirlsScene.scn */,
-				004B66492985BB4800428DA4 /* Gostilitsy3DModel.usdz */,
 				00C8EF96297C07940040C6D9 /* LaunchScreen.storyboard */,
-				9D0677182981839800A6355A /* GoogleService-Info.plist */,
 				00C8EF99297C07940040C6D9 /* Info.plist */,
 			);
 			path = ArchdocApp;
@@ -269,6 +266,7 @@
 		9D06775129827DCA00A6355A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9D48DE7729893B2C003531B5 /* Networking */,
 				9D0676F6297D803F00A6355A /* Router.swift */,
 				9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */,
 				9D0676E6297C55DE00A6355A /* DataProvider.swift */,
@@ -299,6 +297,24 @@
 				9D06777C2982E1A600A6355A /* 3DSceneViewController.swift */,
 			);
 			path = 3DSceneView;
+			sourceTree = "<group>";
+		};
+		9D48DE7729893B2C003531B5 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9D48DE7C298BE9AB003531B5 /* NetworkService.swift */,
+				9D48DE7A298ADEB9003531B5 /* SketchfabAPI */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		9D48DE7A298ADEB9003531B5 /* SketchfabAPI */ = {
+			isa = PBXGroup;
+			children = (
+				9D48DE7529893AE4003531B5 /* JSONDataStructures.swift */,
+				9D48DE7829893FD3003531B5 /* SketchfabAPI.swift */,
+			);
+			path = SketchfabAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,10 +383,7 @@
 				9D0676DF297C422700A6355A /* MainViewController.xib in Resources */,
 				00C8EF98297C07940040C6D9 /* LaunchScreen.storyboard in Resources */,
 				00C8EF95297C07940040C6D9 /* Assets.xcassets in Resources */,
-				9D0677782982C54300A6355A /* GirlsScene.scn in Resources */,
 				9D0676FD297D971500A6355A /* DetailViewController.xib in Resources */,
-				004B664A2985BB4800428DA4 /* Gostilitsy3DModel.usdz in Resources */,
-				9D0677192981839800A6355A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,8 +396,10 @@
 			files = (
 				9D0676F7297D803F00A6355A /* Router.swift in Sources */,
 				9D06770C297EF0DB00A6355A /* CustomTabBar.swift in Sources */,
+				9D48DE7D298BE9AB003531B5 /* NetworkService.swift in Sources */,
 				9D067707297ECC0200A6355A /* AboutUs.swift in Sources */,
 				9D0676E1297C424B00A6355A /* MainPresenter.swift in Sources */,
+				9D48DE7929893FD3003531B5 /* SketchfabAPI.swift in Sources */,
 				9D0676D9297C41AE00A6355A /* MainViewController.swift in Sources */,
 				9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */,
 				9D067701297ECAE000A6355A /* AboutUsViewController.swift in Sources */,
@@ -401,6 +416,7 @@
 				00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */,
 				9D06777F2982E1BA00A6355A /* 3DScenePresenter.swift in Sources */,
 				9D067711298046DE00A6355A /* ScreenSelectorView.swift in Sources */,
+				9D48DE7629893AE4003531B5 /* JSONDataStructures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
