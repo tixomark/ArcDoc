@@ -14,7 +14,7 @@ protocol AssemblyBuilderProtocol {
     func createTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController
     
     func createAboutUsModule(router: RouterProtocol) -> AboutUsViewController
-    func createScreenSelectorModule(router: RouterProtocol) -> ScreenSelectorView
+    func createScreenSelectorModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ScreenSelectorView
 }
 
 class AssemblyModuleBuilder: AssemblyBuilderProtocol {
@@ -43,9 +43,8 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
         return view
     }
 
-    func createScreenSelectorModule(router: RouterProtocol) -> ScreenSelectorView {
+    func createScreenSelectorModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ScreenSelectorView {
         let view = ScreenSelectorView()
-        let dataProvider = DataProvider()
         let presenter = ScreenSelectorPresenter(view: view, dataProvider: dataProvider, router: router)
         view.presenter = presenter
         

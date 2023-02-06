@@ -17,7 +17,7 @@ extension String {
     }
 }
 
-class SketchfabAPI: NSObject {
+class SketchfabAPI {
     
     private let clientID = "3w6ql5k6rUsj7tu3XvMgtzx89Mr0L4b7hBFxumvD"
     private let clientSecret = "aBt6S4TMDJgqlQ24cWKVoYiAiZ50dxTaYS3F3O5DRz9Dq0EOmDiz0qgFfn2n2f11Ppbfx2QwX4UCSgHdZ2hIWomNNRyq9k8VM6JbkRi6vc5FBStTvhLHYOuY3rGUs5lv"
@@ -37,9 +37,8 @@ class SketchfabAPI: NSObject {
     
     var sketchFabURLSession: URLSession!
     
-    override init() {
-        super.init()
-        sketchFabURLSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+    init() {
+        sketchFabURLSession = URLSession(configuration: .default)
     }
     
     func getToken(completion: @escaping (Result<AccessToken, Error>) -> ()) {
@@ -113,15 +112,5 @@ class SketchfabAPI: NSObject {
                 completion(.failure(error))
             }
         }.resume()
-    }
-}
-
-extension SketchfabAPI: URLSessionDownloadDelegate {
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        print("did finish downloading")
-    }
-    
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        print(totalBytesWritten)
     }
 }

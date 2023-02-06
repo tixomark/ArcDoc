@@ -16,6 +16,7 @@ protocol MainViewProtocol: AnyObject {
 protocol MainPresenterProtocol {
     init(view: MainViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol)
     var architecture: [Architecture]? {get set}
+    var dataProvider: DataProviderProtocol! {get}
     func getArchitecture()
     func tapOnCell(architecture: Architecture?)
     func getArchitectureImageDimensions(index: Int) -> CGSize
@@ -38,7 +39,7 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func getArchitecture() {
-        dataProvider.getArhitectureList(completion: { architecture in
+        dataProvider.getArchitecture(completion: { architecture in
             self.architecture = architecture
             DispatchQueue.main.async { 
                 self.view.reloadTable()
@@ -52,9 +53,11 @@ class MainPresenter: MainPresenterProtocol {
     
     func getArchitectureImageDimensions(index: Int) -> CGSize {
         var dimensions: CGSize?
-        if let imageUrl = architecture?[index].previewImageURL?.first {
-            dimensions = view.getDimensionsOfImage(url: imageUrl)
-        }
+//        if let imageName = architecture?[index].previewImageFileNames?.first,
+//            let imageURL = URL(string: imageName, relativeTo: dataProvider.imagesFolder) {
+//            
+//            dimensions = view.getDimensionsOfImage(url: imageURL)
+//        }
         return dimensions ?? CGSize(width: 1, height: 1)
     }
     

@@ -58,16 +58,19 @@ class ArchitectureTableCell: UITableViewCell {
         
     }
     
-    func configure(architecture: Architecture?) {
+    func configure(architecture: Architecture?, imageDir: URL) {
         guard let arch = architecture else { return }
-        if let imageUrl = arch.previewImageURL?.first,
-            let data = try? Data(contentsOf: imageUrl) {
-            mainImageView?.image = UIImage(data: data)
-        } else {
-            mainImageView?.image = UIImage(named: "noImage")
-        }
-        
-        architectureNameLabel.text = arch.title + " " + arch.uid
+
+//        if let imageUrl = URL(string: (arch.previewImageFileNames?.first)!,
+//                              relativeTo: imageDir),
+//            let imageData = try? Data(contentsOf: imageUrl) {
+//            mainImageView?.image = UIImage(data: imageData)
+//        }
+//        else {
+//            mainImageView?.image = UIImage(named: "noImage")
+//        }
+
+        architectureNameLabel.text = (arch.title ?? "") + " " + (arch.uid ?? "")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

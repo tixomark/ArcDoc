@@ -43,7 +43,7 @@ class DetailPresenter: DetailPresenterProtocol {
     func didTapOn3DViewButton() {
         guard let arch = architectureItem else { return }
         
-        dataProvider?.getUSDZModelOf(architectureUID: arch.uid, completion: { modelUrl in
+        dataProvider?.getUSDZModelOf(architectureUID: arch.uid!, completion: { modelUrl in
             DispatchQueue.main.async {
                 self.router?.showTriDSceneModule(modelUrl: modelUrl)
             }

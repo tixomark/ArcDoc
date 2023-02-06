@@ -41,7 +41,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Values.architectureCellID, for: indexPath) as! ArchitectureTableCell
         
-        cell.configure(architecture: presenter.architecture?[indexPath.row])
+        cell.configure(architecture: presenter.architecture?[indexPath.row], imageDir: presenter.dataProvider.imagesFolder)
         
         return cell
         
@@ -50,9 +50,9 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var imageSize: CGSize = CGSize(width: 1, height: 1)
 
-        if let _ = presenter.architecture?[indexPath.row].previewImageURL {
-            imageSize = presenter.getArchitectureImageDimensions(index: indexPath.row)
-        }
+//        if let _ = presenter.architecture?[indexPath.row].previewImageFileNames?.first {
+//            imageSize = presenter.getArchitectureImageDimensions(index: indexPath.row)
+//        }
 
         let imageAspectRatio = Float(imageSize.height / imageSize.width)
         let inset: Float = 10
@@ -73,6 +73,7 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: MainViewProtocol {
     func reloadTable() {
+        
         architectureCatalogueTable.reloadData()
     }
     

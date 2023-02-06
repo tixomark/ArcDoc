@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Architecture: Codable {
-    var uid: String
-    var title: String
-    var detail: String
-    var previewImageURL: [URL]?
-    var modelURL: URL?
-}
+//struct Architecture: Codable {
+//    var uid: String
+//    var title: String
+//    var detail: String
+//    var previewImageURL: [URL]?
+//    var modelURL: URL?
+//}

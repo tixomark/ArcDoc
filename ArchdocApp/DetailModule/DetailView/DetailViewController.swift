@@ -43,19 +43,21 @@ extension DetailViewController: DetailViewProtocol {
         
         let image: UIImage!
         do {
-            let imageData = try Data(contentsOf: (arch.previewImageURL?.first)!)
-            image = UIImage(data: imageData)
+//            let imageURL = URL(string: (arch.previewImageFileNames?.first)!,
+//                               relativeTo: presenter.dataProvider?.imagesFolder)
+//            let imageData = try Data(contentsOf: imageURL!)
+//            image = UIImage(data: imageData)
         } catch {
             image = UIImage(named: "noImage")
         }
-        mainImageView.image = image
-        
-        let aspectRatio = Float(image.size.height) / Float(image.size.width)
-        let newImageViewHeight = aspectRatio * Float(self.view.bounds.width)
-        imageHeightConstraint.constant = CGFloat(newImageViewHeight)
+//        mainImageView.image = image
+//        
+//        let aspectRatio = Float(image.size.height) / Float(image.size.width)
+//        let newImageViewHeight = aspectRatio * Float(self.view.bounds.width)
+//        imageHeightConstraint.constant = CGFloat(newImageViewHeight)
         
         architectureNameLabel.text = arch.uid
-        architectureDescrLabel.text = arch.previewImageURL?.first?.absoluteString
+//        architectureDescrLabel.text = arch.previewImageFileNames?.first
     }
     
 }

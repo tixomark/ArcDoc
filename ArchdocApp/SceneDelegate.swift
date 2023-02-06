@@ -23,34 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = scene
         
         let navigationController = UINavigationController()
-        
         let assemblyBuilder = AssemblyModuleBuilder()
         let router = Router(navigationController: navigationController, assemblyModuleBuilder: assemblyBuilder, window: window)
         let dataProvider = DataProvider()
-        router.initialViewController(dataProvider: dataProvider)
         
+        router.initialViewController(dataProvider: dataProvider)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 
-        screenSelector = assemblyBuilder.createScreenSelectorModule(router: router)
+        screenSelector = assemblyBuilder.createScreenSelectorModule(router: router, dataProvider: dataProvider)
         setScreenSelector()
-    }
-    
-    func setScreenSelector() {
-        guard let screenSelector = screenSelector, let window = window else {return}
-        window.addSubview(screenSelector)
-        
-        screenSelector.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            screenSelector.heightAnchor.constraint(equalToConstant: 50),
-            screenSelector.leadingAnchor.constraint(equalTo: window.leadingAnchor,
-                                                    constant: window.bounds.width / 5),
-            screenSelector.trailingAnchor.constraint(equalTo: window.trailingAnchor,
-                                                     constant: -(window.bounds.width / 5)),
-            screenSelector.bottomAnchor.constraint(equalTo: window.safeAreaLayoutGuide.bottomAnchor,
-                                                   constant: -20),
-            screenSelector.centerXAnchor.constraint(equalTo: window.centerXAnchor)])
-
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -81,6 +63,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    
 }
 
+extension SceneDelegate {
+    func setScreenSelector() {
+        guard let screenSelector = screenSelector, let window = window else {return}
+        window.addSubview(screenSelector)
+        
+        screenSelector.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            screenSelector.heightAnchor.constraint(equalToConstant: 50),
+            screenSelector.leadingAnchor.constraint(equalTo: window.leadingAnchor,
+                                                    constant: window.bounds.width / 5),
+            screenSelector.trailingAnchor.constraint(equalTo: window.trailingAnchor,
+                                                     constant: -(window.bounds.width / 5)),
+            screenSelector.bottomAnchor.constraint(equalTo: window.safeAreaLayoutGuide.bottomAnchor,
+                                                   constant: -20),
+            screenSelector.centerXAnchor.constraint(equalTo: window.centerXAnchor)])
+    }
+}

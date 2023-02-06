@@ -8,15 +8,26 @@
 import Foundation
 
 protocol DataProviderProtocol {
-    func getArhitectureList(completion: @escaping ([Architecture]) -> ())
-    func getUSDZModelOf(architectureUID uid: String, completion: @escaping (URL) -> ()) 
+    var imagesFolder: URL! {get}
+    var modelsFolder: URL! {get}
+    
+    func getArchitecture(completion: @escaping ([Architecture]) -> ())
+    func getUSDZModelOf(architectureUID uid: String, completion: @escaping (URL) -> ())
     func getTabBatItems() -> [TabBarItem]
+    
 }
 
 class DataProvider: DataProviderProtocol {
     
     let sketchFabAPI: SketchfabAPI
     let networkService: NetworkService
+    let coreDataStack: CoreDataStack
+    
+    enum Paths {
+        case userDomain
+        case imagesFolder
+        case modelsFolder
+    }
     
     let userDomain = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var imagesFolder, modelsFolder: URL!
@@ -26,12 +37,13 @@ class DataProvider: DataProviderProtocol {
     init() {
         self.sketchFabAPI = SketchfabAPI()
         self.networkService = NetworkService()
+        self.coreDataStack = CoreDataStack(modelName: "Architecture")
         
         imagesFolder = createDir(named: "images")
         modelsFolder = createDir(named: "models")
     }
     
-    func createDir(named: String) -> URL {
+    private func createDir(named: String) -> URL {
         var folderUrl: URL!
         if let newFolderUrl = URL(string: userDomain.absoluteString + "\(named)/") {
             do {
@@ -48,44 +60,80 @@ class DataProvider: DataProviderProtocol {
         return folderUrl
     }
     
-    func getArhitectureList(completion: @escaping ([Architecture]) -> ()) {
+    func getArchitecture(completion: @escaping ([Architecture]) -> ()) {
+        let architecture = self.coreDataStack.fetchData()
+        
+        if !architecture.isEmpty {
+            print("Architecture loaded from CoreData")
+            completion(architecture)
+        } else {
+            requestArchitectureList {
+                let narchitecture = self.coreDataStack.fetchData()
+                print("Architecture loaded from SketchfabAPI")
+                completion(narchitecture)
+            }
+        }
+    }
+    
+    func requestArchitectureList(completion: @escaping () -> ()) {
         sketchFabAPI.getListOfMyModels(completion: { [weak self] result in
             guard let tempSelf = self else {return}
-            var architecture: [Architecture] = []
-            
+
             switch result {
             case .success(let myModelsList):
                 guard let models = myModelsList.models else {return}
-
+                
                 for model in models {
-                    let tempUrls = URL(string: (model.thumbnails?.images?.first?.url) ?? "")!
-                    let permanentUrls = tempSelf.getArchitectureImagesURLs(imagesUrls: [tempUrls])
-                    let arcItem = Architecture(uid: model.uid!,
-                                               title: model.name!,
-                                               detail: "",
-                                               previewImageURL: permanentUrls)
-                    architecture.append(arcItem)
+                    let previewFileNames = tempSelf.getArchitecturePreviews(of: model)
+
+                    tempSelf.coreDataStack.managedContext.perform {
+                        
+                        let arcItem = Architecture(context: tempSelf.coreDataStack.managedContext)
+                        arcItem.uid = model.uid
+                        arcItem.title = model.name
+                        arcItem.detail = model.tags?.description
+//                        arcItem.previewImageFileNames = previewFileNames
+
+                        tempSelf.coreDataStack.saveContext()
+                    }
                 }
-                completion(architecture)
+                completion()
                 
             case .failure(let error):
-                completion(architecture)
                 print(error.localizedDescription)
             }
         })
     }
     
-    private func getArchitectureImagesURLs(imagesUrls: [URL]) -> [URL] {
-        var finalUrls: [URL] = []
+    private func getArchitecturePreviewURLs(of model: Model) -> [URL] {
+        var modelPreviewUrls: [URL] = []
+        
+        if let modelPreviews = model.thumbnails?.images {
+            for image in modelPreviews {
+                if let url = image.url {
+                    modelPreviewUrls.append(URL(string: url)!)
+                }
+            }
+        }
+        
+        return modelPreviewUrls
+    }
+    
+    private func getArchitecturePreviews(of model: Model) -> [String] {
+        let URLs = getArchitecturePreviewURLs(of: model)
+        var fileNames: [String] = []
         let group = DispatchGroup()
         
-        for imageUrl in imagesUrls {
+        for imageUrl in URLs {
             group.enter()
+            
             networkService.loadData(at: imageUrl) { tempUrl in
-                let finalUrl = URL(string: self.imagesFolder.absoluteString + tempUrl.lastPathComponent)!
+                let fileName = String(tempUrl.lastPathComponent.dropLast(3).dropFirst(18)) + "png"
+                let finalUrl = URL(string: self.imagesFolder.absoluteString + fileName)!
+                
                 do {
                     try FileManager.default.moveItem(at: tempUrl, to: finalUrl)
-                    finalUrls.append(finalUrl)
+                    fileNames.append(fileName)
                 } catch {
                     print("Can not move image at \(tempUrl) to \(finalUrl)")
                 }
@@ -93,7 +141,7 @@ class DataProvider: DataProviderProtocol {
             }
         }
         group.wait()
-        return finalUrls
+        return fileNames
     }
     
     func getUSDZModelOf(architectureUID uid: String, completion: @escaping (URL) -> ()) {
@@ -111,7 +159,7 @@ class DataProvider: DataProviderProtocol {
                     let finalUrl = URL(string: tempSelf.modelsFolder.absoluteString + tempUrl.lastPathComponent.dropLast(3) + "usdz")!
                     do {
                         try FileManager.default.moveItem(at: tempUrl, to: finalUrl)
-                        print("Moved model at \(tempUrl) to \(finalUrl)")
+//                        print("Moved model at \(tempUrl) to \(finalUrl)")
                         completion(finalUrl)
                     } catch {
                         print("Can not move model at \(tempUrl) to \(finalUrl)")
