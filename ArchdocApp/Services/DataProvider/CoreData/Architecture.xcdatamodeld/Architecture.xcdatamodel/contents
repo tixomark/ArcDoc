@@ -3,7 +3,7 @@
     <entity name="Architecture" representedClassName="Architecture" syncable="YES">
         <attribute name="detail" optional="YES" attributeType="String"/>
         <attribute name="model" optional="YES" attributeType="String"/>
-        <attribute name="previewImages" optional="YES" attributeType="Transformable" valueTransformerName="UIImageToDataTrasformer"/>
+        <attribute name="previewImages" optional="YES" attributeType="Transformable" valueTransformerName="UIImageToDataTrasformer" customClassName="[UIImage]"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="uid" optional="YES" attributeType="String"/>
     </entity>

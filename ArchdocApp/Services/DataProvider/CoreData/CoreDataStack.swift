@@ -16,6 +16,7 @@ class CoreDataStack {
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
+        UIImageToDataTrasformer.register()
         let container = NSPersistentContainer(name: self.modelName)
         print(Thread.current)
         container.loadPersistentStores { _, error in

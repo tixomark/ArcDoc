@@ -41,18 +41,17 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Values.architectureCellID, for: indexPath) as! ArchitectureTableCell
         
-        cell.configure(architecture: presenter.architecture?[indexPath.row], imageDir: presenter.dataProvider.imagesFolder)
+        cell.configure(architecture: presenter.architecture?[indexPath.row])
         
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var imageSize: CGSize = CGSize(width: 1, height: 1)
 
-//        if let _ = presenter.architecture?[indexPath.row].previewImageFileNames?.first {
-//            imageSize = presenter.getArchitectureImageDimensions(index: indexPath.row)
-//        }
+        if let size = presenter.architecture?[indexPath.row].previewImages?.first?.size {
+            imageSize = size
+        }
 
         let imageAspectRatio = Float(imageSize.height / imageSize.width)
         let inset: Float = 10
@@ -73,26 +72,6 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: MainViewProtocol {
     func reloadTable() {
-        
         architectureCatalogueTable.reloadData()
-    }
-    
-    func getDimensionsOfImage(url: URL) -> CGSize? {
-        // with CGImageSource we avoid loading the whole image into memory
-        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil) else {
-            return nil
-        }
-        
-        let propertiesOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        guard let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, propertiesOptions) as? [CFString: Any] else {
-            return nil
-        }
-        
-        if let width = properties[kCGImagePropertyPixelWidth] as? CGFloat,
-           let height = properties[kCGImagePropertyPixelHeight] as? CGFloat {
-            return CGSize(width: width, height: height)
-        } else {
-            return nil
-        }
     }
 }

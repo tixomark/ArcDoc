@@ -58,17 +58,11 @@ class ArchitectureTableCell: UITableViewCell {
         
     }
     
-    func configure(architecture: Architecture?, imageDir: URL) {
+    func configure(architecture: Architecture?) {
         guard let arch = architecture else { return }
 
-//        if let imageUrl = URL(string: (arch.previewImageFileNames?.first)!,
-//                              relativeTo: imageDir),
-//            let imageData = try? Data(contentsOf: imageUrl) {
-//            mainImageView?.image = UIImage(data: imageData)
-//        }
-//        else {
-//            mainImageView?.image = UIImage(named: "noImage")
-//        }
+        let image = (arch.previewImages?.first ?? UIImage(named: "noImage"))!
+        mainImageView.image = image
 
         architectureNameLabel.text = (arch.title ?? "") + " " + (arch.uid ?? "")
     }

@@ -37,9 +37,9 @@
 		9D48DE7D298BE9AB003531B5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE7C298BE9AB003531B5 /* NetworkService.swift */; };
 		9D48DE86298FAC7A003531B5 /* Architecture.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE84298FAC7A003531B5 /* Architecture.xcdatamodeld */; };
 		9D48DE88298FBA42003531B5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE87298FBA42003531B5 /* CoreDataStack.swift */; };
-		9D80DB002991003C007CB359 /* Architecture+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DAFE2991003C007CB359 /* Architecture+CoreDataClass.swift */; };
-		9D80DB012991003C007CB359 /* Architecture+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DAFF2991003C007CB359 /* Architecture+CoreDataProperties.swift */; };
 		9D80DB03299101D6007CB359 /* UIImageToDataTrasformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */; };
+		9D80DB0A29911D62007CB359 /* Architecture+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB0829911D62007CB359 /* Architecture+CoreDataClass.swift */; };
+		9D80DB0B29911D62007CB359 /* Architecture+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB0929911D62007CB359 /* Architecture+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,9 +75,9 @@
 		9D48DE7C298BE9AB003531B5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D48DE85298FAC7A003531B5 /* Architecture.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Architecture.xcdatamodel; sourceTree = "<group>"; };
 		9D48DE87298FBA42003531B5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		9D80DAFE2991003C007CB359 /* Architecture+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9D80DAFF2991003C007CB359 /* Architecture+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageToDataTrasformer.swift; sourceTree = "<group>"; };
+		9D80DB0829911D62007CB359 /* Architecture+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9D80DB0929911D62007CB359 /* Architecture+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,8 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				9D48DE87298FBA42003531B5 /* CoreDataStack.swift */,
-				9D80DAFE2991003C007CB359 /* Architecture+CoreDataClass.swift */,
-				9D80DAFF2991003C007CB359 /* Architecture+CoreDataProperties.swift */,
+				9D80DB0829911D62007CB359 /* Architecture+CoreDataClass.swift */,
+				9D80DB0929911D62007CB359 /* Architecture+CoreDataProperties.swift */,
 				9D48DE84298FAC7A003531B5 /* Architecture.xcdatamodeld */,
 				9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */,
 			);
@@ -426,15 +426,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D0676F7297D803F00A6355A /* Router.swift in Sources */,
+				9D80DB0A29911D62007CB359 /* Architecture+CoreDataClass.swift in Sources */,
 				9D06770C297EF0DB00A6355A /* CustomTabBar.swift in Sources */,
 				9D48DE7D298BE9AB003531B5 /* NetworkService.swift in Sources */,
 				9D067707297ECC0200A6355A /* AboutUs.swift in Sources */,
 				9D48DE86298FAC7A003531B5 /* Architecture.xcdatamodeld in Sources */,
 				9D0676E1297C424B00A6355A /* MainPresenter.swift in Sources */,
-				9D80DB002991003C007CB359 /* Architecture+CoreDataClass.swift in Sources */,
 				9D80DB03299101D6007CB359 /* UIImageToDataTrasformer.swift in Sources */,
 				9D48DE7929893FD3003531B5 /* SketchfabAPI.swift in Sources */,
 				9D0676D9297C41AE00A6355A /* MainViewController.swift in Sources */,
+				9D80DB0B29911D62007CB359 /* Architecture+CoreDataProperties.swift in Sources */,
 				9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */,
 				9D067701297ECAE000A6355A /* AboutUsViewController.swift in Sources */,
 				9D06777D2982E1A600A6355A /* 3DSceneViewController.swift in Sources */,
@@ -448,7 +449,6 @@
 				9D0676F3297D751100A6355A /* DetailViewController.swift in Sources */,
 				9D0676E3297C440600A6355A /* Architecture.swift in Sources */,
 				9D48DE88298FBA42003531B5 /* CoreDataStack.swift in Sources */,
-				9D80DB012991003C007CB359 /* Architecture+CoreDataProperties.swift in Sources */,
 				00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */,
 				9D06777F2982E1BA00A6355A /* 3DScenePresenter.swift in Sources */,
 				9D067711298046DE00A6355A /* ScreenSelectorView.swift in Sources */,

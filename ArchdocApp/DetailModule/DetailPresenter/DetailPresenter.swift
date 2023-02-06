@@ -48,7 +48,6 @@ class DetailPresenter: DetailPresenterProtocol {
                 self.router?.showTriDSceneModule(modelUrl: modelUrl)
             }
         })
-        
     }
     
     deinit {

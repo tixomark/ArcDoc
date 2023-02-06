@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol DataProviderProtocol {
     var imagesFolder: URL! {get}
@@ -84,15 +85,14 @@ class DataProvider: DataProviderProtocol {
                 guard let models = myModelsList.models else {return}
                 
                 for model in models {
-                    let previewFileNames = tempSelf.getArchitecturePreviews(of: model)
+                    let previews = tempSelf.getArchitecturePreviews(of: model)
 
                     tempSelf.coreDataStack.managedContext.perform {
-                        
                         let arcItem = Architecture(context: tempSelf.coreDataStack.managedContext)
                         arcItem.uid = model.uid
                         arcItem.title = model.name
                         arcItem.detail = model.tags?.description
-//                        arcItem.previewImageFileNames = previewFileNames
+                        arcItem.previewImages = previews
 
                         tempSelf.coreDataStack.saveContext()
                     }
@@ -119,29 +119,28 @@ class DataProvider: DataProviderProtocol {
         return modelPreviewUrls
     }
     
-    private func getArchitecturePreviews(of model: Model) -> [String] {
+    private func getArchitecturePreviews(of model: Model) -> [UIImage] {
         let URLs = getArchitecturePreviewURLs(of: model)
-        var fileNames: [String] = []
+        var images: [UIImage] = []
         let group = DispatchGroup()
         
         for imageUrl in URLs {
             group.enter()
             
             networkService.loadData(at: imageUrl) { tempUrl in
-                let fileName = String(tempUrl.lastPathComponent.dropLast(3).dropFirst(18)) + "png"
-                let finalUrl = URL(string: self.imagesFolder.absoluteString + fileName)!
-                
                 do {
-                    try FileManager.default.moveItem(at: tempUrl, to: finalUrl)
-                    fileNames.append(fileName)
+                    let imageData = try Data(contentsOf: tempUrl)
+                    if let image = UIImage(data: imageData) {
+                        images.append(image)
+                    }
                 } catch {
-                    print("Can not move image at \(tempUrl) to \(finalUrl)")
+                    print("Can not find image at \(tempUrl)")
                 }
                 group.leave()
             }
         }
         group.wait()
-        return fileNames
+        return images
     }
     
     func getUSDZModelOf(architectureUID uid: String, completion: @escaping (URL) -> ()) {

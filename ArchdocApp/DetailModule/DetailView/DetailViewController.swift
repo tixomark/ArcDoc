@@ -41,23 +41,15 @@ extension DetailViewController: DetailViewProtocol {
     func setUIData(architectureItem: Architecture?) {
         guard let arch = architectureItem else { return }
         
-        let image: UIImage!
-        do {
-//            let imageURL = URL(string: (arch.previewImageFileNames?.first)!,
-//                               relativeTo: presenter.dataProvider?.imagesFolder)
-//            let imageData = try Data(contentsOf: imageURL!)
-//            image = UIImage(data: imageData)
-        } catch {
-            image = UIImage(named: "noImage")
-        }
-//        mainImageView.image = image
-//        
-//        let aspectRatio = Float(image.size.height) / Float(image.size.width)
-//        let newImageViewHeight = aspectRatio * Float(self.view.bounds.width)
-//        imageHeightConstraint.constant = CGFloat(newImageViewHeight)
+        let image = (arch.previewImages?.first ?? UIImage(named: "noImage"))!
+        mainImageView.image = image
         
-        architectureNameLabel.text = arch.uid
-//        architectureDescrLabel.text = arch.previewImageFileNames?.first
+        let aspectRatio = Float(image.size.height) / Float(image.size.width)
+        let newImageViewHeight = aspectRatio * Float(self.view.bounds.width)
+        imageHeightConstraint.constant = CGFloat(newImageViewHeight)
+        
+        architectureNameLabel.text = arch.title
+        architectureDescrLabel.text = arch.uid
     }
     
 }

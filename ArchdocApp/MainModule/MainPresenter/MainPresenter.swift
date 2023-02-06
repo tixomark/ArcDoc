@@ -9,7 +9,6 @@ import Foundation
 
 protocol MainViewProtocol: AnyObject {
     var presenter: MainPresenterProtocol! {get}
-    func getDimensionsOfImage(url: URL) -> CGSize? 
     func reloadTable()
 }
 
@@ -19,7 +18,6 @@ protocol MainPresenterProtocol {
     var dataProvider: DataProviderProtocol! {get}
     func getArchitecture()
     func tapOnCell(architecture: Architecture?)
-    func getArchitectureImageDimensions(index: Int) -> CGSize
     
 }
 
@@ -50,19 +48,6 @@ class MainPresenter: MainPresenterProtocol {
     func tapOnCell(architecture: Architecture?) {
         router.showDetailModule(architectureItem: architecture, dataProvider: dataProvider)
     }
-    
-    func getArchitectureImageDimensions(index: Int) -> CGSize {
-        var dimensions: CGSize?
-//        if let imageName = architecture?[index].previewImageFileNames?.first,
-//            let imageURL = URL(string: imageName, relativeTo: dataProvider.imagesFolder) {
-//            
-//            dimensions = view.getDimensionsOfImage(url: imageURL)
-//        }
-        return dimensions ?? CGSize(width: 1, height: 1)
-    }
-    
-    
-    
 }
 
 
