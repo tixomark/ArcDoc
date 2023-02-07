@@ -39,6 +39,7 @@ class MainPresenter: MainPresenterProtocol {
     func getArchitecture() {
         dataProvider.getArchitecture(completion: { architecture in
             self.architecture = architecture
+            print("TableView will reload data on \(Thread.current)")
             DispatchQueue.main.async { 
                 self.view.reloadTable()
             }

@@ -41,13 +41,18 @@ class DetailPresenter: DetailPresenterProtocol {
     }
     
     func didTapOn3DViewButton() {
-        guard let arch = architectureItem else { return }
-        
-        dataProvider?.getUSDZModelOf(architectureUID: arch.uid!, completion: { modelUrl in
-            DispatchQueue.main.async {
-                self.router?.showTriDSceneModule(modelUrl: modelUrl)
-            }
-        })
+        if let modelURL = architectureItem?.modelURL {
+            
+            router?.showTriDSceneModule(modelUrl: modelURL)
+            
+        } else if let archItem = architectureItem {
+            dataProvider?.loadUSDZModelFor(archItem, completion: {
+                print("will load table")
+                DispatchQueue.main.async {
+                    self.router?.showTriDSceneModule(modelUrl: archItem.modelURL!)
+                }
+            })
+        }
     }
     
     deinit {

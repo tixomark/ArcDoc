@@ -17,8 +17,9 @@ class CoreDataStack {
     
     lazy var persistentContainer: NSPersistentContainer = {
         UIImageToDataTrasformer.register()
+        URLToStringTransformer.register()
+        
         let container = NSPersistentContainer(name: self.modelName)
-        print(Thread.current)
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 print("Unresolved error \(error), \(error.userInfo)")
@@ -27,33 +28,61 @@ class CoreDataStack {
         return container
     }()
     
-    lazy var managedContext: NSManagedObjectContext = self.persistentContainer.viewContext
+    private lazy var managedContext: NSManagedObjectContext = self.persistentContainer.viewContext
     
-    func saveContext() {
-//        persistentContainer.performBackgroundTask { context in
-            guard managedContext.hasChanges else { return }
-            do {
-                try managedContext.save()
-            } catch let error as NSError {
-                print("Unresolved error \(error), \(error.userInfo)")
-            }
-//        }
+    func saveData(block: @escaping (NSManagedObjectContext) -> (),
+                  completion: @escaping () -> () = {}) {
+        block(managedContext)
+        guard managedContext.hasChanges else { return }
+        do {
+            try managedContext.save()
+            print("data saved on")
+            print(Thread.current)
+            completion()
+        } catch let error as NSError {
+            print("Unresolved error \(error), \(error.userInfo)")
+        }
     }
-    
     
     func fetchData() -> [Architecture] {
         var data: [Architecture] = []
-        
-//        persistentContainer.performBackgroundTask { context in
-            let fetchResuest = Architecture.fetchRequest()
-            do {
-                data = try managedContext.fetch(fetchResuest)
-            } catch let error as NSError {
-                print("Unresolved error \(error), \(error.userInfo)")
-            }
-
-//        }
+        let fetchResuest = Architecture.fetchRequest()
+        do {
+            data = try managedContext.fetch(fetchResuest)
+            print("data fetched on")
+            print(Thread.current)
+        } catch let error as NSError {
+            print("Unresolved error \(error), \(error.userInfo)")
+        }
         return data
     }
+    
+//    func fetchDataUsingBackground() -> [Architecture] {
+//        var data: [Architecture] = []
+//        let fetchResuest = Architecture.fetchRequest()
+//
+//        let group = DispatchGroup()
+//        group.enter()
+//        persistentContainer.performBackgroundTask { context in
+//            do {
+//                data = try context.fetch(fetchResuest)
+//            } catch let error as NSError {
+//                print("Unresolved error \(error), \(error.userInfo)")
+//            }
+//            group.leave()
+//        }
+//        group.wait()
+//        return data
+//    }
+//
+//    func saveContext() {
+//        guard managedContext.hasChanges else { return }
+//        do {
+//            try managedContext.save()
+//        } catch let error as NSError {
+//            print("Unresolved error \(error), \(error.userInfo)")
+//        }
+//    }
+
     
 }

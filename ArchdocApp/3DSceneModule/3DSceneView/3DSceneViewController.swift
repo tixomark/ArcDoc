@@ -38,8 +38,7 @@ class TriDSceneViewController: UIViewController {
     }
     
     func setUpScene() {
-//        guard let url = Bundle.main.url(forResource: "Gostilitsy3DModel", withExtension: "usdz") else { fatalError() }
-//            let scene = try! SCNScene(url: url, options: [.checkConsistency: true])
+
         print(presenter.modelUrl)
         let modelAsset = MDLAsset(url: presenter.modelUrl)
         let scene = SCNScene(mdlAsset: modelAsset)

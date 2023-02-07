@@ -9,11 +9,9 @@ import Foundation
 import UIKit
 
 protocol DataProviderProtocol {
-    var imagesFolder: URL! {get}
-    var modelsFolder: URL! {get}
     
     func getArchitecture(completion: @escaping ([Architecture]) -> ())
-    func getUSDZModelOf(architectureUID uid: String, completion: @escaping (URL) -> ())
+    func loadUSDZModelFor(_ architecture: Architecture, completion: @escaping () -> ())
     func getTabBatItems() -> [TabBarItem]
     
 }
@@ -24,79 +22,58 @@ class DataProvider: DataProviderProtocol {
     let networkService: NetworkService
     let coreDataStack: CoreDataStack
     
-    enum Paths {
-        case userDomain
-        case imagesFolder
-        case modelsFolder
-    }
-    
-    let userDomain = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    var imagesFolder, modelsFolder: URL!
-    
     weak var delegate: DataProviderDelegate?
+    var dataProviderQueue = DispatchQueue(label: "dataProvider.concurrent",
+                                          qos: .userInitiated,
+                                          attributes: .concurrent)
     
     init() {
         self.sketchFabAPI = SketchfabAPI()
         self.networkService = NetworkService()
         self.coreDataStack = CoreDataStack(modelName: "Architecture")
         
-        imagesFolder = createDir(named: "images")
-        modelsFolder = createDir(named: "models")
-    }
-    
-    private func createDir(named: String) -> URL {
-        var folderUrl: URL!
-        if let newFolderUrl = URL(string: userDomain.absoluteString + "\(named)/") {
-            do {
-                try FileManager.default.createDirectory(at: newFolderUrl, withIntermediateDirectories: true)
-                folderUrl = newFolderUrl
-                print("Successfully created \(newFolderUrl.absoluteString)")
-            } catch {
-                print("An error occured while creating \(newFolderUrl.absoluteString)")
-            }
-        } else {
-            folderUrl = userDomain
-            print("Can not make user domain URL with name \(named)")
-        }
-        return folderUrl
     }
     
     func getArchitecture(completion: @escaping ([Architecture]) -> ()) {
-        let architecture = self.coreDataStack.fetchData()
-        
-        if !architecture.isEmpty {
-            print("Architecture loaded from CoreData")
-            completion(architecture)
-        } else {
-            requestArchitectureList {
-                let narchitecture = self.coreDataStack.fetchData()
-                print("Architecture loaded from SketchfabAPI")
-                completion(narchitecture)
+        dataProviderQueue.async {
+            let architecture = self.coreDataStack.fetchData()
+            
+            if !architecture.isEmpty {
+                print("Architecture loaded from CoreData")
+                completion(architecture)
+            } else {
+                self.requestArchitectureList {
+                    print("Architecture loaded from SketchfabAPI")
+                    completion(self.coreDataStack.fetchData())
+                }
             }
         }
     }
     
-    func requestArchitectureList(completion: @escaping () -> ()) {
+    private func requestArchitectureList(completion: @escaping () -> ()) {
         sketchFabAPI.getListOfMyModels(completion: { [weak self] result in
             guard let tempSelf = self else {return}
-
+            
             switch result {
             case .success(let myModelsList):
                 guard let models = myModelsList.models else {return}
+                let group = DispatchGroup()
                 
                 for model in models {
+                    group.enter()
                     let previews = tempSelf.getArchitecturePreviews(of: model)
-
-                    tempSelf.coreDataStack.managedContext.perform {
-                        let arcItem = Architecture(context: tempSelf.coreDataStack.managedContext)
+                    
+                    tempSelf.coreDataStack.saveData { context in
+                        let arcItem = Architecture(context: context)
                         arcItem.uid = model.uid
                         arcItem.title = model.name
                         arcItem.detail = model.tags?.description
                         arcItem.previewImages = previews
-
-                        tempSelf.coreDataStack.saveContext()
+                    } completion: {
+                        group.leave()
                     }
                 }
+                group.wait()
                 completion()
                 
             case .failure(let error):
@@ -143,30 +120,39 @@ class DataProvider: DataProviderProtocol {
         return images
     }
     
-    func getUSDZModelOf(architectureUID uid: String, completion: @escaping (URL) -> ()) {
-        sketchFabAPI.getDowloadURLs(modelID: uid) { [weak self] result in
-            guard let tempSelf = self else { return }
+    func loadUSDZModelFor(_ architecture: Architecture, completion: @escaping () -> ()) {
+        dataProviderQueue.async {
+            guard let UID = architecture.uid else { return }
             
-            switch result {
-            case .success(let modelURLs):
-                guard let url = modelURLs["usdz"]?.url,
-                      let usdzURL = URL(string: url) else {return}
+            self.sketchFabAPI.getDowloadURLs(modelID: UID) { result in
                 
-                tempSelf.networkService.loadData(at: usdzURL) { [weak self] tempUrl in
-                    guard let tempSelf = self else { return }
+                switch result {
+                case .success(let modelURLs):
+                    guard let url = modelURLs["usdz"]?.url,
+                          let usdzURL = URL(string: url) else { return }
                     
-                    let finalUrl = URL(string: tempSelf.modelsFolder.absoluteString + tempUrl.lastPathComponent.dropLast(3) + "usdz")!
-                    do {
-                        try FileManager.default.moveItem(at: tempUrl, to: finalUrl)
-//                        print("Moved model at \(tempUrl) to \(finalUrl)")
-                        completion(finalUrl)
-                    } catch {
-                        print("Can not move model at \(tempUrl) to \(finalUrl)")
+                    self.networkService.loadData(at: usdzURL) { tempUrl in
+                        let modelPath = FileManager.default.modelsDir.absoluteString + UID + ".usdz"
+                        
+                        guard let modelURL = URL(string: modelPath) else  { return }
+                        do {
+                            try FileManager.default.moveItem(at: tempUrl, to: modelURL)
+                            
+                            self.coreDataStack.saveData { _ in
+                                print("saving model")
+                                architecture.modelURL = modelURL
+                            } completion: {
+                                print("model saved")
+                                completion()
+                            }
+                        } catch {
+                            print("Can not move model at \(tempUrl) to \(modelURL)")
+                        }
                     }
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
                 }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
             }
         }
     }

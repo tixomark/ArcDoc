@@ -2,7 +2,7 @@
 //  Architecture+CoreDataProperties.swift
 //  ArchdocApp
 //
-//  Created by tixomark on 2/6/23.
+//  Created by tixomark on 2/7/23.
 //
 //
 
@@ -17,7 +17,7 @@ extension Architecture {
     }
 
     @NSManaged public var detail: String?
-    @NSManaged public var model: String?
+    @NSManaged public var modelURL: URL?
     @NSManaged public var previewImages: [UIImage]?
     @NSManaged public var title: String?
     @NSManaged public var uid: String?

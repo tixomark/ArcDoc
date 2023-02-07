@@ -14,6 +14,7 @@ public final class UIImageToDataTrasformer: ValueTransformer {
         guard let images = value as? [UIImage] else { return nil }
 
         do {
+            
             let data = try NSKeyedArchiver.archivedData(withRootObject: images, requiringSecureCoding: true)
             return data
         } catch {
@@ -26,6 +27,7 @@ public final class UIImageToDataTrasformer: ValueTransformer {
         guard let imagesData = value as? Data else { return nil }
         
         do {
+            
             let images = try NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClass: UIImage.self, from: imagesData)
             return images
         } catch {
