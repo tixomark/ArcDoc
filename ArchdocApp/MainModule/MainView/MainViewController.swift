@@ -30,6 +30,9 @@ class MainViewController: UIViewController {
         architectureCatalogueTable.separatorStyle = .none
     }
     
+    deinit {
+        print("deinit MainViewController")
+    }
     
 }
 
@@ -48,7 +51,6 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var imageSize: CGSize = CGSize(width: 1, height: 1)
-
         if let size = presenter.architecture?[indexPath.row].previewImages?.first?.size {
             imageSize = size
         }
@@ -75,3 +77,5 @@ extension MainViewController: MainViewProtocol {
         architectureCatalogueTable.reloadData()
     }
 }
+
+

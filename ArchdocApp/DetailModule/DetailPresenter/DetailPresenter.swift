@@ -10,6 +10,7 @@ import Foundation
 protocol DetailViewProtocol: AnyObject {
     var presenter: DetailPresenterProtocol! {get}
     func setUIData(architectureItem: Architecture?)
+    func setLoading(state: LoadingState)
 }
 
 protocol DetailPresenterProtocol {
@@ -20,6 +21,12 @@ protocol DetailPresenterProtocol {
     init(view: DetailViewProtocol, architectureItem: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol)
     func setUIData()
     func didTapOn3DViewButton()
+}
+
+enum LoadingState {
+    case yetToBeLoaded
+    case loading(Float)
+    case done
 }
 
 class DetailPresenter: DetailPresenterProtocol {
@@ -33,30 +40,44 @@ class DetailPresenter: DetailPresenterProtocol {
         self.architectureItem = architectureItem
         self.router = router
         self.dataProvider = dataProvider
+        self.dataProvider?.delegate = self
         
     }
     
     func setUIData() {
         view.setUIData(architectureItem: architectureItem)
+        if architectureItem?.modelURL != nil {
+            view.setLoading(state: .done)
+        } else {
+            view.setLoading(state: .yetToBeLoaded)
+        }
     }
     
     func didTapOn3DViewButton() {
         if let modelURL = architectureItem?.modelURL {
-            
             router?.showTriDSceneModule(modelUrl: modelURL)
-            
         } else if let archItem = architectureItem {
-            dataProvider?.loadUSDZModelFor(archItem, completion: {
-                print("will load table")
-                DispatchQueue.main.async {
-                    self.router?.showTriDSceneModule(modelUrl: archItem.modelURL!)
-                }
-            })
+            dataProvider?.loadUSDZModelFor(archItem)
         }
     }
     
     deinit {
-        print("deinit presenter")
+        print("deinit DetailPresenter")
     }
     
 }
+
+extension DetailPresenter: DataProviderDownloadProgressDelegate {
+    func didFinishLoadingModelOf(architecture: Architecture) {
+        DispatchQueue.main.async {
+            self.view.setLoading(state: .done)
+        }
+    }
+    
+    func currentProgress(_ progress: Float, ofDownloading arch: Architecture) {
+        DispatchQueue.main.async {
+            self.view.setLoading(state: .loading(progress))
+        }
+    }
+}
+

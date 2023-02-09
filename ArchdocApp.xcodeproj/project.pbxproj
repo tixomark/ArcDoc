@@ -14,7 +14,6 @@
 		9D0676D9297C41AE00A6355A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676D8297C41AE00A6355A /* MainViewController.swift */; };
 		9D0676DF297C422700A6355A /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D0676DE297C422700A6355A /* MainViewController.xib */; };
 		9D0676E1297C424B00A6355A /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E0297C424B00A6355A /* MainPresenter.swift */; };
-		9D0676E3297C440600A6355A /* Architecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E2297C440600A6355A /* Architecture.swift */; };
 		9D0676E5297C52CE00A6355A /* AssemblyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */; };
 		9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E6297C55DE00A6355A /* DataProvider.swift */; };
 		9D0676E9297C622800A6355A /* ArchitectureTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0676E8297C622800A6355A /* ArchitectureTableCell.swift */; };
@@ -39,6 +38,9 @@
 		9D48DE88298FBA42003531B5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE87298FBA42003531B5 /* CoreDataStack.swift */; };
 		9D7C845F29928FA2003065F5 /* Architecture+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C845D29928FA2003065F5 /* Architecture+CoreDataClass.swift */; };
 		9D7C846029928FA2003065F5 /* Architecture+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C845E29928FA2003065F5 /* Architecture+CoreDataProperties.swift */; };
+		9D7C84622993FE41003065F5 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C84612993FE41003065F5 /* Download.swift */; };
+		9D7C8464299519C2003065F5 /* SceneKit Scene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 9D7C8463299519C2003065F5 /* SceneKit Scene.scn */; };
+		9D7C846629954619003065F5 /* UITapAndPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */; };
 		9D80DB03299101D6007CB359 /* UIImageToDataTrasformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */; };
 		9D80DB0D299136C3007CB359 /* URLToStringTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB0C299136C3007CB359 /* URLToStringTransformer.swift */; };
 		9D80DB1129913A6D007CB359 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB1029913A6D007CB359 /* FileManager+Extension.swift */; };
@@ -54,7 +56,6 @@
 		9D0676D8297C41AE00A6355A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9D0676DE297C422700A6355A /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		9D0676E0297C424B00A6355A /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
-		9D0676E2297C440600A6355A /* Architecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Architecture.swift; sourceTree = "<group>"; };
 		9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyModuleBuilder.swift; sourceTree = "<group>"; };
 		9D0676E6297C55DE00A6355A /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		9D0676E8297C622800A6355A /* ArchitectureTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchitectureTableCell.swift; sourceTree = "<group>"; };
@@ -79,6 +80,9 @@
 		9D48DE87298FBA42003531B5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9D7C845D29928FA2003065F5 /* Architecture+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9D7C845E29928FA2003065F5 /* Architecture+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9D7C84612993FE41003065F5 /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
+		9D7C8463299519C2003065F5 /* SceneKit Scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "SceneKit Scene.scn"; sourceTree = "<group>"; };
+		9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapAndPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageToDataTrasformer.swift; sourceTree = "<group>"; };
 		9D80DB0C299136C3007CB359 /* URLToStringTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLToStringTransformer.swift; sourceTree = "<group>"; };
 		9D80DB1029913A6D007CB359 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				9D0677792982E10100A6355A /* 3DSceneModule */,
 				9D0676FE297ECAB500A6355A /* AboutUsModule */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
+				9D7C8463299519C2003065F5 /* SceneKit Scene.scn */,
 				00C8EF96297C07940040C6D9 /* LaunchScreen.storyboard */,
 				00C8EF99297C07940040C6D9 /* Info.plist */,
 			);
@@ -132,19 +137,10 @@
 		9D0676DA297C41B400A6355A /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
-				9D0676DB297C41D300A6355A /* Model */,
 				9D0676DC297C41DD00A6355A /* MainView */,
 				9D0676DD297C41E200A6355A /* MainPresenter */,
 			);
 			path = MainModule;
-			sourceTree = "<group>";
-		};
-		9D0676DB297C41D300A6355A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9D0676E2297C440600A6355A /* Architecture.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		9D0676DC297C41DD00A6355A /* MainView */ = {
@@ -290,6 +286,7 @@
 		9D0677792982E10100A6355A /* 3DSceneModule */ = {
 			isa = PBXGroup;
 			children = (
+				9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */,
 				9D06777B2982E14900A6355A /* 3DSceneView */,
 				9D06777A2982E13500A6355A /* 3DScenePresenter */,
 			);
@@ -316,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				9D48DE7C298BE9AB003531B5 /* NetworkService.swift */,
+				9D7C84612993FE41003065F5 /* Download.swift */,
 				9D48DE7A298ADEB9003531B5 /* SketchfabAPI */,
 			);
 			path = Networking;
@@ -434,6 +432,7 @@
 			files = (
 				9D067702297ECAE000A6355A /* AboutUsViewController.xib in Resources */,
 				9D0676DF297C422700A6355A /* MainViewController.xib in Resources */,
+				9D7C8464299519C2003065F5 /* SceneKit Scene.scn in Resources */,
 				00C8EF98297C07940040C6D9 /* LaunchScreen.storyboard in Resources */,
 				00C8EF95297C07940040C6D9 /* Assets.xcassets in Resources */,
 				9D0676FD297D971500A6355A /* DetailViewController.xib in Resources */,
@@ -458,6 +457,7 @@
 				9D0676D9297C41AE00A6355A /* MainViewController.swift in Sources */,
 				9D80DB1129913A6D007CB359 /* FileManager+Extension.swift in Sources */,
 				9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */,
+				9D7C846629954619003065F5 /* UITapAndPanGestureRecognizer.swift in Sources */,
 				9D067701297ECAE000A6355A /* AboutUsViewController.swift in Sources */,
 				9D06777D2982E1A600A6355A /* 3DSceneViewController.swift in Sources */,
 				9D067709297ECC1200A6355A /* AboutUsPresenter.swift in Sources */,
@@ -468,7 +468,6 @@
 				9D0677172980559A00A6355A /* TabBarItem.swift in Sources */,
 				9D0676E9297C622800A6355A /* ArchitectureTableCell.swift in Sources */,
 				9D0676F3297D751100A6355A /* DetailViewController.swift in Sources */,
-				9D0676E3297C440600A6355A /* Architecture.swift in Sources */,
 				9D7C845F29928FA2003065F5 /* Architecture+CoreDataClass.swift in Sources */,
 				9D48DE88298FBA42003531B5 /* CoreDataStack.swift in Sources */,
 				00C8EF8E297C07930040C6D9 /* SceneDelegate.swift in Sources */,
@@ -476,6 +475,7 @@
 				9D06777F2982E1BA00A6355A /* 3DScenePresenter.swift in Sources */,
 				9D067711298046DE00A6355A /* ScreenSelectorView.swift in Sources */,
 				9D7C846029928FA2003065F5 /* Architecture+CoreDataProperties.swift in Sources */,
+				9D7C84622993FE41003065F5 /* Download.swift in Sources */,
 				9D48DE7629893AE4003531B5 /* JSONDataStructures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

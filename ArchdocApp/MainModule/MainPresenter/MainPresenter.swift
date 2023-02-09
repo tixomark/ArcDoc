@@ -39,7 +39,7 @@ class MainPresenter: MainPresenterProtocol {
     func getArchitecture() {
         dataProvider.getArchitecture(completion: { architecture in
             self.architecture = architecture
-            print("TableView will reload data on \(Thread.current)")
+            print("models table will reload data \(Thread.current)")
             DispatchQueue.main.async { 
                 self.view.reloadTable()
             }
@@ -48,6 +48,10 @@ class MainPresenter: MainPresenterProtocol {
     
     func tapOnCell(architecture: Architecture?) {
         router.showDetailModule(architectureItem: architecture, dataProvider: dataProvider)
+    }
+    
+    deinit {
+        print("deinit MainPresenter")
     }
 }
 

@@ -21,13 +21,13 @@ extension FileManager {
         if let newDirURL = URL(string: rootDir.absoluteString + dirName + "/") {
             
             if FileManager.default.directoryExists(atUrl: newDirURL) {
-                print("Directory named \(dirName) already exists")
+                print("directory named \(dirName) already exists")
                 dirURL = newDirURL
                 
             } else {
                 do {
                     try FileManager.default.createDirectory(at: newDirURL, withIntermediateDirectories: true)
-                    print("Successfully created \(dirName)")
+                    print("duccessfully created \(dirName)")
                     dirURL = newDirURL
                 } catch {
                     print("An error occured while creating \(dirName)")

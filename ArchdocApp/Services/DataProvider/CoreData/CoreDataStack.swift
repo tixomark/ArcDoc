@@ -36,8 +36,7 @@ class CoreDataStack {
         guard managedContext.hasChanges else { return }
         do {
             try managedContext.save()
-            print("data saved on")
-            print(Thread.current)
+            print("data saved on \(Thread.current)")
             completion()
         } catch let error as NSError {
             print("Unresolved error \(error), \(error.userInfo)")
@@ -49,40 +48,12 @@ class CoreDataStack {
         let fetchResuest = Architecture.fetchRequest()
         do {
             data = try managedContext.fetch(fetchResuest)
-            print("data fetched on")
-            print(Thread.current)
+            print("data fetched on \(Thread.current)")
         } catch let error as NSError {
             print("Unresolved error \(error), \(error.userInfo)")
         }
         return data
     }
-    
-//    func fetchDataUsingBackground() -> [Architecture] {
-//        var data: [Architecture] = []
-//        let fetchResuest = Architecture.fetchRequest()
-//
-//        let group = DispatchGroup()
-//        group.enter()
-//        persistentContainer.performBackgroundTask { context in
-//            do {
-//                data = try context.fetch(fetchResuest)
-//            } catch let error as NSError {
-//                print("Unresolved error \(error), \(error.userInfo)")
-//            }
-//            group.leave()
-//        }
-//        group.wait()
-//        return data
-//    }
-//
-//    func saveContext() {
-//        guard managedContext.hasChanges else { return }
-//        do {
-//            try managedContext.save()
-//        } catch let error as NSError {
-//            print("Unresolved error \(error), \(error.userInfo)")
-//        }
-//    }
 
     
 }

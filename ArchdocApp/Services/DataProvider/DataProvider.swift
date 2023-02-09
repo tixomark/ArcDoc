@@ -11,18 +11,18 @@ import UIKit
 protocol DataProviderProtocol {
     
     func getArchitecture(completion: @escaping ([Architecture]) -> ())
-    func loadUSDZModelFor(_ architecture: Architecture, completion: @escaping () -> ())
+    func loadUSDZModelFor(_ architecture: Architecture)
     func getTabBatItems() -> [TabBarItem]
+    var delegate: DataProviderDownloadProgressDelegate? {get set}
     
 }
 
 class DataProvider: DataProviderProtocol {
-    
     let sketchFabAPI: SketchfabAPI
     let networkService: NetworkService
     let coreDataStack: CoreDataStack
     
-    weak var delegate: DataProviderDelegate?
+    weak var delegate: DataProviderDownloadProgressDelegate?
     var dataProviderQueue = DispatchQueue(label: "dataProvider.concurrent",
                                           qos: .userInitiated,
                                           attributes: .concurrent)
@@ -31,6 +31,7 @@ class DataProvider: DataProviderProtocol {
         self.sketchFabAPI = SketchfabAPI()
         self.networkService = NetworkService()
         self.coreDataStack = CoreDataStack(modelName: "Architecture")
+        networkService.delegate = self
         
     }
     
@@ -39,11 +40,11 @@ class DataProvider: DataProviderProtocol {
             let architecture = self.coreDataStack.fetchData()
             
             if !architecture.isEmpty {
-                print("Architecture loaded from CoreData")
+                print("architecture loaded from CoreData")
                 completion(architecture)
             } else {
                 self.requestArchitectureList {
-                    print("Architecture loaded from SketchfabAPI")
+                    print("architecture loaded from SketchfabAPI")
                     completion(self.coreDataStack.fetchData())
                 }
             }
@@ -120,7 +121,7 @@ class DataProvider: DataProviderProtocol {
         return images
     }
     
-    func loadUSDZModelFor(_ architecture: Architecture, completion: @escaping () -> ()) {
+    func loadUSDZModelFor(_ architecture: Architecture) {
         dataProviderQueue.async {
             guard let UID = architecture.uid else { return }
             
@@ -130,25 +131,7 @@ class DataProvider: DataProviderProtocol {
                 case .success(let modelURLs):
                     guard let url = modelURLs["usdz"]?.url,
                           let usdzURL = URL(string: url) else { return }
-                    
-                    self.networkService.loadData(at: usdzURL) { tempUrl in
-                        let modelPath = FileManager.default.modelsDir.absoluteString + UID + ".usdz"
-                        
-                        guard let modelURL = URL(string: modelPath) else  { return }
-                        do {
-                            try FileManager.default.moveItem(at: tempUrl, to: modelURL)
-                            
-                            self.coreDataStack.saveData { _ in
-                                print("saving model")
-                                architecture.modelURL = modelURL
-                            } completion: {
-                                print("model saved")
-                                completion()
-                            }
-                        } catch {
-                            print("Can not move model at \(tempUrl) to \(modelURL)")
-                        }
-                    }
+                    self.networkService.downloadModelOf(architecture, fromURL: usdzURL)
                     
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -162,6 +145,35 @@ class DataProvider: DataProviderProtocol {
     }
 }
 
-protocol DataProviderDelegate: AnyObject {
+extension DataProvider: NetworkServiceDownloadDelegate {
+    func didFinishLoadingModelOf(architecture: Architecture, to tempURL: URL) {
+        guard let UID = architecture.uid else { return }
+        let modelPath = FileManager.default.modelsDir.absoluteString + UID + ".usdz"
+        
+        guard let modelURL = URL(string: modelPath) else  { return }
+        do {
+            try FileManager.default.moveItem(at: tempURL, to: modelURL)
+            
+            self.coreDataStack.saveData { _ in
+                print("saving model \(UID)")
+                architecture.modelURL = modelURL
+            } completion: {
+                print("model \(UID) saved")
+                self.delegate?.didFinishLoadingModelOf(architecture: architecture)
+            }
+        } catch {
+            print("Can not move model at \(tempURL) to \(modelURL)")
+        }
+    }
     
+    func currentProgress(_ progress: Float, ofDownloading arch: Architecture) {
+        print("downloaded \(Int(progress * 100))% of \(arch.uid ?? "model")")
+        delegate?.currentProgress(progress, ofDownloading: arch)
+    }
+}
+    
+
+protocol DataProviderDownloadProgressDelegate: AnyObject {
+    func didFinishLoadingModelOf(architecture: Architecture)
+    func currentProgress(_ progress: Float, ofDownloading arch: Architecture)
 }

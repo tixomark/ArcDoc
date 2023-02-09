@@ -76,3 +76,7 @@ class ArchitectureTableCell: UITableViewCell {
     
     
 }
+
+protocol ArchitectureTableCellDelegate {
+//    func
+}

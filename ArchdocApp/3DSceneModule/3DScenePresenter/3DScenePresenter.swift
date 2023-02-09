@@ -36,6 +36,9 @@ class TriDScenePresenter: TriDScenePresenterProtocol {
         router?.navigationController?.dismiss(animated: true)
     }
     
+    deinit {
+        print("deinit TriDScenePresenter")
+    }
     
     
     

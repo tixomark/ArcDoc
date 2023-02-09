@@ -26,18 +26,16 @@ class DetailViewController: UIViewController {
         presenter.setUIData()
     }
     deinit {
-        print("deinit detailVC")
+        print("deinit DetailViewController")
     }
 
     @IBAction func tap3DModelButton(_ sender: Any) {
-        modelButton.setTitle("Loading", for: .normal)
         presenter.didTapOn3DViewButton()
     }
 
 }
 
 extension DetailViewController: DetailViewProtocol {
-    
     func setUIData(architectureItem: Architecture?) {
         guard let arch = architectureItem else { return }
         
@@ -51,5 +49,19 @@ extension DetailViewController: DetailViewProtocol {
         architectureNameLabel.text = arch.title
         architectureDescrLabel.text = arch.uid
     }
+    
+    func setLoading(state: LoadingState) {
+        switch state {
+        case .yetToBeLoaded:
+            modelButton.setTitle("Load Model", for: .normal)
+        case .loading(let progress):
+            modelButton.isUserInteractionEnabled = false
+            modelButton.setTitle("\(Int(progress * 100))%", for: .normal)
+        case .done:
+            modelButton.setTitle("Show 3D", for: .normal)
+            modelButton.isUserInteractionEnabled = true
+        }
+    }
+    
     
 }
