@@ -13,6 +13,7 @@ class AboutUsTableViewCell: UITableViewCell {
     var cellBodyView: UIView!
     var textView: UILabel!
     private var cellBodyViewHeight: NSLayoutConstraint!
+    var isInitiallyCollapsed = true
     
     static let cellID = "AboutUsTableViewCellID"
 
@@ -30,23 +31,19 @@ class AboutUsTableViewCell: UITableViewCell {
     }
     
     private func setUpUI() {
-
         titleLabel = UILabel()
         contentView.addSubview(titleLabel)
         titleLabel.backgroundColor = .yellow
-        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 44)
-        ])
+            titleLabel.heightAnchor.constraint(equalToConstant: 44)])
         
         cellBodyView = UIView()
         contentView.addSubview(cellBodyView)
         cellBodyView.backgroundColor = .magenta
-        
         cellBodyView.translatesAutoresizingMaskIntoConstraints = false
         let bottomAnchor = cellBodyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         bottomAnchor.priority = UILayoutPriority(rawValue: 999)
@@ -58,7 +55,6 @@ class AboutUsTableViewCell: UITableViewCell {
         cellBodyViewHeight = cellBodyView.heightAnchor.constraint(equalToConstant: 0)
         
         textView = UILabel(frame: cellBodyView.frame)
-        textView.backgroundColor = .blue
         cellBodyView.addSubview(textView)
         textView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -66,37 +62,23 @@ class AboutUsTableViewCell: UITableViewCell {
             textView.leadingAnchor.constraint(equalTo: cellBodyView.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: cellBodyView.trailingAnchor),
             textView.bottomAnchor.constraint(equalTo: cellBodyView.bottomAnchor)])
+        textView.backgroundColor = .blue
         textView.numberOfLines = 0
         textView.text = "sdlsadkf asdf ansdjgfn asjkdn faijsdn fiasndmf iajsdnjasd jkasnd kajnsdkj nfkajsd nfkajsdngkjasnak sjasdfasd fas fasdf nasdfj kasndjfjak dnafl sjfn asldkjfnas nasd"
-        
-        
     }
     
-    func setUpCell(usingData data: String) {
+    func setUpCell(usingData data: String, isCollapsed: Bool) {
         titleLabel.text = data
-        cellBodyViewHeight.isActive = true
+        cellBodyViewHeight.isActive = isCollapsed
     }
     
     func expand() {
         cellBodyViewHeight.isActive = false
     }
+    
     func collapse() {
         cellBodyViewHeight.isActive = true
     }
-
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
-    
 }
 
 

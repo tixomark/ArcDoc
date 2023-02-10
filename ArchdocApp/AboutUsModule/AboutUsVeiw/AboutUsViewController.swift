@@ -23,7 +23,6 @@ class AboutUsViewController: UIViewController {
 
         tableView.register(AboutUsTableViewCell.self, forCellReuseIdentifier: AboutUsTableViewCell.cellID)
 
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -33,9 +32,7 @@ extension AboutUsViewController: AboutUsViewProtocol {
 
 }
 
-
 extension AboutUsViewController: UITableViewDataSource {
-
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return sectionData.count
   }
@@ -44,7 +41,8 @@ extension AboutUsViewController: UITableViewDataSource {
       let cell = tableView.dequeueReusableCell(withIdentifier: AboutUsTableViewCell.cellID, for: indexPath) as! AboutUsTableViewCell
       
       let cellData = sectionData[indexPath.row]
-      cell.setUpCell(usingData: cellData)
+      let isCollapsed = !expandedCells.contains(indexPath.row)
+      cell.setUpCell(usingData: cellData, isCollapsed: isCollapsed)
       
     return cell
   }
