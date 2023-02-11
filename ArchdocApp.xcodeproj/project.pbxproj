@@ -39,11 +39,11 @@
 		9D7C845F29928FA2003065F5 /* Architecture+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C845D29928FA2003065F5 /* Architecture+CoreDataClass.swift */; };
 		9D7C846029928FA2003065F5 /* Architecture+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C845E29928FA2003065F5 /* Architecture+CoreDataProperties.swift */; };
 		9D7C84622993FE41003065F5 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C84612993FE41003065F5 /* Download.swift */; };
-		9D7C8464299519C2003065F5 /* SceneKit Scene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 9D7C8463299519C2003065F5 /* SceneKit Scene.scn */; };
 		9D7C846629954619003065F5 /* UITapAndPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */; };
 		9D80DB03299101D6007CB359 /* UIImageToDataTrasformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */; };
 		9D80DB0D299136C3007CB359 /* URLToStringTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB0C299136C3007CB359 /* URLToStringTransformer.swift */; };
 		9D80DB1129913A6D007CB359 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB1029913A6D007CB359 /* FileManager+Extension.swift */; };
+		9DA8663F2997BDD8001D3949 /* 3DSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8663E2997BDD8001D3949 /* 3DSceneView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,11 +81,11 @@
 		9D7C845D29928FA2003065F5 /* Architecture+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9D7C845E29928FA2003065F5 /* Architecture+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9D7C84612993FE41003065F5 /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
-		9D7C8463299519C2003065F5 /* SceneKit Scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "SceneKit Scene.scn"; sourceTree = "<group>"; };
 		9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapAndPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageToDataTrasformer.swift; sourceTree = "<group>"; };
 		9D80DB0C299136C3007CB359 /* URLToStringTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLToStringTransformer.swift; sourceTree = "<group>"; };
 		9D80DB1029913A6D007CB359 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		9DA8663E2997BDD8001D3949 /* 3DSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DSceneView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,6 @@
 				9D0677792982E10100A6355A /* 3DSceneModule */,
 				9D0676FE297ECAB500A6355A /* AboutUsModule */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
-				9D7C8463299519C2003065F5 /* SceneKit Scene.scn */,
 				00C8EF96297C07940040C6D9 /* LaunchScreen.storyboard */,
 				00C8EF99297C07940040C6D9 /* Info.plist */,
 			);
@@ -305,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				9D06777C2982E1A600A6355A /* 3DSceneViewController.swift */,
+				9DA8663E2997BDD8001D3949 /* 3DSceneView.swift */,
 			);
 			path = 3DSceneView;
 			sourceTree = "<group>";
@@ -432,7 +432,6 @@
 			files = (
 				9D067702297ECAE000A6355A /* AboutUsViewController.xib in Resources */,
 				9D0676DF297C422700A6355A /* MainViewController.xib in Resources */,
-				9D7C8464299519C2003065F5 /* SceneKit Scene.scn in Resources */,
 				00C8EF98297C07940040C6D9 /* LaunchScreen.storyboard in Resources */,
 				00C8EF95297C07940040C6D9 /* Assets.xcassets in Resources */,
 				9D0676FD297D971500A6355A /* DetailViewController.xib in Resources */,
@@ -458,6 +457,7 @@
 				9D80DB1129913A6D007CB359 /* FileManager+Extension.swift in Sources */,
 				9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */,
 				9D7C846629954619003065F5 /* UITapAndPanGestureRecognizer.swift in Sources */,
+				9DA8663F2997BDD8001D3949 /* 3DSceneView.swift in Sources */,
 				9D067701297ECAE000A6355A /* AboutUsViewController.swift in Sources */,
 				9D06777D2982E1A600A6355A /* 3DSceneViewController.swift in Sources */,
 				9D067709297ECC1200A6355A /* AboutUsPresenter.swift in Sources */,

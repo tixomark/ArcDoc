@@ -53,7 +53,9 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
     
     func createTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController {
         let view = TriDSceneViewController()
-        let presenter = TriDScenePresenter(view: view, router: router, modelUrl: modelUrl)
+        let triDSceneView = TriDSceneView()
+        view.sceneView = triDSceneView
+        let presenter = TriDScenePresenter(view: view, router: router, modelUrl: modelUrl, triDScene: triDSceneView)
         view.presenter = presenter
         
         return view
