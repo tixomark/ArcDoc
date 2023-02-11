@@ -40,6 +40,7 @@
 		9D7C846029928FA2003065F5 /* Architecture+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C845E29928FA2003065F5 /* Architecture+CoreDataProperties.swift */; };
 		9D7C84622993FE41003065F5 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C84612993FE41003065F5 /* Download.swift */; };
 		9D7C846629954619003065F5 /* UITapAndPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */; };
+		9D7C846E29965A07003065F5 /* AboutUsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C8469299656C4003065F5 /* AboutUsTableViewCell.swift */; };
 		9D80DB03299101D6007CB359 /* UIImageToDataTrasformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */; };
 		9D80DB0D299136C3007CB359 /* URLToStringTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB0C299136C3007CB359 /* URLToStringTransformer.swift */; };
 		9D80DB1129913A6D007CB359 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D80DB1029913A6D007CB359 /* FileManager+Extension.swift */; };
@@ -82,6 +83,8 @@
 		9D7C845E29928FA2003065F5 /* Architecture+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Architecture+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9D7C84612993FE41003065F5 /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapAndPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		9D7C84672996519A003065F5 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		9D7C8469299656C4003065F5 /* AboutUsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsTableViewCell.swift; sourceTree = "<group>"; };
 		9D80DB02299101D6007CB359 /* UIImageToDataTrasformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageToDataTrasformer.swift; sourceTree = "<group>"; };
 		9D80DB0C299136C3007CB359 /* URLToStringTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLToStringTransformer.swift; sourceTree = "<group>"; };
 		9D80DB1029913A6D007CB359 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 				9D0677792982E10100A6355A /* 3DSceneModule */,
 				9D0676FE297ECAB500A6355A /* AboutUsModule */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
+				9D7C84672996519A003065F5 /* SectionHeaderView.swift */,
 				00C8EF96297C07940040C6D9 /* LaunchScreen.storyboard */,
 				00C8EF99297C07940040C6D9 /* Info.plist */,
 			);
@@ -207,6 +211,7 @@
 		9D067703297ECAE900A6355A /* AboutUsVeiw */ = {
 			isa = PBXGroup;
 			children = (
+				9D7C846D299656CE003065F5 /* AboutUsTableCell */,
 				9D0676FF297ECAE000A6355A /* AboutUsViewController.swift */,
 				9D067700297ECAE000A6355A /* AboutUsViewController.xib */,
 			);
@@ -348,6 +353,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		9D7C846D299656CE003065F5 /* AboutUsTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				9D7C8469299656C4003065F5 /* AboutUsTableViewCell.swift */,
+			);
+			path = AboutUsTableCell;
+			sourceTree = "<group>";
+		};
 		9D80DB0E299136FF007CB359 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D7C846E29965A07003065F5 /* AboutUsTableViewCell.swift in Sources */,
 				9D0676F7297D803F00A6355A /* Router.swift in Sources */,
 				9D06770C297EF0DB00A6355A /* CustomTabBar.swift in Sources */,
 				9D48DE7D298BE9AB003531B5 /* NetworkService.swift in Sources */,
