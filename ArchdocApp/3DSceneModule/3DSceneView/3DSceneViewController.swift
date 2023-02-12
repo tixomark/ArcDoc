@@ -18,14 +18,30 @@ class TriDSceneViewController: UIViewController {
     var zoomInButton: UIButton!
     var zoomOutButton: UIButton!
     
+//    override
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .systemBackground
+        sceneView.backgroundColor = .systemBackground
         let modelAsset = MDLAsset(url: presenter.modelUrl)
         sceneView.setUpScene(usingAsset: modelAsset)
         
         setUpUI()
         addTargets()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.backgroundColor = .clear
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.backgroundColor = .green
+    }
+    
     
     func setUpUI() {
         view.backgroundColor = .systemBackground

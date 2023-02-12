@@ -9,7 +9,6 @@ import Foundation
 
 protocol ScreenSelectorViewProtocol: AnyObject {
     var presenter: ScreenSelectorPresenterProtocol! {get}
-//    func didSelectViewAt(index: Int)
 }
 
 protocol ScreenSelectorPresenterProtocol {
@@ -22,9 +21,9 @@ protocol ScreenSelectorPresenterProtocol {
 
 class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
     
-    weak var view: ScreenSelectorViewProtocol?
+    weak var view: ScreenSelectorViewProtocol!
     let router: RouterProtocol!
-    let dataProvider: DataProviderProtocol?
+    let dataProvider: DataProviderProtocol!
     var tabBarItems: [TabBarItem]?
     
     required init(view: ScreenSelectorViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol) {
@@ -36,23 +35,21 @@ class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
     }
     
     func getTabBarItems() {
-        tabBarItems = dataProvider?.getTabBatItems()
+        tabBarItems = dataProvider.getTabBatItems()
     }
     
     func tapOnItem(index: Int) {
         switch index {
         case 0:
-            router.showMainModule()
+            router.showModelsModule(dataProvider: dataProvider)
         case 1:
             print(index)
         case 2:
             print(index)
         case 3:
-            
-            router?.showAboutUsModule()
+            router.showSettingsModule(dataProvider: dataProvider)
         default:
-            router.showMainModule()
-            
+            print("Did not find module to show after tapping on ScreenSelector")
         }
     }
     

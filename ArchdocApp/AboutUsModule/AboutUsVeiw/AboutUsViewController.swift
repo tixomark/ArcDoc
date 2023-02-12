@@ -21,11 +21,13 @@ class AboutUsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "About Us"
         tableView.register(AboutUsTableViewCell.self, forCellReuseIdentifier: AboutUsTableViewCell.cellID)
 
         tableView.dataSource = self
         tableView.delegate = self
     }
+
 }
 
 extension AboutUsViewController: AboutUsViewProtocol {

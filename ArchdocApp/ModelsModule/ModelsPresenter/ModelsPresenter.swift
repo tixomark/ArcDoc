@@ -7,28 +7,32 @@
 
 import Foundation
 
-protocol MainViewProtocol: AnyObject {
-    var presenter: MainPresenterProtocol! {get}
+protocol ModelsControllerProtocol {
+    var presenter: ModelsPresenterProtocol! {get}
+}
+
+protocol ModelsViewProtocol: AnyObject {
+    var presenter: ModelsPresenterProtocol! {get}
     func reloadTable()
 }
 
-protocol MainPresenterProtocol {
-    init(view: MainViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol)
+protocol ModelsPresenterProtocol {
+    init(view: ModelsViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol)
     var architecture: [Architecture]? {get set}
     var dataProvider: DataProviderProtocol! {get}
     func getArchitecture()
-    func tapOnCell(architecture: Architecture?)
+    func tappedOnCell(atIndexPath indexPath: IndexPath)
     
 }
 
-class MainPresenter: MainPresenterProtocol {
+class ModelsPresenter: ModelsPresenterProtocol {
     
-    weak var view: MainViewProtocol!
+    weak var view: ModelsViewProtocol!
     var dataProvider: DataProviderProtocol!
     var router: RouterProtocol!
     var architecture: [Architecture]?
     
-    required init(view: MainViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol) {
+    required init(view: ModelsViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol) {
         self.view = view
         self.dataProvider = dataProvider
         self.router = router
@@ -46,8 +50,9 @@ class MainPresenter: MainPresenterProtocol {
         })
     }
     
-    func tapOnCell(architecture: Architecture?) {
-        router.showDetailModule(architectureItem: architecture, dataProvider: dataProvider)
+    func tappedOnCell(atIndexPath indexPath: IndexPath) {
+        guard let arch = architecture?[indexPath.row] else { return }
+        router.showModelDetailModule(architectureItem: arch, dataProvider: dataProvider)
     }
     
     deinit {

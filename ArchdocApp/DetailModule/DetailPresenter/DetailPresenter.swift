@@ -55,7 +55,7 @@ class DetailPresenter: DetailPresenterProtocol {
     
     func didTapOn3DViewButton() {
         if let modelURL = architectureItem?.modelURL {
-            router?.showTriDSceneModule(modelUrl: modelURL)
+            router?.showModelTriDSceneModule(modelUrl: modelURL)
         } else if let archItem = architectureItem {
             dataProvider?.loadUSDZModelFor(archItem)
         }

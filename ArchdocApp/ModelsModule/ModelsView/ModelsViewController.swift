@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class ModelsViewController: UIViewController {
     
     private struct Values {
         static let architectureCellID = "ArchCell"
@@ -16,12 +16,13 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var architectureCatalogueTable: UITableView!
     
-    var presenter: MainPresenterProtocol!
+    var presenter: ModelsPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
+        self.title = "Models"
         
         architectureCatalogueTable.delegate = self
         architectureCatalogueTable.dataSource = self
@@ -36,7 +37,7 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: UITableViewDataSource {
+extension ModelsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.architecture?.count ?? 0
     }
@@ -65,14 +66,13 @@ extension MainViewController: UITableViewDataSource {
     
 }
 
-extension MainViewController: UITableViewDelegate {
+extension ModelsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let architecture = presenter.architecture?[indexPath.row]
-        presenter.tapOnCell(architecture: architecture)
+        presenter.tappedOnCell(atIndexPath: indexPath)
     }
 }
 
-extension MainViewController: MainViewProtocol {
+extension ModelsViewController: ModelsViewProtocol {
     func reloadTable() {
         architectureCatalogueTable.reloadData()
     }

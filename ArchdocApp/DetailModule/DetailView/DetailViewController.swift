@@ -20,11 +20,21 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        mainImageView.contentMode = .scaleAspectFit
-        
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        setUpUI()
         presenter.setUIData()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+////        self.navigationController?.navigationBar.backgroundColor = .systemBackground
+//    }
+//    
+    func setUpUI() {
+        mainImageView.translatesAutoresizingMaskIntoConstraints = false
+        mainImageView.contentMode = .scaleAspectFit
+    }
+    
     deinit {
         print("deinit DetailViewController")
     }

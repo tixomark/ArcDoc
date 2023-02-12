@@ -33,7 +33,7 @@ class AboutUsTableViewCell: UITableViewCell {
     private func setUpUI() {
         titleLabel = UILabel()
         contentView.addSubview(titleLabel)
-        titleLabel.backgroundColor = .yellow
+        titleLabel.backgroundColor = .systemGreen
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),

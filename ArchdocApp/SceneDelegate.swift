@@ -10,7 +10,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
     var screenSelector: ScreenSelectorView?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -21,15 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        
-        let navigationController = UINavigationController()
-        let assemblyBuilder = AssemblyModuleBuilder()
-        let router = Router(navigationController: navigationController, assemblyModuleBuilder: assemblyBuilder, window: window)
-        let dataProvider = DataProvider()
-        
-        router.initialViewController(dataProvider: dataProvider)
-        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        
+        let dataProvider = DataProvider()
+        let assemblyBuilder = AssemblyModuleBuilder()
+        let router = Router(assemblyModuleBuilder: assemblyBuilder, window: window)
+        router.showModelsModule(dataProvider: dataProvider)
 
         screenSelector = assemblyBuilder.createScreenSelectorModule(router: router, dataProvider: dataProvider)
         setScreenSelector()

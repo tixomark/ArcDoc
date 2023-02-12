@@ -9,53 +9,78 @@ import Foundation
 import UIKit
 
 protocol AssemblyBuilderProtocol {
-    func createMainModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> MainViewController
-    func createDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> DetailViewController
-    func createTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController
-    func createAboutUsModule(router: RouterProtocol) -> AboutUsViewController
+    
     func createScreenSelectorModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ScreenSelectorView
+    
+    // MARK: - ModelsModule related logic
+    func createModelsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ModelsNavigationController
+    func createModelDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> DetailViewController
+    func createModelTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController
+    // MARK: -  related logic
+    // MARK: -  related logic
+    
+    // MARK: - SettingsModule related logic
+    func createSettingsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> SettingsNavigationController
+    func createSettingsAboutUsModule(router: RouterProtocol) -> AboutUsViewController
 }
 
 class AssemblyModuleBuilder: AssemblyBuilderProtocol {
-    func createMainModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> MainViewController {
-        let view = MainViewController()
-        let presenter = MainPresenter(view: view, dataProvider: dataProvider, router: router)
-        view.presenter = presenter
-
-        return view
-    }
-
-    func createDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> DetailViewController {
-        let view = DetailViewController()
-        let presenter = DetailPresenter(view: view, architectureItem: item, router: router, dataProvider: dataProvider)
-        view.presenter = presenter
-
-        return view
-    }
-
-    func createAboutUsModule(router: RouterProtocol) -> AboutUsViewController {
-        let view = AboutUsViewController()
-        let presenter = AboutUsPresenter(view: view, router: router)
-        view.presenter = presenter
-
-        return view
-    }
-
+    
+    // MARK: - ScreenSelector logic
+    
     func createScreenSelectorModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ScreenSelectorView {
         let view = ScreenSelectorView()
         let presenter = ScreenSelectorPresenter(view: view, dataProvider: dataProvider, router: router)
         view.presenter = presenter
+        return view
+    }
+    
+    // MARK: - ModelsModule related logic
+    
+    func createModelsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ModelsNavigationController {
+        let view = ModelsViewController()
+        let navigation = ModelsNavigationController(rootViewController: view)
+        let presenter = ModelsPresenter(view: view, dataProvider: dataProvider, router: router)
+        view.presenter = presenter
+        navigation.presenter = presenter
+        return navigation
+    }
 
+    func createModelDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> DetailViewController {
+        let view = DetailViewController()
+        let presenter = DetailPresenter(view: view, architectureItem: item, router: router, dataProvider: dataProvider)
+        view.presenter = presenter
         return view
     }
 
-    func createTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController {
+    func createModelTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController {
         let view = TriDSceneViewController()
         let triDSceneView = TriDSceneView()
         view.sceneView = triDSceneView
         let presenter = TriDScenePresenter(view: view, router: router, modelUrl: modelUrl, triDScene: triDSceneView)
         view.presenter = presenter
-
         return view
     }
+    
+    // MARK: -  related logic
+    // MARK: -  related logic
+    
+    // MARK: - SettingsModule related logic
+    
+    func createSettingsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> SettingsNavigationController {
+        let view = SettingsViewController()
+        let navigation = SettingsNavigationController(rootViewController: view)
+        let presenter = SettingsPresenter(view: view, dataProvider: dataProvider, router: router)
+        view.presenter = presenter
+        navigation.presenter = presenter
+        return navigation
+    }
+    
+    func createSettingsAboutUsModule(router: RouterProtocol) -> AboutUsViewController {
+        let view = AboutUsViewController()
+        let presenter = AboutUsPresenter(view: view, router: router)
+        view.presenter = presenter
+        return view
+    }
+
 }
