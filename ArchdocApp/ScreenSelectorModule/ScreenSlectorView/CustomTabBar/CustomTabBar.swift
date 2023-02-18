@@ -28,6 +28,7 @@ class CustomTabBar: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .clear
         setUpGestures()
     }
     

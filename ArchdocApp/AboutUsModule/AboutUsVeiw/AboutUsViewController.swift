@@ -27,6 +27,10 @@ class AboutUsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    deinit {
+        print("deinit 'AboutUsViewController'")
+    }
 
 }
 

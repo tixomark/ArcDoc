@@ -44,6 +44,10 @@ class DetailPresenter: DetailPresenterProtocol {
         
     }
     
+    deinit {
+        print("deinit 'DetailPresenter'")
+    }
+    
     func setUIData() {
         view.setUIData(architectureItem: architectureItem)
         if architectureItem?.modelURL != nil {
@@ -61,9 +65,7 @@ class DetailPresenter: DetailPresenterProtocol {
         }
     }
     
-    deinit {
-        print("deinit DetailPresenter")
-    }
+
     
 }
 

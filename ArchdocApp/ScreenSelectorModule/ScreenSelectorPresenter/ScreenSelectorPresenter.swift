@@ -34,6 +34,10 @@ class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
         
     }
     
+    deinit {
+        print("deinit 'ScreenSelectorPresenter'")
+    }
+    
     func getTabBarItems() {
         tabBarItems = dataProvider.getTabBatItems()
     }

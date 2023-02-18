@@ -27,6 +27,10 @@ class TriDSceneView: SCNView {
         addGestures()
     }
     
+    deinit {
+        print("deinit 'TriDSceneView'")
+    }
+    
     private func setUpLight() {
         let spotLight = SCNNode()
         spotLight.light = SCNLight()
@@ -139,11 +143,7 @@ class TriDSceneView: SCNView {
         //        node.simdOrientation = node.simdOrientation * yRotation
         //        node.simdOrientation = xRotation * node.simdOrientation
     }
-    
-    deinit {
-        print("deinit TriDSceneView")
-    }
-    
+
 }
 
 extension TriDSceneView: TriDSceneProtocol {

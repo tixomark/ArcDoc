@@ -32,7 +32,7 @@ class ModelsViewController: UIViewController {
     }
     
     deinit {
-        print("deinit MainViewController")
+        print("deinit 'ModelsViewController'")
     }
     
 }

@@ -52,7 +52,7 @@ class TriDScenePresenter: TriDScenePresenterProtocol {
     }
     
     deinit {
-        print("deinit TriDScenePresenter")
+        print("deinit 'TriDScenePresenter'")
     }
     
     

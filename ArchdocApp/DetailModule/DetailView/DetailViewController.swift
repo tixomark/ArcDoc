@@ -25,20 +25,15 @@ class DetailViewController: UIViewController {
         presenter.setUIData()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-////        self.navigationController?.navigationBar.backgroundColor = .systemBackground
-//    }
-//    
+    deinit {
+        print("deinit 'DetailViewController'")
+    }
+
     func setUpUI() {
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
         mainImageView.contentMode = .scaleAspectFit
     }
     
-    deinit {
-        print("deinit DetailViewController")
-    }
-
     @IBAction func tap3DModelButton(_ sender: Any) {
         presenter.didTapOn3DViewButton()
     }

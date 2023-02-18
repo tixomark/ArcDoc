@@ -101,8 +101,8 @@ class DataProvider: DataProviderProtocol {
         let URLs = getArchitecturePreviewURLs(of: model)
         var images: [UIImage] = []
         let group = DispatchGroup()
-        
-        for imageUrl in URLs {
+        if let imageUrl = URLs.first {
+//            for imageUrl in URLs {
             group.enter()
             
             networkService.loadData(at: imageUrl) { tempUrl in

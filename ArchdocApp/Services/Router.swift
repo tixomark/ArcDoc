@@ -10,7 +10,7 @@ import UIKit
 
 protocol RouterProtocol {
     var window: UIWindow? {get}
-
+    
     init(assemblyModuleBuilder: AssemblyBuilderProtocol, window: UIWindow?)
     
     // MARK: - ModelsModule related logic
@@ -22,7 +22,10 @@ protocol RouterProtocol {
     
     // MARK: - SettingsModule related logic
     func showSettingsModule(dataProvider: DataProviderProtocol)
-    func showSettingsAboutUsModule()
+    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol)
+    func showAboutUsModule()
+    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, _ completion: (AuthPresenter) -> ())
+    
 }
 
 private protocol RootControllersProtocol {
@@ -92,12 +95,30 @@ class Router: RouterProtocol, RootControllersProtocol {
         } else { print("Error while creating SettingsModule") }
     }
     
-    func showSettingsAboutUsModule() {
+    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, _ completion: (AuthPresenter) -> ()) {
         if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
-           let aboutUsVC = assemblyModuleBuilder?.createSettingsAboutUsModule(router: self){
+           let authVC = assemblyModuleBuilder?.createAuthenticationModule(router: self, dataProvider: dataProvider, authService: authService, { presenter in
+               completion(presenter)
+           }) {
+            settingsNC.pushViewController(authVC, animated: true)
+            print("showing AuthenticationModule")
+        } else { print("Error while showing AuthenticationModule") }
+    }
+    
+    func showAboutUsModule() {
+        if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
+           let aboutUsVC = assemblyModuleBuilder?.createAboutUsModule(router: self){
             settingsNC.pushViewController(aboutUsVC, animated: true)
-            print("showing SettingsAboutUsModule")
-        } else { print("Error while showing SettingsAboutUsModule") }
+            print("showing AboutUsModule")
+        } else { print("Error while showing AboutUsModule") }
+    }
+    
+    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol) {
+        if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
+           let editUserVC = assemblyModuleBuilder?.createEditUserModule(router: self, dataProvider: dataProvider, authService: authService) {
+            settingsNC.pushViewController(editUserVC, animated: true)
+            print("showing EditUserModule")
+        } else { print("Error while showing EditUserModule") }
     }
     
     private func showScreenSelector() {

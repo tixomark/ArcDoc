@@ -24,12 +24,18 @@ class ScreenSelectorView: UIView {
         ititialiseView()
     }
     
+    deinit {
+        print("deinit 'ScreenSelectorView'")
+    }
+    
     private func ititialiseView() {
         self.backgroundColor = .clear
         self.addSubview(tabBar)
 
+        tabBar.backgroundColor = .archDocSecondarySystemColor//.withAlphaComponent(0.8)
         tabBar.dataSource = self
         tabBar.delegate = self
+        
         
     }
     
@@ -43,7 +49,6 @@ class ScreenSelectorView: UIView {
             tabBar.topAnchor.constraint(equalTo: self.topAnchor),
             tabBar.bottomAnchor.constraint(equalTo: self.bottomAnchor)])
         
-        tabBar.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
         tabBar.layer.cornerRadius = 20
         tabBar.edgeOffset = 10
         tabBar.itemsPadding = 40

@@ -40,6 +40,10 @@ class ModelsPresenter: ModelsPresenterProtocol {
         
     }
     
+    deinit {
+        print("deinit 'ModelsPresenter'")
+    }
+    
     func getArchitecture() {
         dataProvider.getArchitecture(completion: { architecture in
             self.architecture = architecture
@@ -55,9 +59,7 @@ class ModelsPresenter: ModelsPresenterProtocol {
         router.showModelDetailModule(architectureItem: arch, dataProvider: dataProvider)
     }
     
-    deinit {
-        print("deinit MainPresenter")
-    }
+
 }
 
 

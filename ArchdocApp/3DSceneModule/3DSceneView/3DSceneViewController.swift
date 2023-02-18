@@ -18,8 +18,6 @@ class TriDSceneViewController: UIViewController {
     var zoomInButton: UIButton!
     var zoomOutButton: UIButton!
     
-//    override
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +28,10 @@ class TriDSceneViewController: UIViewController {
         
         setUpUI()
         addTargets()
+    }
+    
+    deinit {
+        print("deinit 'TriDSceneViewController'")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +52,7 @@ class TriDSceneViewController: UIViewController {
         NSLayoutConstraint.activate([
             sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sceneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            sceneView.topAnchor.constraint(equalTo: view.topAnchor),
+            sceneView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
         
         initialButton = UIButton()
@@ -107,9 +109,7 @@ class TriDSceneViewController: UIViewController {
         }
     }
     
-    deinit {
-        print("deinit TriDSceneViewController")
-    }
+
 }
 
 extension TriDSceneViewController: TriDSceneViewProtocol {

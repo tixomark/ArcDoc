@@ -26,5 +26,9 @@ class AboutUsPresenter: AboutUsPresenterProtocol {
         self.router = router
         
     }
+    
+    deinit {
+        print("deinit 'AboutUsPresenter'")
+    }
 }
 
