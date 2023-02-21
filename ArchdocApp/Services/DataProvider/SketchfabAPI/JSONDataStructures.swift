@@ -49,7 +49,7 @@ struct Model: Codable {
     let categories: [Category]?
     let publishedAt: String?
     let likeCount, commentCount, viewCount, vertexCount: Int?
-    let user: User?
+    let user: SFUser?
     let isDownloadable: Bool?
     let animationCount: Int?
     let name: String?
@@ -95,7 +95,7 @@ struct Image: Codable {
     let height, size: Int?
 }
 
-struct User: Codable {
+struct SFUser: Codable {
     let username, profileURL, account, displayName: String?
     let uid, uri: String?
     let avatar: Avatar?

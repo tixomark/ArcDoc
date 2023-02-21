@@ -19,7 +19,7 @@ class LogInButtonView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .green
+        self.backgroundColor = .archDocSystemColor
         createUI()
         addActions()
     }
@@ -35,8 +35,11 @@ class LogInButtonView: UIView {
     private func createUI() {
         logInButton = UIButton()
         self.addSubview(logInButton)
-        logInButton.backgroundColor = .cyan
-        logInButton.setTitle("Log in", for: .normal)
+        
+        logInButton.backgroundColor = .archDocSecondarySystemColor
+        logInButton.layer.cornerRadius = 10
+        logInButton.setTitle("Log In", for: .normal)
+        logInButton.setTitleColor(.systemBlue, for: .normal)
     }
     
     private func addActions() {
@@ -54,8 +57,8 @@ class LogInButtonView: UIView {
         logInButtonBottomAnchor.priority = UILayoutPriority(999)
         
         NSLayoutConstraint.activate([
-            logInButton.topAnchor.constraint(equalTo: self.topAnchor),
-            logInButton.widthAnchor.constraint(equalToConstant: self.frame.width - 30),
+            logInButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            logInButton.widthAnchor.constraint(equalToConstant: self.frame.width - 40),
             logInButton.heightAnchor.constraint(equalToConstant: 44),
             logInButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             logInButtonBottomAnchor])

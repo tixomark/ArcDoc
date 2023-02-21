@@ -21,4 +21,13 @@ extension String {
         return String.passwordRegEx.firstMatch(in: self, options: [], range: range) != nil
     }
 }
+extension String? {
+    func isNullOrNil() -> Bool {
+        if self != "" && self != nil {
+            return false
+        }
+        return true
+    }
+}
+
 

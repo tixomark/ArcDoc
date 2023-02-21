@@ -15,7 +15,7 @@ class UserInfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .green
+        self.backgroundColor = .archDocSystemColor
         createUI()
     }
     
@@ -31,20 +31,22 @@ class UserInfoView: UIView {
     private func createUI() {
         userImageView = UIImageView()
         self.addSubview(userImageView)
-        userImageView.backgroundColor = .blue
+        userImageView.backgroundColor = .archDocSecondarySystemColor
         
         userNickName = UILabel()
         self.addSubview(userNickName)
-        userNickName.backgroundColor = .yellow
-        userNickName.text = "some usernaem"
+        userNickName.backgroundColor = .clear
+        userNickName.textAlignment = .center
+        userNickName.text = ""
         
         infoLabel = UILabel()
         self.addSubview(infoLabel)
-        infoLabel.backgroundColor = .red
-        infoLabel.text = "some user info"
+        infoLabel.backgroundColor = .clear
+        infoLabel.textAlignment = .center
+        infoLabel.text = ""
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         userImageView.translatesAutoresizingMaskIntoConstraints = false
         userNickName.translatesAutoresizingMaskIntoConstraints = false
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -68,5 +70,11 @@ class UserInfoView: UIView {
             infoLabel.heightAnchor.constraint(equalToConstant: 44),
             infoLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             infoLabelBottomAnchor])
+    }
+    
+    func configureUsing(_ user: User) {
+//        userImageView.image = user.pofileImage
+        userNickName.text = user.firstName + "  " + user.lastName
+        infoLabel.text = user.email
     }
 }

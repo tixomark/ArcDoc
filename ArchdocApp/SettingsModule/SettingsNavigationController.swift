@@ -15,7 +15,7 @@ class SettingsNavigationController: UINavigationController {
         super.viewDidLoad()
 
 //        navigationBar.prefersLargeTitles = true
-        navigationBar.backgroundColor = .red
+//        navigationBar.backgroundColor = .red
     }
 
 

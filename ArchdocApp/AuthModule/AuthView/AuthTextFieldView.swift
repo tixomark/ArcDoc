@@ -51,35 +51,32 @@ class AuthTextFieldView: UIView {
     private func createUI() {
         textField = UITextField()
         self.addSubview(textField)
+        self.backgroundColor = .archDocSecondarySystemColor
+        self.layer.cornerRadius = 10
         
-        textField.layer.cornerRadius = 15
- 
-        textField.backgroundColor = UIColor.archDocSecondarySystemColor
         textField.placeholder = ""
         textField.returnKeyType = .next
-        
         
         bottomLabel = UILabel()
         self.addSubview(bottomLabel)
         bottomLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-//        bottomLabel.textColor = .secondarySystemBackground
     }
     
     private func setUpConstraints() {
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: self.topAnchor),
-            textField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            textField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            bottomLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            textField.heightAnchor.constraint(equalToConstant: 50)])
+            textField.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            textField.heightAnchor.constraint(equalToConstant: 44)])
         
         bottomLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            bottomLabel.topAnchor.constraint(equalTo: textField.bottomAnchor),
-            bottomLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            bottomLabel.topAnchor.constraint(equalTo: self.bottomAnchor),
+            bottomLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             bottomLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            bottomLabel.heightAnchor.constraint(equalToConstant: 24)])
+            bottomLabel.heightAnchor.constraint(equalToConstant: 22)])
     }
     
     func addActions() {

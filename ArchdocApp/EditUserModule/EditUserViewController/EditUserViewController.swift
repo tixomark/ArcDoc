@@ -8,17 +8,14 @@
 import UIKit
 
 class EditUserViewController: UIViewController {
-    
-    enum CellType: Int {
-        case textCell, labelCell, painCell
-    }
-    
     var presenter: EditUserPresenterProtocol!
     
     var tableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     var headerVeiw: HeaderView = HeaderView()
     var doneBarButton: UIBarButtonItem!
     var cancelBarButton: UIBarButtonItem!
+    
+    var editableCells: [UITableViewCell: IndexPath] = [:]
     
     let sectionFooters: [String] = ["Enter your name",
                                     "Any details about yourself",
@@ -34,6 +31,7 @@ class EditUserViewController: UIViewController {
         tableView.delegate = self
         
         headerVeiw.delegate = self
+        presenter.configureViewAppearance()
     }
     
     deinit {
@@ -57,17 +55,18 @@ class EditUserViewController: UIViewController {
         tableView.backgroundColor = .systemGroupedBackground
         tableView.tableHeaderView = headerVeiw
         
-        doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneAction(_:)))
+        doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneAction(_:)))
         cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction(_:)))
+        
         self.navigationItem.rightBarButtonItem = doneBarButton
         self.navigationItem.leftBarButtonItem = cancelBarButton
     }
     
     @objc func doneAction(_ sender: UITabBarItem) {
-        print("did tap")
+        presenter.userDidTapOnDone()
     }
     @objc func cancelAction(_ sender: UITabBarItem) {
-        print("did cancel")
+        presenter.userDidTapOnCancel()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -78,6 +77,10 @@ class EditUserViewController: UIViewController {
 }
 
 extension EditUserViewController: EditUserViewProtocol {
+    func setAppearanceUsingData(_ user: User) {
+        tableView.reloadData()
+    }
+    
     func selfDismiss() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -93,7 +96,7 @@ extension EditUserViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 10 : 20
+        return section == 0 ? 20 : 20
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -109,43 +112,37 @@ extension EditUserViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let data = rowsTitles[indexPath.section]
-        var cellType: CellType!
-        switch indexPath.section {
-        case 0, 1:
-            cellType = .textCell
-        case 2:
-            cellType = .labelCell
-        case 3:
-            cellType = .painCell
-        default:
-            print("Can not match cellType")
+        var data: String = ""
+        if let cellData = presenter.getDataForCell(atIndexPath: indexPath) {
+            data = cellData
         }
         
-        let cell = createCell(ofType: cellType, usingData: data[indexPath.row])
+        let cell = createCell(forPosition: indexPath, usingData: data)
         return cell
     }
     
-    private func createCell(ofType type: CellType, usingData data: String) -> UITableViewCell {
-        switch type {
-        case .textCell:
+    private func createCell(forPosition indexPath: IndexPath, usingData data: String) -> UITableViewCell {
+        let cellLabel = rowsTitles[indexPath.section][indexPath.row]
+        switch indexPath.section {
+        case 0, 1:
             let cell = UserProfileTextCell()
             cell.delegate = self
-            cell.configure(text: "", placeholder: data)
+            cell.configure(text: data, placeholder: cellLabel)
+            editableCells[cell] = indexPath
             cell.selectionStyle = .none
             return cell
-        case .labelCell:
+        case 2:
             let cell = UserProfileLabelCell()
-            cell.configure(text: data, detailText: "some detail")
+            cell.configure(title: cellLabel, infoText: data)
             return cell
-        case .painCell:
+        case 3:
             let cell = UserProfilePainCell()
-            cell.configure(text: data, color: .red)
+            cell.configure(title: cellLabel, color: .red)
             return cell
+        default:
+            return UITableViewCell()
         }
     }
-    
 }
 
 extension EditUserViewController: UITableViewDelegate {
@@ -163,7 +160,8 @@ extension EditUserViewController: HeaderViewDelegate {
 
 extension EditUserViewController: UserProfileTextCellDelegate {
     func textFieldValueChanged(_ textField: UITextField, inCell cell: UserProfileTextCell) {
-        print(textField.text)
+        guard let cellIndexPath = editableCells[cell], let text = textField.text else { return }
+        presenter.textFieldValueChanged(text, inCellAtIndexPath: cellIndexPath)
     }
     
 }

@@ -16,28 +16,21 @@ protocol AuthViewProtocol: AnyObject {
 }
 
 protocol AuthPresenterProtocol {
-    init(view: AuthViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol)
+    init(view: AuthViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol)
     
     func didTapOnAuthOptionButton(ofType buttonType: AuthOption)
     func didTapOnAuthenticationButton()
 
     func userDidFinishEditingTextField()
-    func userIsEditingEmail(_ email: String, _ validationResult: (Bool) -> ())
-    func userIsEditingPassword(_ password: String, _ validationResult: (Bool) -> ())
-    func userIsEditingConfirmationPassword(_ password: String, _ validationResult: (Bool) -> ())
-    func revalidateConfPassword() -> Bool
+    func userIsEditingEmail(_ email: String, _ validationResult: (Validation) -> ())
+    func userIsEditingPassword(_ password: String, _ validationResult: (Validation, Validation) -> ())
+    func userIsEditingConfirmationPassword(_ password: String, _ validationResult: (Validation) -> ())
+    
+    func viewLoaded()
 }
-
-protocol AuthPresenterAuthResultDelegate: AnyObject {
-    func userFinishedAuthentication(usingOption: AuthOption, success: Bool)
-}
-extension AuthPresenterAuthResultDelegate {
-    func userFinishedAuthentication(usingOption: AuthOption, success: Bool? = true) {}
-}
-
 
 enum AuthOption {
-    case logIn, signIn
+    case logIn, signUp
 }
 
 class AuthPresenter: AuthPresenterProtocol {
@@ -46,31 +39,42 @@ class AuthPresenter: AuthPresenterProtocol {
     var router: RouterProtocol!
     var dataProvider: DataProviderProtocol!
     var authService: FirebaseAuthProtocol!
+    var firestore: FirestoreDBProtocol!
     
-    weak var delegate: AuthPresenterAuthResultDelegate!
-    
-    var currentAuthOption = AuthOption.signIn
+    var currentAuthOption = AuthOption.logIn
     var email: String?
     var password: String?
     var confPassword: String?
     
-    required init(view: AuthViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol) {
+    required init(view: AuthViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
         self.view = view
         self.router = router
         self.dataProvider = dataProvider
         self.authService = authService
+        self.firestore = firestore
     }
     
     deinit {
+//        if let listener = authListener {
+//            authService.removeAuthListener(listener)
+//        }
+//        guard let uid = authService.curentUserID else { return }
+//        firestore.removeSnapshotListenerFor(userID: uid)
         print("deinit 'AuthPresenter'")
     }
     
+    func viewLoaded() {
+//        authListener = authService.addAuthListener { user in
+//
+//        }
+    }
+
     func didTapOnAuthOptionButton(ofType authType: AuthOption) {
-        view.updateUIToMatchAuth(option: authType)
+        guard authType != currentAuthOption else { return }
         currentAuthOption = authType
-        if authType == .signIn {
+        view.updateUIToMatchAuth(option: currentAuthOption)
+        if currentAuthOption == .logIn {
             confPassword = nil
-            
         }
         let isAuthAvalable = authenticationIsPossible()
         view.updateAuthButtonAccordingToAuthAvalability(isAuthAvalable)
@@ -81,20 +85,23 @@ class AuthPresenter: AuthPresenterProtocol {
         view.updateAuthButtonAccordingToAuthAvalability(false)
         
         switch currentAuthOption {
-        case .logIn:
+        case .signUp:
             authService.createUser(withEmail: email!, password: password!) { [self] error in
-                if error == nil {
-                    delegate.userFinishedAuthentication(usingOption: currentAuthOption)
-                    view.selfDismiss()
-                } else {
+                guard error == nil, let uid = authService.curentUserID else {
                     print(error!.localizedDescription)
                     view.updateAuthButtonAccordingToAuthAvalability(true)
+                    return
+                }
+                let username = createUsernameFrom(email: email!)
+                let data = ["email" : email!, "username" : username]
+                firestore.setUserData(using: data, forUserID: uid) { [self] success in
+                    guard success else { return }
+                    view.selfDismiss()
                 }
             }
-        case .signIn:
+        case .logIn:
             authService.signIn(withEmail: email!, password: password!) { [self] error in
                 if error == nil {
-                    delegate.userFinishedAuthentication(usingOption: currentAuthOption)
                     view.selfDismiss()
                 } else {
                     print(error!.localizedDescription)
@@ -102,6 +109,13 @@ class AuthPresenter: AuthPresenterProtocol {
                 }
             }
         }
+    }
+    
+    private func createUsernameFrom(email: String) -> String {
+        guard let atPosition = email.firstIndex(of: "@") else { return email }
+        let size = email.distance(from: email.startIndex, to: atPosition)
+        let username = String(email.dropLast(email.count - size))
+        return username
     }
     
     func userDidFinishEditingTextField() {
@@ -109,48 +123,55 @@ class AuthPresenter: AuthPresenterProtocol {
         view.updateAuthButtonAccordingToAuthAvalability(isAuthPossible)
     }
     
-    func userIsEditingEmail(_ email: String, _ validationResult: (Bool) -> ()) {
-        if currentAuthOption == .logIn {
-
-        var isValid = email.isValidEmail()
-        self.email = isValid ? email : nil
-        view.setCanEditPasswordConfirmationField(isValid && password != nil)
-//        if currentAuthOption == .signIn {
-//            isValid = true
-            validationResult(isValid)
+    func userIsEditingEmail(_ email: String, _ validationResult: (Validation) -> ()) {
+        var result: Validation = .none
+        if email != "" {
+            let isValid = email.isValidEmail()
+            self.email = isValid ? email : nil
+            view.setCanEditPasswordConfirmationField(isValid && password != nil)
+            result = isValid ? .none : .emailFailure
         }
-    }
-    func userIsEditingPassword(_ password: String, _ validationResult: (Bool) -> ()) {
-        if currentAuthOption == .logIn {
-        var isValid = password.isValidPassword()
-        self.password = isValid ? password : nil
-        view.setCanEditPasswordConfirmationField(email != nil && isValid)
-//            isValid = true
-            validationResult(isValid)
-        }
-    }
-    func userIsEditingConfirmationPassword(_ password: String, _ validationResult: (Bool) -> ()) {
-        if currentAuthOption == .logIn {
-
-        var isValid = (self.password == password)
-        self.confPassword = isValid ? password : nil
-//        if currentAuthOption == .signIn {
-//            isValid = true
-            validationResult(isValid)
-        }
+        validationResult(result)
     }
     
-    func revalidateConfPassword() -> Bool {
-        return password == confPassword
+    func userIsEditingPassword(_ password: String, _ validationResult: (Validation, Validation) -> ()) {
+        var result: Validation = .none
+        var confPasswordResult: Validation = .none
+        
+        if password != "" {
+            if currentAuthOption == .signUp {
+                let isValid = password.isValidPassword()
+                self.password = isValid ? password : nil
+                view.setCanEditPasswordConfirmationField(email != nil && isValid)
+                result = isValid ? .none : .passwordHint
+                
+                if self.password != confPassword && confPassword != nil {
+                    confPasswordResult = .passwordsDontMatch
+                }
+            } else {
+                self.password = password
+            }
+        }
+        validationResult(result, confPasswordResult)
     }
     
+    func userIsEditingConfirmationPassword(_ password: String, _ validationResult: (Validation) -> ()) {
+        var result: Validation = .none
+        if currentAuthOption == .signUp && password != "" {
+            let isValid = (self.password == password)
+            self.confPassword = password
+            result = isValid ? .none : .passwordsDontMatch
+        }
+        validationResult(result)
+    }
+
     private func authenticationIsPossible() -> Bool {
         var isAuthPossible = false
         if email != nil, password != nil {
             switch currentAuthOption {
-            case .logIn:
+            case .signUp:
                 if confPassword == password { isAuthPossible = true }
-            case .signIn:
+            case .logIn:
                 isAuthPossible = true
             }
         }

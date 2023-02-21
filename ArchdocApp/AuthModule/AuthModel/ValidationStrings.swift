@@ -13,3 +13,5 @@ enum Validation: String {
     case passwordHint = "Password must contain at least 8 simbols."
     case passwordsDontMatch = "Passwords don't match."
 }
+
+

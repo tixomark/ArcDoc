@@ -45,8 +45,8 @@ class UserProfileLabelCell: UITableViewCell {
             accessoryIcon.widthAnchor.constraint(equalTo: accessoryIcon.heightAnchor)])
     }
     
-    func configure(text: String, detailText: String) {
-        label.text = text
-        infoLabel.text = detailText
+    func configure(title: String, infoText: String) {
+        label.text = title
+        infoLabel.text = infoText
     }
 }

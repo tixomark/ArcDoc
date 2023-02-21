@@ -22,9 +22,9 @@ protocol RouterProtocol {
     
     // MARK: - SettingsModule related logic
     func showSettingsModule(dataProvider: DataProviderProtocol)
-    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol)
+    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol)
     func showAboutUsModule()
-    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, _ completion: (AuthPresenter) -> ())
+    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) 
     
 }
 
@@ -95,11 +95,9 @@ class Router: RouterProtocol, RootControllersProtocol {
         } else { print("Error while creating SettingsModule") }
     }
     
-    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, _ completion: (AuthPresenter) -> ()) {
+    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
         if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
-           let authVC = assemblyModuleBuilder?.createAuthenticationModule(router: self, dataProvider: dataProvider, authService: authService, { presenter in
-               completion(presenter)
-           }) {
+           let authVC = assemblyModuleBuilder?.createAuthenticationModule(router: self, dataProvider: dataProvider, authService: authService, firestore: firestore) {
             settingsNC.pushViewController(authVC, animated: true)
             print("showing AuthenticationModule")
         } else { print("Error while showing AuthenticationModule") }
@@ -113,9 +111,9 @@ class Router: RouterProtocol, RootControllersProtocol {
         } else { print("Error while showing AboutUsModule") }
     }
     
-    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol) {
+    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
         if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
-           let editUserVC = assemblyModuleBuilder?.createEditUserModule(router: self, dataProvider: dataProvider, authService: authService) {
+           let editUserVC = assemblyModuleBuilder?.createEditUserModule(router: self, dataProvider: dataProvider, authService: authService, firestore: firestore) {
             settingsNC.pushViewController(editUserVC, animated: true)
             print("showing EditUserModule")
         } else { print("Error while showing EditUserModule") }

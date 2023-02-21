@@ -29,10 +29,8 @@ class UserProfilePainCell: UITableViewCell {
         label.textAlignment = .center
     }
     
-    func configure(text: String, color: UIColor) {
-        label.text = text
+    func configure(title: String, color: UIColor) {
+        label.text = title
         label.textColor = color
     }
-    
-    
 }

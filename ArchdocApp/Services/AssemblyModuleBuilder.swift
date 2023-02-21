@@ -21,9 +21,9 @@ protocol AssemblyBuilderProtocol {
     
     // MARK: - SettingsModule related logic
     func createSettingsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> SettingsNavigationController
-    func createEditUserModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol) -> EditUserViewController
+    func createEditUserModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> EditUserViewController
     func createAboutUsModule(router: RouterProtocol) -> AboutUsViewController
-    func createAuthenticationModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, _ completion: (AuthPresenter) -> ()) -> AuthViewController
+    func createAuthenticationModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> AuthViewController
 }
 
 class AssemblyModuleBuilder: AssemblyBuilderProtocol {
@@ -72,16 +72,17 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
     func createSettingsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> SettingsNavigationController {
         let view = SettingsViewController()
         let authService = FirebaseAuth()
+        let firestore = FirestoreDB()
         let navigation = SettingsNavigationController(rootViewController: view)
-        let presenter = SettingsPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService)
+        let presenter = SettingsPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService, firestore: firestore)
         view.presenter = presenter
         navigation.presenter = presenter
         return navigation
     }
     
-    func createEditUserModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol) -> EditUserViewController {
+    func createEditUserModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> EditUserViewController {
         let view = EditUserViewController()
-        let presenter = EditUserPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService)
+        let presenter = EditUserPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService, firestore: firestore)
         view.presenter = presenter
         return view
     }
@@ -93,11 +94,10 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
         return view
     }
     
-    func createAuthenticationModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, _ completion: (AuthPresenter) -> ()) -> AuthViewController {
+    func createAuthenticationModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> AuthViewController {
         let view = AuthViewController()
-        let presenter = AuthPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService)
+        let presenter = AuthPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService, firestore: firestore)
         view.presenter = presenter
-        completion(presenter)
         return view
     }
     
