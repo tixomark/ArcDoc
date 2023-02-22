@@ -29,6 +29,7 @@ class ModelsViewController: UIViewController {
         architectureCatalogueTable.register(ArchitectureTableCell.self,
                                             forCellReuseIdentifier: Values.architectureCellID)
         architectureCatalogueTable.separatorStyle = .none
+        presenter.getArchitecture()
     }
     
     deinit {

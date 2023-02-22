@@ -19,32 +19,40 @@ protocol SettingsViewProtocol: AnyObject {
 }
 
 protocol SettingsPresenterProtocol {
-    init(view: SettingsViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol)
+    init(view: SettingsViewProtocol)
     
     func viewLoaded()
-    func requestHeaderUpdate()
 
     func didTapOnCell(atIndex: IndexPath)
     func didTapOnEditButton()
     func didTapOnLoginButton()
 }
 
+extension SettingsPresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router, .dataProvider, .authService, .firestore]
+    }
+    
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.dataProvider = (services[.dataProvider] as! DataProviderProtocol)
+        self.router = (services[.router] as! RouterProtocol)
+        self.authService = (services[.authService] as! FirebaseAuthProtocol)
+        self.firestore = (services[.firestore] as! FirestoreDBProtocol)
+    }
+}
+
 class SettingsPresenter: SettingsPresenterProtocol, CustomStringConvertible {
     var description: String = "SettingsPresenter"
     
-    weak var view: SettingsViewProtocol!
-    let dataProvider: DataProviderProtocol!
-    let router: RouterProtocol!
-    let authService: FirebaseAuthProtocol!
-    let firestore: FirestoreDBProtocol!
+    var dataProvider: DataProviderProtocol!
+    var router: RouterProtocol!
+    var authService: FirebaseAuthProtocol!
+    var firestore: FirestoreDBProtocol!
     
-    required init(view: SettingsViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
+    weak var view: SettingsViewProtocol!
+    
+    required init(view: SettingsViewProtocol) {
         self.view = view
-        self.dataProvider = dataProvider
-        self.router = router
-        self.authService = authService
-        self.firestore = firestore
-        
     }
     
     deinit {
@@ -57,11 +65,6 @@ class SettingsPresenter: SettingsPresenterProtocol, CustomStringConvertible {
         authService.addAuthListenerFor(listenerOwner: self) { [self] user in
             view.changeHeaderConfigurationAccordingTo(user != nil ? .userSignedIn : .noUser)
             if let user = user {
-//                firestore.getUserDataFor(userID: user.uid) { user in
-//                    guard let user = user else { return }
-//                    self.view.updateHeaderDataUsing(userData: user)
-//                }
-//                guard let uid = authService.curentUserID else { return }
                 firestore.addUserSnapshotListenerFor(listenerOwner: self, userID: user.uid) { user in
                     guard let user = user else { return }
                     self.view.updateHeaderDataUsing(userData: user)
@@ -69,15 +72,7 @@ class SettingsPresenter: SettingsPresenterProtocol, CustomStringConvertible {
             } else {
                 firestore.removeUserSnapshotListener(of: self)
             }
-            
         }
-        
-        
-    }
-    
-    func requestHeaderUpdate() {
-//        guard view.headerViewState != authService.authState else { return }
-//        view.changeHeaderConfigurationAccordingTo(authService.authState)
     }
     
     func didTapOnCell(atIndex: IndexPath) {
@@ -85,7 +80,6 @@ class SettingsPresenter: SettingsPresenterProtocol, CustomStringConvertible {
         case 0:
             router.showAboutUsModule()
         case 1:
-
             authService.sendEmailVerification { error in
                 guard error == nil else {
                     print(error!.localizedDescription)
@@ -102,15 +96,11 @@ class SettingsPresenter: SettingsPresenterProtocol, CustomStringConvertible {
     
     func didTapOnLoginButton() {
         guard !authService.isUserLoggedIn else { return }
-        router.showAuthenticationModule(dataProvider: dataProvider,
-                                        authService: authService,
-                                        firestore: firestore)
+        router.showAuthenticationModule()
     }
     
     func didTapOnEditButton() {
         guard authService.isUserLoggedIn else { return }
-        router.showEditUserModule(dataProvider: dataProvider,
-                                  authService: authService,
-                                  firestore: firestore)
+        router.showEditUserModule()
     }
 }

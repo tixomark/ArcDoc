@@ -15,10 +15,8 @@ protocol DetailViewProtocol: AnyObject {
 
 protocol DetailPresenterProtocol {
     var architectureItem: Architecture? {get set}
-    var router: RouterProtocol? {get}
-    var dataProvider: DataProviderProtocol? {get}
     
-    init(view: DetailViewProtocol, architectureItem: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol)
+    init(view: DetailViewProtocol, architectureItem: Architecture?)
     func setUIData()
     func didTapOn3DViewButton()
 }
@@ -29,19 +27,28 @@ enum LoadingState {
     case done
 }
 
+extension DetailPresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router, .dataProvider]
+    }
+    
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.dataProvider = (services[.dataProvider] as! DataProviderProtocol)
+        self.router = (services[.router] as! RouterProtocol)
+        self.dataProvider?.delegate = self
+    }
+}
+
 class DetailPresenter: DetailPresenterProtocol {
-    weak var view: DetailViewProtocol!
-    var architectureItem: Architecture?
     var router: RouterProtocol?
     var dataProvider: DataProviderProtocol?
     
-    required init(view: DetailViewProtocol, architectureItem: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) {
+    weak var view: DetailViewProtocol!
+    var architectureItem: Architecture?
+    
+    required init(view: DetailViewProtocol, architectureItem: Architecture?) {
         self.view = view
         self.architectureItem = architectureItem
-        self.router = router
-        self.dataProvider = dataProvider
-        self.dataProvider?.delegate = self
-        
     }
     
     deinit {

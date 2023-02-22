@@ -17,27 +17,33 @@ protocol ModelsViewProtocol: AnyObject {
 }
 
 protocol ModelsPresenterProtocol {
-    init(view: ModelsViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol)
+    init(view: ModelsViewProtocol)
     var architecture: [Architecture]? {get set}
-    var dataProvider: DataProviderProtocol! {get}
     func getArchitecture()
     func tappedOnCell(atIndexPath indexPath: IndexPath)
     
 }
 
-class ModelsPresenter: ModelsPresenterProtocol {
+extension ModelsPresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router, .dataProvider]
+    }
     
-    weak var view: ModelsViewProtocol!
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.dataProvider = (services[.dataProvider] as! DataProviderProtocol)
+        self.router = (services[.router] as! RouterProtocol)
+    }
+}
+
+class ModelsPresenter: ModelsPresenterProtocol {
     var dataProvider: DataProviderProtocol!
     var router: RouterProtocol!
+    
+    weak var view: ModelsViewProtocol!
     var architecture: [Architecture]?
     
-    required init(view: ModelsViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol) {
+    required init(view: ModelsViewProtocol) {
         self.view = view
-        self.dataProvider = dataProvider
-        self.router = router
-        getArchitecture()
-        
     }
     
     deinit {
@@ -56,7 +62,7 @@ class ModelsPresenter: ModelsPresenterProtocol {
     
     func tappedOnCell(atIndexPath indexPath: IndexPath) {
         guard let arch = architecture?[indexPath.row] else { return }
-        router.showModelDetailModule(architectureItem: arch, dataProvider: dataProvider)
+        router.showModelDetailModule(architectureItem: arch)
     }
     
 

@@ -22,12 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = scene
         window?.makeKeyAndVisible()
         
-        let dataProvider = DataProvider()
         let assemblyBuilder = AssemblyModuleBuilder()
-        let router = Router(assemblyModuleBuilder: assemblyBuilder, window: window)
-        router.showModelsModule(dataProvider: dataProvider)
+        let router = assemblyBuilder.getRouter()
+        router.window = window
 
-        screenSelector = assemblyBuilder.createScreenSelectorModule(router: router, dataProvider: dataProvider)
+        screenSelector = assemblyBuilder.createScreenSelectorModule()
         setScreenSelector()
     }
 

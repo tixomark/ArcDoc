@@ -9,49 +9,59 @@ import Foundation
 
 protocol ScreenSelectorViewProtocol: AnyObject {
     var presenter: ScreenSelectorPresenterProtocol! {get}
+    func reloadTabBarItems()
 }
 
 protocol ScreenSelectorPresenterProtocol {
-    init(view: ScreenSelectorViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol)
-    var tabBarItems: [TabBarItem]? {get set}
-    func getTabBarItems()
-    func tapOnItem(index: Int)
+    init(view: ScreenSelectorViewProtocol)
     
+    var tabBarItems: [TabBarItem]? {get set}
+    func viewLoaded()
+    func tapOnItem(index: Int)
+}
+
+extension ScreenSelectorPresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router, .dataProvider]
+    }
+    
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.router = (services[.router] as! RouterProtocol)
+        self.dataProvider = (services[.dataProvider] as! DataProviderProtocol)
+    }
 }
 
 class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
+    var router: RouterProtocol!
+    var dataProvider: DataProviderProtocol!
     
     weak var view: ScreenSelectorViewProtocol!
-    let router: RouterProtocol!
-    let dataProvider: DataProviderProtocol!
     var tabBarItems: [TabBarItem]?
     
-    required init(view: ScreenSelectorViewProtocol, dataProvider: DataProviderProtocol, router: RouterProtocol) {
+    required init(view: ScreenSelectorViewProtocol) {
         self.view = view
-        self.router = router
-        self.dataProvider = dataProvider
-        getTabBarItems()
-        
     }
     
     deinit {
         print("deinit 'ScreenSelectorPresenter'")
     }
     
-    func getTabBarItems() {
+    func viewLoaded() {
         tabBarItems = dataProvider.getTabBatItems()
+        tapOnItem(index: 0)
+        view.reloadTabBarItems()
     }
     
     func tapOnItem(index: Int) {
         switch index {
         case 0:
-            router.showModelsModule(dataProvider: dataProvider)
+            router.showModelsModule()
         case 1:
             print(index)
         case 2:
             print(index)
         case 3:
-            router.showSettingsModule(dataProvider: dataProvider)
+            router.showSettingsModule()
         default:
             print("Did not find module to show after tapping on ScreenSelector")
         }

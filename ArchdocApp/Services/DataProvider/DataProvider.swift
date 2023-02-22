@@ -17,7 +17,11 @@ protocol DataProviderProtocol {
     
 }
 
-class DataProvider: DataProviderProtocol {
+class DataProvider: DataProviderProtocol, ServiceProtocol {
+    var description: String {
+        return "DataProvider"
+    }
+    
     let sketchFabAPI: SketchfabAPI
     let networkService: NetworkService
     let coreDataStack: CoreDataStack

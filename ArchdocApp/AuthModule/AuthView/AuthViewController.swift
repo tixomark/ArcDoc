@@ -36,7 +36,6 @@ class AuthViewController: UIViewController {
         setCanEditPasswordConfirmationField(false)
         
         presenter.viewLoaded()
-        
     }
     
     deinit {
@@ -138,6 +137,7 @@ class AuthViewController: UIViewController {
         confirmPasswordView.isHidden = false
         passwordView.textField.returnKeyType = .next
     }
+    
     private func switchToLogInUI() {
         signUpButton.alpha = 0.5
         logInButton.alpha = 1
@@ -147,7 +147,6 @@ class AuthViewController: UIViewController {
         confirmPasswordView.resignFirstResponder()
         passwordView.textField.returnKeyType = .done
     }
-    
 }
 
 // MARK: - Conforming to AuthViewProtocol

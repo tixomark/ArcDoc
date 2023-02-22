@@ -22,21 +22,30 @@ protocol TriDScenePresenterProtocol {
     var router: RouterProtocol? {get}
     var modelUrl: URL {get}
     
-    init(view: TriDSceneViewProtocol, router: RouterProtocol, modelUrl: URL, triDScene: TriDSceneProtocol)
+    init(view: TriDSceneViewProtocol, modelUrl: URL, triDScene: TriDSceneProtocol)
     func initialStateButtonTaped()
     func zoomButtonTapped(isZooming: Bool)
 }
 
+extension TriDScenePresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router]
+    }
+    
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.router = (services[.router] as! RouterProtocol)
+    }
+}
+
 class TriDScenePresenter: TriDScenePresenterProtocol {
+    var router: RouterProtocol?
 
     weak var view: TriDSceneViewProtocol?
     weak var sceneView: TriDSceneProtocol?
-    let router: RouterProtocol?
     var modelUrl: URL
     
-    required init(view: TriDSceneViewProtocol, router: RouterProtocol, modelUrl: URL, triDScene: TriDSceneProtocol) {
+    required init(view: TriDSceneViewProtocol, modelUrl: URL, triDScene: TriDSceneProtocol) {
         self.view = view
-        self.router = router
         self.modelUrl = modelUrl
         self.sceneView = triDScene
     }

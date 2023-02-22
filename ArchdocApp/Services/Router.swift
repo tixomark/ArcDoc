@@ -10,22 +10,19 @@ import UIKit
 
 protocol RouterProtocol {
     var window: UIWindow? {get}
-    
-    init(assemblyModuleBuilder: AssemblyBuilderProtocol, window: UIWindow?)
-    
+     
     // MARK: - ModelsModule related logic
-    func showModelsModule(dataProvider: DataProviderProtocol)
-    func showModelDetailModule(architectureItem: Architecture?, dataProvider: DataProviderProtocol)
+    func showModelsModule()
+    func showModelDetailModule(architectureItem: Architecture?)
     func showModelTriDSceneModule(modelUrl: URL)
     // MARK: - SettingsModule related logic
     // MARK: - SettingsModule related logic
     
     // MARK: - SettingsModule related logic
-    func showSettingsModule(dataProvider: DataProviderProtocol)
-    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol)
+    func showSettingsModule() 
+    func showAuthenticationModule()
+    func showEditUserModule()
     func showAboutUsModule()
-    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) 
-    
 }
 
 private protocol RootControllersProtocol {
@@ -33,7 +30,21 @@ private protocol RootControllersProtocol {
     var rootControllers: [RootControllersKeys : UIViewController] { get set }
 }
 
+extension Router: ServiceProtocol, ServiceObtainableProtocol {
+    var description: String {
+        return "Router"
+    }
+    
+    var neededServices: [Service] {
+        return  [.moduleBuilder]
+    }
+    
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.assemblyModuleBuilder = (services[.moduleBuilder] as! AssemblyBuilderProtocol)
+    }
+}
 class Router: RouterProtocol, RootControllersProtocol {
+    
     fileprivate enum RootControllersKeys {
         case models, cards, literature, settings
     }
@@ -41,30 +52,24 @@ class Router: RouterProtocol, RootControllersProtocol {
     
     var assemblyModuleBuilder: AssemblyBuilderProtocol?
     weak var window: UIWindow?
-
-    required init(assemblyModuleBuilder: AssemblyBuilderProtocol, window: UIWindow?) {
-        self.assemblyModuleBuilder = assemblyModuleBuilder
-        self.window = window
-        print("initialized Router")
-    }
     
     // MARK: - ModelsModule related logic
     
-    func showModelsModule(dataProvider: DataProviderProtocol) {
+    func showModelsModule() {
         if let modelsNC = rootControllers[.models] as? ModelsNavigationController {
             window?.rootViewController = modelsNC
             showScreenSelector()
             print("showing ModelsModule")
-        } else if let modelsNC = assemblyModuleBuilder?.createModelsModule(router: self, dataProvider: dataProvider) {
+        } else if let modelsNC = assemblyModuleBuilder?.createModelsModule() {
             rootControllers[.models] = modelsNC
             print("created ModelsModule")
-            showModelsModule(dataProvider: dataProvider)
+            showModelsModule()
         } else { print("Error while creating ModelsModule") }
     }
     
-    func showModelDetailModule(architectureItem: Architecture?, dataProvider: DataProviderProtocol) {
+    func showModelDetailModule(architectureItem: Architecture?) {
         if let modelsNC = rootControllers[.models] as? ModelsNavigationController,
-           let detailVC = assemblyModuleBuilder?.createModelDetailModule(architecture: architectureItem, router: self, dataProvider: dataProvider) {
+           let detailVC = assemblyModuleBuilder?.createModelDetailModule(architecture: architectureItem) {
             modelsNC.pushViewController(detailVC, animated: true)
             print("showing ModelDetailModule")
         } else { print("Error while showing ModelDetailModule") }
@@ -72,7 +77,7 @@ class Router: RouterProtocol, RootControllersProtocol {
     
     func showModelTriDSceneModule(modelUrl: URL) {
         if let modelsNC = rootControllers[.models] as? ModelsNavigationController,
-           let triDSceneVC = assemblyModuleBuilder?.createModelTriDSceneModule(router: self, modelUrl: modelUrl) {
+           let triDSceneVC = assemblyModuleBuilder?.createModelTriDSceneModule(modelUrl: modelUrl) {
             modelsNC.pushViewController(triDSceneVC, animated: true)
             print("showing ModelTriDSceneModule")
         } else { print("Error while showing ModelTriDSceneModule") }
@@ -83,40 +88,40 @@ class Router: RouterProtocol, RootControllersProtocol {
     
     // MARK: - SettingsModule related logic
     
-    func showSettingsModule(dataProvider: DataProviderProtocol) {
+    func showSettingsModule() {
         if let settingsNC = rootControllers[.settings] {
             window?.rootViewController = settingsNC
             showScreenSelector()
             print("showing SettingsModule")
-        } else if let settingsNC = assemblyModuleBuilder?.createSettingsModule(router: self, dataProvider: dataProvider) {
+        } else if let settingsNC = assemblyModuleBuilder?.createSettingsModule() {
             rootControllers[.settings] = settingsNC
             print("created SettingsModule")
-            showSettingsModule(dataProvider: dataProvider)
+            showSettingsModule()
         } else { print("Error while creating SettingsModule") }
     }
     
-    func showAuthenticationModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
+    func showAuthenticationModule() {
         if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
-           let authVC = assemblyModuleBuilder?.createAuthenticationModule(router: self, dataProvider: dataProvider, authService: authService, firestore: firestore) {
+           let authVC = assemblyModuleBuilder?.createAuthenticationModule() {
             settingsNC.pushViewController(authVC, animated: true)
             print("showing AuthenticationModule")
         } else { print("Error while showing AuthenticationModule") }
     }
     
-    func showAboutUsModule() {
+    func showEditUserModule() {
         if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
-           let aboutUsVC = assemblyModuleBuilder?.createAboutUsModule(router: self){
-            settingsNC.pushViewController(aboutUsVC, animated: true)
-            print("showing AboutUsModule")
-        } else { print("Error while showing AboutUsModule") }
-    }
-    
-    func showEditUserModule(dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
-        if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
-           let editUserVC = assemblyModuleBuilder?.createEditUserModule(router: self, dataProvider: dataProvider, authService: authService, firestore: firestore) {
+           let editUserVC = assemblyModuleBuilder?.createEditUserModule() {
             settingsNC.pushViewController(editUserVC, animated: true)
             print("showing EditUserModule")
         } else { print("Error while showing EditUserModule") }
+    }
+    
+    func showAboutUsModule() {
+        if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
+           let aboutUsVC = assemblyModuleBuilder?.createAboutUsModule(){
+            settingsNC.pushViewController(aboutUsVC, animated: true)
+            print("showing AboutUsModule")
+        } else { print("Error while showing AboutUsModule") }
     }
     
     private func showScreenSelector() {

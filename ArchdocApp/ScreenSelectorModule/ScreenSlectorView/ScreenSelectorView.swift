@@ -9,10 +9,9 @@ import Foundation
 import UIKit
 
 class ScreenSelectorView: UIView {
-    
     var presenter: ScreenSelectorPresenterProtocol!
     
-    var tabBar = CustomTabBar()
+    var tabBar: CustomTabBar!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,17 +29,17 @@ class ScreenSelectorView: UIView {
     
     private func ititialiseView() {
         self.backgroundColor = .clear
+        tabBar = CustomTabBar()
         self.addSubview(tabBar)
 
-        tabBar.backgroundColor = .archDocSecondarySystemColor//.withAlphaComponent(0.8)
+        tabBar.backgroundColor = .archDocSecondarySystemColor
         tabBar.dataSource = self
         tabBar.delegate = self
-        
-        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        presenter.viewLoaded()
         
         tabBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -54,8 +53,9 @@ class ScreenSelectorView: UIView {
         tabBar.itemsPadding = 40
     }
     
-    
-    
+    func reloadTabBarItems() {
+        tabBar.reloadTabBar()
+    }
 }
 
 extension ScreenSelectorView: CustomTabBarDataSource {
@@ -65,8 +65,9 @@ extension ScreenSelectorView: CustomTabBarDataSource {
     
     func tabBar(_ tabBar: CustomTabBar, elementFoRowAt index: Int) -> UIView {
         var view = UIImageView()
-        if let item = presenter.tabBarItems?[index] {
-            let icon = UIImage(named: item.normalStateImageName)
+        
+        if let item = presenter.tabBarItems?[index],
+           let icon = UIImage(named: item.normalStateImageName){
             view = UIImageView(image: icon)
         }
         view.contentMode = .scaleAspectFit

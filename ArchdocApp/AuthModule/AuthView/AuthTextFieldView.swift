@@ -13,11 +13,6 @@ protocol AuthTextFieldViewDelegate: AnyObject {
     func valueChangedInTextFieldOf(_ containerView: AuthTextFieldView)
     func textFieldShouldReturnOf(_ containerView: AuthTextFieldView)
 }
-extension AuthTextFieldViewDelegate {
-    func didEndEditingTextFieldOf(_ containerView: AuthTextFieldView) {}
-    func valueChangedInTextFieldOf(_ containerView: AuthTextFieldView) {}
-    func textFieldShouldReturnOf(_ containerView: AuthTextFieldView) {}
-}
 
 class AuthTextFieldView: UIView {
     

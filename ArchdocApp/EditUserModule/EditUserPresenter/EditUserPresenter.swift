@@ -15,7 +15,7 @@ protocol EditUserViewProtocol: AnyObject {
 }
 
 protocol EditUserPresenterProtocol {
-    init(view: EditUserViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol)
+    init(view: EditUserViewProtocol)
     
     func userDidTapOnChangeImageButton() 
     func userDidTapOnRow(atIndexPath indexPath: IndexPath)
@@ -29,22 +29,30 @@ protocol EditUserPresenterProtocol {
     
 }
 
-class EditUserPresenter: EditUserPresenterProtocol {
-
-    weak var view: EditUserViewProtocol!
-    let dataProvider: DataProviderProtocol!
-    let router: RouterProtocol!
-    let authService: FirebaseAuthProtocol!
-    let firestore: FirestoreDBProtocol!
+extension EditUserPresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router, .dataProvider, .authService, .firestore]
+    }
     
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.dataProvider = (services[.dataProvider] as! DataProviderProtocol)
+        self.router = (services[.router] as! RouterProtocol)
+        self.authService = (services[.authService] as! FirebaseAuthProtocol)
+        self.firestore = (services[.firestore] as! FirestoreDBProtocol)
+    }
+}
+
+class EditUserPresenter: EditUserPresenterProtocol {
+    var dataProvider: DataProviderProtocol!
+    var router: RouterProtocol!
+    var authService: FirebaseAuthProtocol!
+    var firestore: FirestoreDBProtocol!
+    
+    weak var view: EditUserViewProtocol!
     var user: User?
   
-    required init(view: EditUserViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
+    required init(view: EditUserViewProtocol) {
         self.view = view
-        self.dataProvider = dataProvider
-        self.router = router
-        self.authService = authService
-        self.firestore = firestore
     }
     
     deinit {

@@ -17,7 +17,11 @@ protocol FirestoreDBProtocol {
     func updateUserData(using data: [String:String], forUserID id: String, completion: @escaping (Bool) -> ())
 }
 
-class FirestoreDB: FirestoreDBProtocol {
+class FirestoreDB: FirestoreDBProtocol, ServiceProtocol {
+    var description: String {
+        return "FirestoreDB"
+    }
+
     private var db: Firestore {
         return Firestore.firestore()
     }

@@ -9,6 +9,7 @@ import Foundation
 
 protocol AuthViewProtocol: AnyObject {
     var presenter: AuthPresenterProtocol! {get}
+    
     func updateUIToMatchAuth(option: AuthOption)
     func updateAuthButtonAccordingToAuthAvalability(_ option: Bool)
     func setCanEditPasswordConfirmationField(_ canEdit: Bool)
@@ -16,7 +17,7 @@ protocol AuthViewProtocol: AnyObject {
 }
 
 protocol AuthPresenterProtocol {
-    init(view: AuthViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol)
+    init(view: AuthViewProtocol)
     
     func didTapOnAuthOptionButton(ofType buttonType: AuthOption)
     func didTapOnAuthenticationButton()
@@ -33,40 +34,41 @@ enum AuthOption {
     case logIn, signUp
 }
 
-class AuthPresenter: AuthPresenterProtocol {
+extension AuthPresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router, .dataProvider, .authService, .firestore]
+    }
     
-    weak var view: AuthViewProtocol!
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.dataProvider = (services[.dataProvider] as! DataProviderProtocol)
+        self.router = (services[.router] as! RouterProtocol)
+        self.authService = (services[.authService] as! FirebaseAuthProtocol)
+        self.firestore = (services[.firestore] as! FirestoreDBProtocol)
+    }
+}
+
+class AuthPresenter: AuthPresenterProtocol {
     var router: RouterProtocol!
     var dataProvider: DataProviderProtocol!
     var authService: FirebaseAuthProtocol!
     var firestore: FirestoreDBProtocol!
     
+    weak var view: AuthViewProtocol!
     var currentAuthOption = AuthOption.logIn
     var email: String?
     var password: String?
     var confPassword: String?
     
-    required init(view: AuthViewProtocol, router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) {
+    required init(view: AuthViewProtocol) {
         self.view = view
-        self.router = router
-        self.dataProvider = dataProvider
-        self.authService = authService
-        self.firestore = firestore
     }
     
     deinit {
-//        if let listener = authListener {
-//            authService.removeAuthListener(listener)
-//        }
-//        guard let uid = authService.curentUserID else { return }
-//        firestore.removeSnapshotListenerFor(userID: uid)
         print("deinit 'AuthPresenter'")
     }
     
     func viewLoaded() {
-//        authListener = authService.addAuthListener { user in
-//
-//        }
+        
     }
 
     func didTapOnAuthOptionButton(ofType authType: AuthOption) {

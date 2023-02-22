@@ -17,12 +17,11 @@ protocol CustomTabBarDelegate: AnyObject {
 }
 
 class CustomTabBar: UIView {
-    
     weak var dataSource: CustomTabBarDataSource?
     weak var delegate: CustomTabBarDelegate?
     
     private var itemViews = [UIView]()
-    
+    var selectedItemIndex: Int = 0
     var itemsPadding: CGFloat = 0
     var edgeOffset: CGFloat = 0
     
@@ -70,6 +69,7 @@ class CustomTabBar: UIView {
     @objc private func didTap(gesture: UITapGestureRecognizer) {
         let tapPoint = gesture.location(in: self)
         if let index = itemViews.firstIndex(where: { $0.frame.contains(tapPoint) }) {
+            selectedItemIndex = index
             delegate?.tabBar(self, didSelectElementAt: index)
         }
     }

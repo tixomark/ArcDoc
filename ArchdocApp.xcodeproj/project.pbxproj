@@ -74,7 +74,8 @@
 		9DFE4599299E2CB2002EF8E5 /* UserProfileLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE4598299E2CB2002EF8E5 /* UserProfileLabelCell.swift */; };
 		9DFE459B299E3EAB002EF8E5 /* UserProfileTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE459A299E3EAB002EF8E5 /* UserProfileTextCell.swift */; };
 		9DFE459D299E4785002EF8E5 /* UserProfilePainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE459C299E4785002EF8E5 /* UserProfilePainCell.swift */; };
-		9DFF5C6529A4F02900D2DDDA /* EditUserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFF5C6429A4F02900D2DDDA /* EditUserDataViewController.swift */; };
+		9DFF5C6529A4F02900D2DDDA /* SetUserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFF5C6429A4F02900D2DDDA /* SetUserDataViewController.swift */; };
+		9DFF5C6729A6211200D2DDDA /* Service + Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFF5C6629A6211200D2DDDA /* Service + Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,7 +144,8 @@
 		9DFE4598299E2CB2002EF8E5 /* UserProfileLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileLabelCell.swift; sourceTree = "<group>"; };
 		9DFE459A299E3EAB002EF8E5 /* UserProfileTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTextCell.swift; sourceTree = "<group>"; };
 		9DFE459C299E4785002EF8E5 /* UserProfilePainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePainCell.swift; sourceTree = "<group>"; };
-		9DFF5C6429A4F02900D2DDDA /* EditUserDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDataViewController.swift; sourceTree = "<group>"; };
+		9DFF5C6429A4F02900D2DDDA /* SetUserDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserDataViewController.swift; sourceTree = "<group>"; };
+		9DFF5C6629A6211200D2DDDA /* Service + Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service + Protocols.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,8 +346,10 @@
 		9D06775129827DCA00A6355A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9D0676F6297D803F00A6355A /* Router.swift */,
 				9D0676E4297C52CE00A6355A /* AssemblyModuleBuilder.swift */,
+				9D0676F6297D803F00A6355A /* Router.swift */,
+				9DFF5C6629A6211200D2DDDA /* Service + Protocols.swift */,
+				9D21D3BB299A73B4003E55B2 /* FirebaseAPI */,
 				9D48DE8A298FBAA4003531B5 /* DataProvider */,
 			);
 			path = Services;
@@ -392,6 +396,7 @@
 			children = (
 				9DB18250299FA04D000F1D27 /* AuthTextFieldView.swift */,
 				9D21D3B9299A668D003E55B2 /* AuthViewController.swift */,
+				9DFF5C6429A4F02900D2DDDA /* SetUserDataViewController.swift */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";
@@ -438,7 +443,6 @@
 			children = (
 				9D0676E6297C55DE00A6355A /* DataProvider.swift */,
 				9D48DE8B298FBAF5003531B5 /* CoreData */,
-				9D21D3BB299A73B4003E55B2 /* FirebaseAPI */,
 				9D48DE7A298ADEB9003531B5 /* SketchfabAPI */,
 				9D48DE7729893B2C003531B5 /* Networking */,
 			);
@@ -553,7 +557,6 @@
 			children = (
 				9DFE459E299E50F7002EF8E5 /* HelperViews */,
 				9DFE4592299D42D7002EF8E5 /* EditUserViewController.swift */,
-				9DFF5C6429A4F02900D2DDDA /* EditUserDataViewController.swift */,
 			);
 			path = EditUserViewController;
 			sourceTree = "<group>";
@@ -674,9 +677,10 @@
 				9D48DE86298FAC7A003531B5 /* Architecture.xcdatamodeld in Sources */,
 				9DB18253299FC2A0000F1D27 /* String+Extension.swift in Sources */,
 				9D21D3CA299BE156003E55B2 /* UserInfoView.swift in Sources */,
+				9DFF5C6729A6211200D2DDDA /* Service + Protocols.swift in Sources */,
 				9DFE459B299E3EAB002EF8E5 /* UserProfileTextCell.swift in Sources */,
 				9D0676E1297C424B00A6355A /* ModelsPresenter.swift in Sources */,
-				9DFF5C6529A4F02900D2DDDA /* EditUserDataViewController.swift in Sources */,
+				9DFF5C6529A4F02900D2DDDA /* SetUserDataViewController.swift in Sources */,
 				9D21D3BF299A7412003E55B2 /* FirestoreDB.swift in Sources */,
 				9D80DB03299101D6007CB359 /* UIImageToDataTrasformer.swift in Sources */,
 				9D48DE7929893FD3003531B5 /* SketchfabAPI.swift in Sources */,

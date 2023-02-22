@@ -8,58 +8,94 @@
 import Foundation
 import UIKit
 
-protocol AssemblyBuilderProtocol {
+protocol AssemblyBuilderProtocol: AnyObject {
     
-    func createScreenSelectorModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ScreenSelectorView
+    func getRouter() -> Router
+    
+    func createScreenSelectorModule() -> ScreenSelectorView
     
     // MARK: - ModelsModule related logic
-    func createModelsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ModelsNavigationController
-    func createModelDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> DetailViewController
-    func createModelTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController
+    func createModelsModule() -> ModelsNavigationController 
+    func createModelDetailModule(architecture item: Architecture?) -> DetailViewController
+    func createModelTriDSceneModule(modelUrl: URL) -> TriDSceneViewController
     // MARK: -  related logic
     // MARK: -  related logic
     
     // MARK: - SettingsModule related logic
-    func createSettingsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> SettingsNavigationController
-    func createEditUserModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> EditUserViewController
-    func createAboutUsModule(router: RouterProtocol) -> AboutUsViewController
-    func createAuthenticationModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> AuthViewController
+    func createSettingsModule() -> SettingsNavigationController
+    func createAuthenticationModule() -> AuthViewController
+    func createEditUserModule() -> EditUserViewController
+    func createAboutUsModule() -> AboutUsViewController
 }
 
-class AssemblyModuleBuilder: AssemblyBuilderProtocol {
+class AssemblyModuleBuilder: AssemblyBuilderProtocol, ServiceProtocol {
+    var description: String {
+        return "AssemblyModuleBuilder"
+    }
     
+    var services: [Service:ServiceProtocol] = [:]
+    
+    init() {
+        services[.dataProvider] = DataProvider()
+        services[.authService] = FirebaseAuth()
+        services[.firestore] = FirestoreDB()
+        services[.moduleBuilder] = self
+        
+        let router = Router()
+        injectServices(forObject: router)
+        services[.router] = router
+    }
+    
+    private func injectServices(forObject object: ServiceObtainableProtocol) {
+        let neededServices = object.neededServices
+        var servicesDict: [Service:ServiceProtocol] = [:]
+        neededServices.forEach { service in
+            servicesDict[service] = self.services[service]
+        }
+        object.getServices(servicesDict)
+    }
+    
+    func getRouter() -> Router {
+        return services[.router] as! Router
+    }
+
     // MARK: - ScreenSelector logic
     
-    func createScreenSelectorModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ScreenSelectorView {
+    func createScreenSelectorModule() -> ScreenSelectorView {
         let view = ScreenSelectorView()
-        let presenter = ScreenSelectorPresenter(view: view, dataProvider: dataProvider, router: router)
+        let presenter = ScreenSelectorPresenter(view: view)
+        injectServices(forObject: presenter)
         view.presenter = presenter
         return view
     }
-    
+
     // MARK: - ModelsModule related logic
     
-    func createModelsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> ModelsNavigationController {
+    func createModelsModule() -> ModelsNavigationController {
         let view = ModelsViewController()
-        let navigation = ModelsNavigationController(rootViewController: view)
-        let presenter = ModelsPresenter(view: view, dataProvider: dataProvider, router: router)
+        let presenter = ModelsPresenter(view: view)
+        injectServices(forObject: presenter)
         view.presenter = presenter
+        
+        let navigation = ModelsNavigationController(rootViewController: view)
         navigation.presenter = presenter
         return navigation
     }
-
-    func createModelDetailModule(architecture item: Architecture?, router: RouterProtocol, dataProvider: DataProviderProtocol) -> DetailViewController {
+    
+    func createModelDetailModule(architecture item: Architecture?) -> DetailViewController {
         let view = DetailViewController()
-        let presenter = DetailPresenter(view: view, architectureItem: item, router: router, dataProvider: dataProvider)
+        let presenter = DetailPresenter(view: view, architectureItem: item)
+        injectServices(forObject: presenter)
         view.presenter = presenter
         return view
     }
 
-    func createModelTriDSceneModule(router: RouterProtocol, modelUrl: URL) -> TriDSceneViewController {
+    func createModelTriDSceneModule(modelUrl: URL) -> TriDSceneViewController {
         let view = TriDSceneViewController()
         let triDSceneView = TriDSceneView()
         view.sceneView = triDSceneView
-        let presenter = TriDScenePresenter(view: view, router: router, modelUrl: modelUrl, triDScene: triDSceneView)
+        let presenter = TriDScenePresenter(view: view, modelUrl: modelUrl, triDScene: triDSceneView)
+        injectServices(forObject: presenter)
         view.presenter = presenter
         return view
     }
@@ -69,34 +105,36 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol {
     
     // MARK: - SettingsModule related logic
     
-    func createSettingsModule(router: RouterProtocol, dataProvider: DataProviderProtocol) -> SettingsNavigationController {
+    func createSettingsModule() -> SettingsNavigationController {
         let view = SettingsViewController()
-        let authService = FirebaseAuth()
-        let firestore = FirestoreDB()
-        let navigation = SettingsNavigationController(rootViewController: view)
-        let presenter = SettingsPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService, firestore: firestore)
+        let presenter = SettingsPresenter(view: view)
+        injectServices(forObject: presenter)
         view.presenter = presenter
+        let navigation = SettingsNavigationController(rootViewController: view)
         navigation.presenter = presenter
         return navigation
     }
     
-    func createEditUserModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> EditUserViewController {
-        let view = EditUserViewController()
-        let presenter = EditUserPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService, firestore: firestore)
-        view.presenter = presenter
-        return view
-    }
-    
-    func createAboutUsModule(router: RouterProtocol) -> AboutUsViewController {
-        let view = AboutUsViewController()
-        let presenter = AboutUsPresenter(view: view, router: router)
-        view.presenter = presenter
-        return view
-    }
-    
-    func createAuthenticationModule(router: RouterProtocol, dataProvider: DataProviderProtocol, authService: FirebaseAuthProtocol, firestore: FirestoreDBProtocol) -> AuthViewController {
+    func createAuthenticationModule() -> AuthViewController {
         let view = AuthViewController()
-        let presenter = AuthPresenter(view: view, router: router, dataProvider: dataProvider, authService: authService, firestore: firestore)
+        let presenter = AuthPresenter(view: view)
+        injectServices(forObject: presenter)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createEditUserModule() -> EditUserViewController {
+        let view = EditUserViewController()
+        let presenter = EditUserPresenter(view: view)
+        injectServices(forObject: presenter)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createAboutUsModule() -> AboutUsViewController {
+        let view = AboutUsViewController()
+        let presenter = AboutUsPresenter(view: view)
+        injectServices(forObject: presenter)
         view.presenter = presenter
         return view
     }

@@ -12,19 +12,27 @@ protocol AboutUsViewProtocol: AnyObject {
 }
 
 protocol AboutUsPresenterProtocol {
-    init(view: AboutUsViewProtocol, router: RouterProtocol)
+    init(view: AboutUsViewProtocol)
+}
+
+extension AboutUsPresenter: ServiceObtainableProtocol {
+    var neededServices: [Service] {
+        return [.router]
+    }
+    
+    func getServices(_ services: [Service : ServiceProtocol]) {
+        self.router = (services[.router] as! RouterProtocol)
+    }
 }
 
 class AboutUsPresenter: AboutUsPresenterProtocol {
+    var router: RouterProtocol?
     
     weak var view: AboutUsViewProtocol?
-    var router: RouterProtocol?
     var aboutUsData: AboutUs?
     
-    required init(view: AboutUsViewProtocol, router: RouterProtocol) {
+    required init(view: AboutUsViewProtocol) {
         self.view = view
-        self.router = router
-        
     }
     
     deinit {

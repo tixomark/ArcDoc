@@ -28,7 +28,11 @@ enum UserAuthState {
     case noUser, userSignedIn
 }
 
-class FirebaseAuth: FirebaseAuthProtocol {
+class FirebaseAuth: FirebaseAuthProtocol, ServiceProtocol {
+    var description: String {
+        return "FirebaseAuth"
+    }
+    
     var user: Firebase.User? {
         Auth.auth().currentUser
     }
