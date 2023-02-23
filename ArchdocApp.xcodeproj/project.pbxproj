@@ -65,8 +65,14 @@
 		9DB18253299FC2A0000F1D27 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB18252299FC2A0000F1D27 /* String+Extension.swift */; };
 		9DB18256299FDB21000F1D27 /* ValidationStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB18255299FDB21000F1D27 /* ValidationStrings.swift */; };
 		9DB1825A29A0DA37000F1D27 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1825929A0DA37000F1D27 /* UIColor+Extension.swift */; };
-		9DB1825C29A10DDD000F1D27 /* AuthErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1825B29A10DDD000F1D27 /* AuthErrors.swift */; };
+		9DB1825C29A10DDD000F1D27 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1825B29A10DDD000F1D27 /* AuthError.swift */; };
 		9DB1825E29A25A45000F1D27 /* FirebaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB1825D29A25A45000F1D27 /* FirebaseUser.swift */; };
+		9DB7AC9329A67E970086ACBC /* AuthAlertsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7AC9229A67E970086ACBC /* AuthAlertsData.swift */; };
+		9DB7AC9829A76F410086ACBC /* EmailVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7AC9729A76F410086ACBC /* EmailVerificationViewController.swift */; };
+		9DB7AC9A29A771920086ACBC /* AuthNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7AC9929A771920086ACBC /* AuthNavigationController.swift */; };
+		9DB7AC9C29A774AA0086ACBC /* EmailVerificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7AC9B29A774AA0086ACBC /* EmailVerificationPresenter.swift */; };
+		9DB7AC9F29A7B1750086ACBC /* EnterUserDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7AC9E29A7B1750086ACBC /* EnterUserDetailsPresenter.swift */; };
+		9DB7ACA129A7B19F0086ACBC /* EnterUserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7ACA029A7B19F0086ACBC /* EnterUserDetailsViewController.swift */; };
 		9DFE458D299D311B002EF8E5 /* LogInButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE458C299D311B002EF8E5 /* LogInButtonView.swift */; };
 		9DFE4593299D42D7002EF8E5 /* EditUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE4592299D42D7002EF8E5 /* EditUserViewController.swift */; };
 		9DFE4595299D42E8002EF8E5 /* EditUserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE4594299D42E8002EF8E5 /* EditUserPresenter.swift */; };
@@ -74,7 +80,6 @@
 		9DFE4599299E2CB2002EF8E5 /* UserProfileLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE4598299E2CB2002EF8E5 /* UserProfileLabelCell.swift */; };
 		9DFE459B299E3EAB002EF8E5 /* UserProfileTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE459A299E3EAB002EF8E5 /* UserProfileTextCell.swift */; };
 		9DFE459D299E4785002EF8E5 /* UserProfilePainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE459C299E4785002EF8E5 /* UserProfilePainCell.swift */; };
-		9DFF5C6529A4F02900D2DDDA /* SetUserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFF5C6429A4F02900D2DDDA /* SetUserDataViewController.swift */; };
 		9DFF5C6729A6211200D2DDDA /* Service + Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFF5C6629A6211200D2DDDA /* Service + Protocols.swift */; };
 /* End PBXBuildFile section */
 
@@ -135,8 +140,14 @@
 		9DB18252299FC2A0000F1D27 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9DB18255299FDB21000F1D27 /* ValidationStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationStrings.swift; sourceTree = "<group>"; };
 		9DB1825929A0DA37000F1D27 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		9DB1825B29A10DDD000F1D27 /* AuthErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrors.swift; sourceTree = "<group>"; };
+		9DB1825B29A10DDD000F1D27 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		9DB1825D29A25A45000F1D27 /* FirebaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUser.swift; sourceTree = "<group>"; };
+		9DB7AC9229A67E970086ACBC /* AuthAlertsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAlertsData.swift; sourceTree = "<group>"; };
+		9DB7AC9729A76F410086ACBC /* EmailVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewController.swift; sourceTree = "<group>"; };
+		9DB7AC9929A771920086ACBC /* AuthNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationController.swift; sourceTree = "<group>"; };
+		9DB7AC9B29A774AA0086ACBC /* EmailVerificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationPresenter.swift; sourceTree = "<group>"; };
+		9DB7AC9E29A7B1750086ACBC /* EnterUserDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterUserDetailsPresenter.swift; sourceTree = "<group>"; };
+		9DB7ACA029A7B19F0086ACBC /* EnterUserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterUserDetailsViewController.swift; sourceTree = "<group>"; };
 		9DFE458C299D311B002EF8E5 /* LogInButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInButtonView.swift; sourceTree = "<group>"; };
 		9DFE4592299D42D7002EF8E5 /* EditUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserViewController.swift; sourceTree = "<group>"; };
 		9DFE4594299D42E8002EF8E5 /* EditUserPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserPresenter.swift; sourceTree = "<group>"; };
@@ -144,7 +155,6 @@
 		9DFE4598299E2CB2002EF8E5 /* UserProfileLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileLabelCell.swift; sourceTree = "<group>"; };
 		9DFE459A299E3EAB002EF8E5 /* UserProfileTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTextCell.swift; sourceTree = "<group>"; };
 		9DFE459C299E4785002EF8E5 /* UserProfilePainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePainCell.swift; sourceTree = "<group>"; };
-		9DFF5C6429A4F02900D2DDDA /* SetUserDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserDataViewController.swift; sourceTree = "<group>"; };
 		9DFF5C6629A6211200D2DDDA /* Service + Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service + Protocols.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,6 +202,8 @@
 				9DA866402999101A001D3949 /* SettingsModule */,
 				9DFE458F299D4283002EF8E5 /* EditUserModule */,
 				9D21D3B4299A6481003E55B2 /* AuthModule */,
+				9DB7AC9429A76E820086ACBC /* EmailVerificationModule */,
+				9DB7AC9D29A7B0BF0086ACBC /* EnterUserInfoModule */,
 				9D0676FE297ECAB500A6355A /* AboutUsModule */,
 				9DB1825829A0DA05000F1D27 /* ArchDoc+Extensions */,
 				00C8EF94297C07940040C6D9 /* Assets.xcassets */,
@@ -384,6 +396,7 @@
 		9D21D3B4299A6481003E55B2 /* AuthModule */ = {
 			isa = PBXGroup;
 			children = (
+				9DB7AC9929A771920086ACBC /* AuthNavigationController.swift */,
 				9DB18254299FDB03000F1D27 /* AuthModel */,
 				9D21D3B5299A64A0003E55B2 /* AuthView */,
 				9D21D3B6299A64B5003E55B2 /* AuthPresenter */,
@@ -396,7 +409,6 @@
 			children = (
 				9DB18250299FA04D000F1D27 /* AuthTextFieldView.swift */,
 				9D21D3B9299A668D003E55B2 /* AuthViewController.swift */,
-				9DFF5C6429A4F02900D2DDDA /* SetUserDataViewController.swift */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";
@@ -412,7 +424,7 @@
 		9D21D3BB299A73B4003E55B2 /* FirebaseAPI */ = {
 			isa = PBXGroup;
 			children = (
-				9DB1825B29A10DDD000F1D27 /* AuthErrors.swift */,
+				9DB1825B29A10DDD000F1D27 /* AuthError.swift */,
 				9DB1825D29A25A45000F1D27 /* FirebaseUser.swift */,
 				9D21D3BC299A73DA003E55B2 /* FirebaseAuth.swift */,
 				9D21D3BE299A7412003E55B2 /* FirestoreDB.swift */,
@@ -518,6 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				9DB18255299FDB21000F1D27 /* ValidationStrings.swift */,
+				9DB7AC9229A67E970086ACBC /* AuthAlertsData.swift */,
 			);
 			path = AuthModel;
 			sourceTree = "<group>";
@@ -532,6 +545,56 @@
 				9D7C846529954619003065F5 /* UITapAndPanGestureRecognizer.swift */,
 			);
 			path = "ArchDoc+Extensions";
+			sourceTree = "<group>";
+		};
+		9DB7AC9429A76E820086ACBC /* EmailVerificationModule */ = {
+			isa = PBXGroup;
+			children = (
+				9DB7AC9529A76E900086ACBC /* EmailVerificationViewController */,
+				9DB7AC9629A76F080086ACBC /* EmailVerificationPresenter */,
+			);
+			path = EmailVerificationModule;
+			sourceTree = "<group>";
+		};
+		9DB7AC9529A76E900086ACBC /* EmailVerificationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9DB7AC9729A76F410086ACBC /* EmailVerificationViewController.swift */,
+			);
+			path = EmailVerificationViewController;
+			sourceTree = "<group>";
+		};
+		9DB7AC9629A76F080086ACBC /* EmailVerificationPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				9DB7AC9B29A774AA0086ACBC /* EmailVerificationPresenter.swift */,
+			);
+			path = EmailVerificationPresenter;
+			sourceTree = "<group>";
+		};
+		9DB7AC9D29A7B0BF0086ACBC /* EnterUserInfoModule */ = {
+			isa = PBXGroup;
+			children = (
+				9DB7ACA329A7B1C70086ACBC /* EnterUserDetailView */,
+				9DB7ACA229A7B1B80086ACBC /* EnterUserDetailPresenter */,
+			);
+			path = EnterUserInfoModule;
+			sourceTree = "<group>";
+		};
+		9DB7ACA229A7B1B80086ACBC /* EnterUserDetailPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				9DB7AC9E29A7B1750086ACBC /* EnterUserDetailsPresenter.swift */,
+			);
+			path = EnterUserDetailPresenter;
+			sourceTree = "<group>";
+		};
+		9DB7ACA329A7B1C70086ACBC /* EnterUserDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				9DB7ACA029A7B19F0086ACBC /* EnterUserDetailsViewController.swift */,
+			);
+			path = EnterUserDetailView;
 			sourceTree = "<group>";
 		};
 		9DFE458E299D3128002EF8E5 /* SettingsHeaders */ = {
@@ -664,9 +727,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DB7AC9C29A774AA0086ACBC /* EmailVerificationPresenter.swift in Sources */,
 				9DB18251299FA04D000F1D27 /* AuthTextFieldView.swift in Sources */,
 				9D7C846E29965A07003065F5 /* AboutUsTableViewCell.swift in Sources */,
 				9D0676F7297D803F00A6355A /* Router.swift in Sources */,
+				9DB7ACA129A7B19F0086ACBC /* EnterUserDetailsViewController.swift in Sources */,
 				9DB1825A29A0DA37000F1D27 /* UIColor+Extension.swift in Sources */,
 				9D06770C297EF0DB00A6355A /* CustomTabBar.swift in Sources */,
 				9DB1824F299F9EC4000F1D27 /* UITableView + Extension.swift in Sources */,
@@ -674,24 +739,27 @@
 				9DA8664529991075001D3949 /* SettingsPresenter.swift in Sources */,
 				9D48DE7D298BE9AB003531B5 /* NetworkService.swift in Sources */,
 				9D067707297ECC0200A6355A /* AboutUs.swift in Sources */,
+				9DB7AC9829A76F410086ACBC /* EmailVerificationViewController.swift in Sources */,
 				9D48DE86298FAC7A003531B5 /* Architecture.xcdatamodeld in Sources */,
 				9DB18253299FC2A0000F1D27 /* String+Extension.swift in Sources */,
 				9D21D3CA299BE156003E55B2 /* UserInfoView.swift in Sources */,
 				9DFF5C6729A6211200D2DDDA /* Service + Protocols.swift in Sources */,
 				9DFE459B299E3EAB002EF8E5 /* UserProfileTextCell.swift in Sources */,
 				9D0676E1297C424B00A6355A /* ModelsPresenter.swift in Sources */,
-				9DFF5C6529A4F02900D2DDDA /* SetUserDataViewController.swift in Sources */,
+				9DB7AC9A29A771920086ACBC /* AuthNavigationController.swift in Sources */,
 				9D21D3BF299A7412003E55B2 /* FirestoreDB.swift in Sources */,
 				9D80DB03299101D6007CB359 /* UIImageToDataTrasformer.swift in Sources */,
 				9D48DE7929893FD3003531B5 /* SketchfabAPI.swift in Sources */,
 				9D21D3BA299A668D003E55B2 /* AuthViewController.swift in Sources */,
 				9D0676D9297C41AE00A6355A /* ModelsViewController.swift in Sources */,
+				9DB7AC9329A67E970086ACBC /* AuthAlertsData.swift in Sources */,
 				9DB18256299FDB21000F1D27 /* ValidationStrings.swift in Sources */,
 				9DFE4593299D42D7002EF8E5 /* EditUserViewController.swift in Sources */,
 				9D80DB1129913A6D007CB359 /* FileManager+Extension.swift in Sources */,
 				9D0676E7297C55DE00A6355A /* DataProvider.swift in Sources */,
 				9D7C846629954619003065F5 /* UITapAndPanGestureRecognizer.swift in Sources */,
 				9DA8663F2997BDD8001D3949 /* 3DSceneView.swift in Sources */,
+				9DB7AC9F29A7B1750086ACBC /* EnterUserDetailsPresenter.swift in Sources */,
 				9DFE4595299D42E8002EF8E5 /* EditUserPresenter.swift in Sources */,
 				9DFE4597299D4A7E002EF8E5 /* HeaderView.swift in Sources */,
 				9D067701297ECAE000A6355A /* AboutUsViewController.swift in Sources */,
@@ -706,7 +774,7 @@
 				9D0677172980559A00A6355A /* TabBarItem.swift in Sources */,
 				9DFE458D299D311B002EF8E5 /* LogInButtonView.swift in Sources */,
 				9D21D3B8299A6500003E55B2 /* AuthPresenter.swift in Sources */,
-				9DB1825C29A10DDD000F1D27 /* AuthErrors.swift in Sources */,
+				9DB1825C29A10DDD000F1D27 /* AuthError.swift in Sources */,
 				9DA86648299910A2001D3949 /* SettingsViewController.swift in Sources */,
 				9D0676E9297C622800A6355A /* ArchitectureTableCell.swift in Sources */,
 				9D0676F3297D751100A6355A /* DetailViewController.swift in Sources */,

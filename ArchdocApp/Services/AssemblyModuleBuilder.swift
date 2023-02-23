@@ -23,7 +23,11 @@ protocol AssemblyBuilderProtocol: AnyObject {
     
     // MARK: - SettingsModule related logic
     func createSettingsModule() -> SettingsNavigationController
-    func createAuthenticationModule() -> AuthViewController
+    
+    func createAuthenticationModule() -> AuthNavigationController
+    func createEmailVerificationModule() -> EmailVerificationViewController
+    func createEnterUserDetailsModule() -> EnterUserDetailsViewController
+    
     func createEditUserModule() -> EditUserViewController
     func createAboutUsModule() -> AboutUsViewController
 }
@@ -115,9 +119,27 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol, ServiceProtocol {
         return navigation
     }
     
-    func createAuthenticationModule() -> AuthViewController {
+    func createAuthenticationModule() -> AuthNavigationController {
         let view = AuthViewController()
         let presenter = AuthPresenter(view: view)
+        injectServices(forObject: presenter)
+        view.presenter = presenter
+        let navigation = AuthNavigationController(rootViewController: view)
+        navigation.presenter = presenter
+        return navigation
+    }
+    
+    func createEmailVerificationModule() -> EmailVerificationViewController {
+        let view = EmailVerificationViewController()
+        let presenter = EmailVerificationPresenter(view: view)
+        injectServices(forObject: presenter)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createEnterUserDetailsModule() -> EnterUserDetailsViewController {
+        let view = EnterUserDetailsViewController()
+        let presenter = EnterUserDetailsPresenter(view: view)
         injectServices(forObject: presenter)
         view.presenter = presenter
         return view

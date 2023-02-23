@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
+        tableView.backgroundColor = .archDocSystemColor
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "genericCell")
         tableView.dataSource = self

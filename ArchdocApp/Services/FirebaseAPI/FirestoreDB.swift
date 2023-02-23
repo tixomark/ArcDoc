@@ -40,7 +40,7 @@ class FirestoreDB: FirestoreDBProtocol, ServiceProtocol {
                 completion(user)
             } else {
                 if let data = snapshot?.data() as? [String:String] {
-                    user = User(userData: data)
+                    user = User(data)
                     completion(user)
                 }
             }
@@ -67,7 +67,7 @@ class FirestoreDB: FirestoreDBProtocol, ServiceProtocol {
                 completion(nil)
                 return
             }
-            let user = User(userData: data)
+            let user = User(data)
             completion(user)
         }
     }
@@ -94,18 +94,15 @@ class FirestoreDB: FirestoreDBProtocol, ServiceProtocol {
         }
     }
     
-    
-    
     func addListener(userID id: String, completion: @escaping (Bool, User?) -> ()) {
         var user: User?
-
         db.collection(usersDir).document(id).addSnapshotListener { snapshot, error in
             if let error = error {
                 print(error.localizedDescription)
                 completion(false, user)
             } else {
                 if let data = snapshot?.data() as? [String:String] {
-                    user = User(userData: data)
+                    user = User(data)
                     completion(true, user)
                 }
             }

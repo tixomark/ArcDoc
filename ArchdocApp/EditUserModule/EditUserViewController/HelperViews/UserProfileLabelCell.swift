@@ -15,6 +15,7 @@ class UserProfileLabelCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.contentView.backgroundColor = .archDocSecondarySystemColor
         layOutCellContents()
     }
     

@@ -62,8 +62,9 @@ class SettingsPresenter: SettingsPresenterProtocol, CustomStringConvertible {
     }
     
     func viewLoaded() {
+        view.changeHeaderConfigurationAccordingTo(authService.user != nil ? .userSignedIn : .noUser)
         authService.addAuthListenerFor(listenerOwner: self) { [self] user in
-            view.changeHeaderConfigurationAccordingTo(user != nil ? .userSignedIn : .noUser)
+            view.changeHeaderConfigurationAccordingTo(authService.user != nil ? .userSignedIn : .noUser)
             if let user = user {
                 firestore.addUserSnapshotListenerFor(listenerOwner: self, userID: user.uid) { user in
                     guard let user = user else { return }
@@ -80,14 +81,6 @@ class SettingsPresenter: SettingsPresenterProtocol, CustomStringConvertible {
         case 0:
             router.showAboutUsModule()
         case 1:
-            authService.sendEmailVerification { error in
-                guard error == nil else {
-                    print(error!.localizedDescription)
-                    return
-                }
-            }
-        case 2:
-
             return
         default:
             print("Somehow user did tap on nonexistent cell")

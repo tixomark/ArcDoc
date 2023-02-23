@@ -22,7 +22,7 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.archDocSystemColor
+        self.view.backgroundColor = .archDocSystemColor
         setUpUI()
         setUpLayout()
         setUpActions()
@@ -34,8 +34,6 @@ class AuthViewController: UIViewController {
         switchToLogInUI()
         updateAuthButtonAccordingToAuthAvalability(false)
         setCanEditPasswordConfirmationField(false)
-        
-        presenter.viewLoaded()
     }
     
     deinit {
@@ -46,7 +44,7 @@ class AuthViewController: UIViewController {
         logInButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             logInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            logInButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 300),
+            logInButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
             logInButton.heightAnchor.constraint(equalToConstant: 60)])
         
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
@@ -152,6 +150,13 @@ class AuthViewController: UIViewController {
 // MARK: - Conforming to AuthViewProtocol
 
 extension AuthViewController: AuthViewProtocol {
+    func showAlertUsing(_ data: (String, String)) {
+        let alertController = UIAlertController(title: data.0, message: data.1, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .cancel)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
+    }
+    
     func updateUIToMatchAuth(option: AuthOption) {
         self.view.endEditing(true)
         switch option {
@@ -172,10 +177,6 @@ extension AuthViewController: AuthViewProtocol {
         confirmPasswordView.textField.isEnabled = canEdit
         confirmPasswordView.alpha = canEdit ? 1 : 0.7
         confirmPasswordView.bottomLabel.isHidden = !canEdit
-    }
-    
-    func selfDismiss() {
-        self.navigationController?.popViewController(animated: true)
     }
     
 }

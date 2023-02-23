@@ -19,8 +19,13 @@ protocol RouterProtocol {
     // MARK: - SettingsModule related logic
     
     // MARK: - SettingsModule related logic
-    func showSettingsModule() 
+    func showSettingsModule()
+    
     func showAuthenticationModule()
+    func showEmailVerificationModule()
+    func showEnterUserDetailsModule()
+    func dismissAuthenticationModule()
+    
     func showEditUserModule()
     func showAboutUsModule()
 }
@@ -43,10 +48,11 @@ extension Router: ServiceProtocol, ServiceObtainableProtocol {
         self.assemblyModuleBuilder = (services[.moduleBuilder] as! AssemblyBuilderProtocol)
     }
 }
+
 class Router: RouterProtocol, RootControllersProtocol {
     
     fileprivate enum RootControllersKeys {
-        case models, cards, literature, settings
+        case models, cards, literature, settings, auth
     }
     fileprivate var rootControllers: [RootControllersKeys : UIViewController] = [:]
     
@@ -101,11 +107,35 @@ class Router: RouterProtocol, RootControllersProtocol {
     }
     
     func showAuthenticationModule() {
-        if let settingsNC = rootControllers[.settings] as? SettingsNavigationController,
-           let authVC = assemblyModuleBuilder?.createAuthenticationModule() {
-            settingsNC.pushViewController(authVC, animated: true)
+        if let authNC = assemblyModuleBuilder?.createAuthenticationModule() {
+            rootControllers[.auth] = authNC
+            authNC.modalPresentationStyle = .automatic
+            rootControllers[.settings]?.present(authNC, animated: true)
             print("showing AuthenticationModule")
         } else { print("Error while showing AuthenticationModule") }
+    }
+    
+    func showEmailVerificationModule() {
+        if let authNC = rootControllers[.auth] as? AuthNavigationController,
+           let emailVerificationVC = assemblyModuleBuilder?.createEmailVerificationModule() {
+            authNC.pushViewController(emailVerificationVC, animated: true)
+            print("showing EmailVerificationModule")
+        } else { print("Error while showing EmailVerificationModule") }
+    }
+    
+    func showEnterUserDetailsModule() {
+        if let authNC = rootControllers[.auth] as? AuthNavigationController,
+           let enterUserDetailsVC = assemblyModuleBuilder?.createEnterUserDetailsModule() {
+            authNC.pushViewController(enterUserDetailsVC, animated: true)
+            print("showing EnterUserDetailsModule")
+        } else { print("Error while showing EnterUserDetailsModule") }
+    }
+    
+    func dismissAuthenticationModule() {
+        if let authNC = rootControllers[.auth] as? AuthNavigationController {
+            authNC.dismiss(animated: true)
+            rootControllers.removeValue(forKey: .auth)
+        }
     }
     
     func showEditUserModule() {

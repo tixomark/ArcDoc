@@ -13,12 +13,13 @@ protocol FirebaseAuthProtocol {
     var isUserLoggedIn: Bool {get}
     var curentUserID: String? {get}
     var authState: UserAuthState {get}
-    func createUser(withEmail email: String, password: String, _ completion: ((Error?) -> ())?)
-    func signIn(withEmail email: String, password: String, _ completion: ((Error?) -> ())?)
+    
+    func createUser(withEmail email: String, password: String, _ completion: @escaping (AuthError?) -> ())
+    func signIn(withEmail email: String, password: String, _ completion: @escaping (AuthError?) -> ())
     func signOut() -> Bool
-    func sendEmailVerification(_ completion: ((Error?) -> ())?)
-    func reloadUser(_ completion: ((Error?) -> ())?)
-    func sendPasswordReset(withEmail email: String, _ completion: ((Error?) -> ())?)
+    func sendEmailVerification(_ completion: @escaping (Error?) -> ())
+    func reloadUser(_ completion: @escaping (Error?) -> ())
+    func sendPasswordReset(withEmail email: String, _ completion: @escaping (Error?) -> ())
     
     func addAuthListenerFor(listenerOwner owner: CustomStringConvertible, completion: @escaping (Firebase.User?) -> ())
     func removeAuthListener(of owner: CustomStringConvertible)
@@ -79,22 +80,25 @@ class FirebaseAuth: FirebaseAuthProtocol, ServiceProtocol {
         print("'FirebaseAuth' removed auth user dir listener for \(owner.description)")
     }
     
-    func createUser(withEmail email: String, password: String, _ completion: ((Error?) -> ())? = nil) {
+    func createUser(withEmail email: String, password: String, _ completion: @escaping (AuthError?) -> ()) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let err = error {
-                completion?(err)
+                print(err.localizedDescription)
+                completion(AuthError(rawValue: err.localizedDescription))
+            } else {
+                completion(nil)
             }
-            completion?(nil)
         }
     }
     
-    func signIn(withEmail email: String, password: String, _ completion: ((Error?) -> ())? = nil) {
+    func signIn(withEmail email: String, password: String, _ completion: @escaping (AuthError?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if let err = error{
-                completion?(err)
-                return
+                print(err.localizedDescription)
+                completion(AuthError(rawValue: err.localizedDescription))
+            } else {
+                completion(nil)
             }
-            completion?(nil)
         }
     }
     
@@ -107,21 +111,21 @@ class FirebaseAuth: FirebaseAuthProtocol, ServiceProtocol {
         }
     }
     
-    func sendEmailVerification(_ completion: ((Error?) -> ())? = nil){
+    func sendEmailVerification(_ completion: @escaping (Error?) -> ()){
         Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
-            completion?(error)
+            completion(error)
         })
     }
     
-    func reloadUser(_ completion: ((Error?) -> ())? = nil){
+    func reloadUser(_ completion: @escaping (Error?) -> ()){
         Auth.auth().currentUser?.reload(completion: { (error) in
-            completion?(error)
+            completion(error)
         })
     }
     
-    func sendPasswordReset(withEmail email: String, _ completion: ((Error?) -> ())? = nil){
+    func sendPasswordReset(withEmail email: String, _ completion: @escaping (Error?) -> ()){
         Auth.auth().sendPasswordReset(withEmail: email) { error in
-            completion?(error)
+            completion(error)
         }
     }
     

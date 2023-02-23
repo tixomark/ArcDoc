@@ -48,7 +48,6 @@ class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
     
     func viewLoaded() {
         tabBarItems = dataProvider.getTabBatItems()
-        tapOnItem(index: 0)
         view.reloadTabBarItems()
     }
     

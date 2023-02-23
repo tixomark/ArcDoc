@@ -132,16 +132,11 @@ class EditUserPresenter: EditUserPresenterProtocol {
     }
     
     func userDidTapOnDone() {
-        
         let fieldsToUpdate: [UserFields] = [.firstName, .lastName, .bio]
         guard let dataToUpdate = user?.makeDict(usingFields: fieldsToUpdate), let uid = authService.curentUserID else { return }
         print(dataToUpdate)
         firestore.updateUserData(using: dataToUpdate, forUserID: uid) { success in
-            print(success)
-            guard success else {
-                print("can not update data")
-                return
-            }
+            guard success else { return }
             self.view.selfDismiss()
         }
     }

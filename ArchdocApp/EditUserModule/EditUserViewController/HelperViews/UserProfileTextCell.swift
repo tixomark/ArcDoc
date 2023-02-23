@@ -23,6 +23,7 @@ class UserProfileTextCell: UITableViewCell {
     
     init() {
         super.init(style: .default, reuseIdentifier: "")
+        self.contentView.backgroundColor = .archDocSecondarySystemColor
         textField.returnKeyType = .done
         textField.delegate = self
         addActions()

@@ -12,7 +12,6 @@ enum UserFields: String {
 }
 
 struct User {
-//    var id: String
     var firstName: String
     var lastName: String
     var bio: String
@@ -21,8 +20,7 @@ struct User {
     var phoneNumber: String
     var profileImage: String
     
-    init(userData: [String:String]) {
-//        id = userData["id"] ?? ""
+    init(_ userData: [String:String] = [:]) {
         firstName = userData["firstName"] ?? ""
         lastName = userData["lastName"] ?? ""
         bio = userData["bio"] ?? ""

@@ -7,17 +7,22 @@
 
 import Foundation
 
+protocol AuthControllerProtocol {
+    var presenter: AuthPresenterProtocol! {get}
+}
+
 protocol AuthViewProtocol: AnyObject {
     var presenter: AuthPresenterProtocol! {get}
     
     func updateUIToMatchAuth(option: AuthOption)
     func updateAuthButtonAccordingToAuthAvalability(_ option: Bool)
     func setCanEditPasswordConfirmationField(_ canEdit: Bool)
-    func selfDismiss()
+    func showAlertUsing(_ data: (String, String))
 }
 
 protocol AuthPresenterProtocol {
     init(view: AuthViewProtocol)
+    func navigationControllerDisappeared()
     
     func didTapOnAuthOptionButton(ofType buttonType: AuthOption)
     func didTapOnAuthenticationButton()
@@ -26,8 +31,6 @@ protocol AuthPresenterProtocol {
     func userIsEditingEmail(_ email: String, _ validationResult: (Validation) -> ())
     func userIsEditingPassword(_ password: String, _ validationResult: (Validation, Validation) -> ())
     func userIsEditingConfirmationPassword(_ password: String, _ validationResult: (Validation) -> ())
-    
-    func viewLoaded()
 }
 
 enum AuthOption {
@@ -67,10 +70,10 @@ class AuthPresenter: AuthPresenterProtocol {
         print("deinit 'AuthPresenter'")
     }
     
-    func viewLoaded() {
-        
+    func navigationControllerDisappeared() {
+        router.dismissAuthenticationModule()
     }
-
+    
     func didTapOnAuthOptionButton(ofType authType: AuthOption) {
         guard authType != currentAuthOption else { return }
         currentAuthOption = authType
@@ -90,23 +93,25 @@ class AuthPresenter: AuthPresenterProtocol {
         case .signUp:
             authService.createUser(withEmail: email!, password: password!) { [self] error in
                 guard error == nil, let uid = authService.curentUserID else {
-                    print(error!.localizedDescription)
                     view.updateAuthButtonAccordingToAuthAvalability(true)
+                    let alertData = AuthAlertData(error!).dataForAlert()
+                    view.showAlertUsing(alertData)
                     return
                 }
                 let username = createUsernameFrom(email: email!)
                 let data = ["email" : email!, "username" : username]
                 firestore.setUserData(using: data, forUserID: uid) { [self] success in
                     guard success else { return }
-                    view.selfDismiss()
+                    router.showEmailVerificationModule()
                 }
             }
         case .logIn:
             authService.signIn(withEmail: email!, password: password!) { [self] error in
                 if error == nil {
-                    view.selfDismiss()
+                    router.dismissAuthenticationModule()
                 } else {
-                    print(error!.localizedDescription)
+                    let alertData = AuthAlertData(error!).dataForAlert()
+                    view.showAlertUsing(alertData)
                     view.updateAuthButtonAccordingToAuthAvalability(true)
                 }
             }

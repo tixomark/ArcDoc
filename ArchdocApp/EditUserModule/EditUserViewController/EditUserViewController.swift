@@ -13,7 +13,7 @@ class EditUserViewController: UIViewController {
     var tableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     var headerVeiw: HeaderView = HeaderView()
     var doneBarButton: UIBarButtonItem!
-    var cancelBarButton: UIBarButtonItem!
+//    var cancelBarButton: UIBarButtonItem!
     
     var editableCells: [UITableViewCell: IndexPath] = [:]
     
@@ -52,28 +52,22 @@ class EditUserViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)])
         
-        tableView.backgroundColor = .systemGroupedBackground
+        tableView.backgroundColor = .archDocSystemColor
         tableView.tableHeaderView = headerVeiw
         
         doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneAction(_:)))
-        cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction(_:)))
+//        cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAction(_:)))
         
         self.navigationItem.rightBarButtonItem = doneBarButton
-        self.navigationItem.leftBarButtonItem = cancelBarButton
+//        self.navigationItem.leftBarButtonItem = cancelBarButton
     }
     
     @objc func doneAction(_ sender: UITabBarItem) {
         presenter.userDidTapOnDone()
     }
-    @objc func cancelAction(_ sender: UITabBarItem) {
-        presenter.userDidTapOnCancel()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.view.endEditing(true)
-    }
-    
+//    @objc func cancelAction(_ sender: UITabBarItem) {
+//        presenter.userDidTapOnCancel()
+//    }
 }
 
 extension EditUserViewController: EditUserViewProtocol {

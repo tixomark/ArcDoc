@@ -19,7 +19,7 @@ class HeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .green
+        self.backgroundColor = .archDocSystemColor
         createUI()
         addActions()
     }
@@ -36,11 +36,11 @@ class HeaderView: UIView {
     private func createUI() {
         userImageView = UIImageView()
         self.addSubview(userImageView)
-        userImageView.backgroundColor = .blue
+        userImageView.backgroundColor = .archDocSecondarySystemColor
         
         changeImageButton = UIButton()
         self.addSubview(changeImageButton)
-        changeImageButton.backgroundColor = .cyan
+        changeImageButton.backgroundColor = .archDocSecondarySystemColor
         changeImageButton.setTitle("Choose new avatar", for: .normal)
     }
 

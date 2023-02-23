@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let assemblyBuilder = AssemblyModuleBuilder()
         let router = assemblyBuilder.getRouter()
         router.window = window
+        router.showModelsModule()
 
         screenSelector = assemblyBuilder.createScreenSelectorModule()
         setScreenSelector()
