@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     static let emailRegEx = try! NSRegularExpression(pattern: ##"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}"##, options: .caseInsensitive)
@@ -21,13 +22,33 @@ extension String {
         return String.passwordRegEx.firstMatch(in: self, options: [], range: range) != nil
     }
 }
-extension String? {
-    func isNullOrNil() -> Bool {
-        if self != "" && self != nil {
-            return false
-        }
-        return true
+
+extension String {
+    func widthOfString(usingFont font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.width
+    }
+
+    func heightOfString(usingFont font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.height
+    }
+
+    func sizeOfString(usingFont font: UIFont) -> CGSize {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        return self.size(withAttributes: fontAttributes)
     }
 }
+
+//extension String? {
+//    func isNullOrNil() -> Bool {
+//        if self != "" && self != nil {
+//            return false
+//        }
+//        return true
+//    }
+//}
 
 

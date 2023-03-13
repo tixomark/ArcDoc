@@ -9,19 +9,20 @@ import Foundation
 import UIKit
 
 protocol AssemblyBuilderProtocol: AnyObject {
-    
     func getRouter() -> Router
-    
     func createScreenSelectorModule() -> ScreenSelectorView
     
-    // MARK: - ModelsModule related logic
+    // MARK: - Models section related logic
     func createModelsModule() -> ModelsNavigationController 
     func createModelDetailModule(architecture item: Architecture?) -> DetailViewController
     func createModelTriDSceneModule(modelUrl: URL) -> TriDSceneViewController
-    // MARK: -  related logic
-    // MARK: -  related logic
     
-    // MARK: - SettingsModule related logic
+    // MARK: -  Card section related logic
+    
+    // MARK: -  Literature section related logic
+    func createLiteratureModule() -> LiteratureNavigationController
+    
+    // MARK: - Settings section related logic
     func createSettingsModule() -> SettingsNavigationController
     
     func createAuthenticationModule() -> AuthNavigationController
@@ -73,7 +74,7 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol, ServiceProtocol {
         return view
     }
 
-    // MARK: - ModelsModule related logic
+    // MARK: - Models section related logic
     
     func createModelsModule() -> ModelsNavigationController {
         let view = ModelsViewController()
@@ -104,10 +105,21 @@ class AssemblyModuleBuilder: AssemblyBuilderProtocol, ServiceProtocol {
         return view
     }
     
-    // MARK: -  related logic
-    // MARK: -  related logic
+    // MARK: -  Card section related logic
     
-    // MARK: - SettingsModule related logic
+    // MARK: -  Literature section related logic
+    
+    func createLiteratureModule() -> LiteratureNavigationController {
+        let view = LiteratureViewController()
+        let presenter = LiteraturePresenter(view: view)
+        injectServices(forObject: presenter)
+        view.presenter = presenter
+        let navigation = LiteratureNavigationController(rootViewController: view)
+        navigation.presenter = presenter
+        return navigation
+    }
+    
+    // MARK: - Settings section related logic
     
     func createSettingsModule() -> SettingsNavigationController {
         let view = SettingsViewController()

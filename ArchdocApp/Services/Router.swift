@@ -11,14 +11,17 @@ import UIKit
 protocol RouterProtocol {
     var window: UIWindow? {get}
      
-    // MARK: - ModelsModule related logic
+    // MARK: - Models section related logic
     func showModelsModule()
     func showModelDetailModule(architectureItem: Architecture?)
     func showModelTriDSceneModule(modelUrl: URL)
-    // MARK: - SettingsModule related logic
-    // MARK: - SettingsModule related logic
     
-    // MARK: - SettingsModule related logic
+    // MARK: -  Card section related logic
+    
+    // MARK: -  Literature section related logic
+    func showLiteratureModule()
+    
+    // MARK: - Settings section related logic
     func showSettingsModule()
     
     func showAuthenticationModule()
@@ -59,7 +62,7 @@ class Router: RouterProtocol, RootControllersProtocol {
     var assemblyModuleBuilder: AssemblyBuilderProtocol?
     weak var window: UIWindow?
     
-    // MARK: - ModelsModule related logic
+    // MARK: - Models section related logic
     
     func showModelsModule() {
         if let modelsNC = rootControllers[.models] as? ModelsNavigationController {
@@ -89,10 +92,23 @@ class Router: RouterProtocol, RootControllersProtocol {
         } else { print("Error while showing ModelTriDSceneModule") }
     }
     
-    // MARK: - SettingsModule related logic
-    // MARK: - SettingsModule related logic
+    // MARK: - Cards section related logic
     
-    // MARK: - SettingsModule related logic
+    // MARK: - Literature section related logic
+    
+    func showLiteratureModule() {
+        if let literatureNC = rootControllers[.literature] {
+            window?.rootViewController = literatureNC
+            showScreenSelector()
+            print("showing LiteratureModule")
+        } else if let settingNC = assemblyModuleBuilder?.createLiteratureModule() {
+            rootControllers[.literature] = settingNC
+            print("created LiteratureModule")
+            showLiteratureModule()
+        } else { print("Error while creatind LiteratureModule") }
+    }
+    
+    // MARK: - Settings section related logic
     
     func showSettingsModule() {
         if let settingsNC = rootControllers[.settings] {

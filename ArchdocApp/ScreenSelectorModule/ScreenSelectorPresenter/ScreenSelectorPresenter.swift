@@ -58,7 +58,7 @@ class ScreenSelectorPresenter: ScreenSelectorPresenterProtocol {
         case 1:
             print(index)
         case 2:
-            print(index)
+            router.showLiteratureModule()
         case 3:
             router.showSettingsModule()
         default:

@@ -51,7 +51,7 @@ class HeaderView: UIView {
     @objc private func changeImageAction(_ sender: UIButton) {
         delegate.didTapOnChangeImageButton()
     }
-    
+
     func setUpConstraints() {
         userImageView.translatesAutoresizingMaskIntoConstraints = false
         changeImageButton.translatesAutoresizingMaskIntoConstraints = false
