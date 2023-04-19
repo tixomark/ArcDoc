@@ -30,7 +30,7 @@ class SketchfabAPI {
     
     private let modelDataURL = "https://api.sketchfab.com/v3/models"
     let myModelsListURL = "https://api.sketchfab.com/v3/me/models"
-    let accessToken = "T2UQIxPtnApKDWs13B2AUgWnNjwUVM"
+    let accessToken = "GqKJdgyqJ5AcUIuWYsgaQQfD607NZY"
     let refreshToken = "121y4ILrgPBSmuaHzdomcJwxKIMf6Q"
     
     let sketchFabAPIQueue = DispatchQueue(label: "sketchFabAPIQueue", qos: .background, attributes: .concurrent)
