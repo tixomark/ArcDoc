@@ -111,6 +111,3 @@ struct Avatar: Codable {
     let images: [Image]?
     let uid, uri: String?
 }
-
-
-

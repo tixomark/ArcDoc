@@ -98,7 +98,7 @@ class AuthViewController: UIViewController {
         authButton = UIButton()
         view.addSubview(authButton)
         authButton.setTitle("Continue", for: .normal)
-        authButton.backgroundColor = .systemMint
+        authButton.backgroundColor = .systemOrange
         authButton.layer.cornerRadius = 10
         
         emailView = AuthTextFieldView(placeholder: "Enter email", returnKeyType: .next, keyboardType: .emailAddress)

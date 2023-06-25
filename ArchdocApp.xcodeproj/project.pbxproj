@@ -36,10 +36,6 @@
 		9D21D3BA299A668D003E55B2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D21D3B9299A668D003E55B2 /* AuthViewController.swift */; };
 		9D21D3BD299A73DA003E55B2 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D21D3BC299A73DA003E55B2 /* FirebaseAuth.swift */; };
 		9D21D3BF299A7412003E55B2 /* FirestoreDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D21D3BE299A7412003E55B2 /* FirestoreDB.swift */; };
-		9D21D3C2299B93DE003E55B2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D21D3C1299B93DE003E55B2 /* FirebaseAuth */; };
-		9D21D3C4299B93DE003E55B2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D21D3C3299B93DE003E55B2 /* FirebaseDatabaseSwift */; };
-		9D21D3C6299B93DE003E55B2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D21D3C5299B93DE003E55B2 /* FirebaseFirestoreSwift */; };
-		9D21D3C8299B93DE003E55B2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D21D3C7299B93DE003E55B2 /* FirebaseStorage */; };
 		9D21D3CA299BE156003E55B2 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D21D3C9299BE156003E55B2 /* UserInfoView.swift */; };
 		9D48DE7629893AE4003531B5 /* JSONDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE7529893AE4003531B5 /* JSONDataStructures.swift */; };
 		9D48DE7929893FD3003531B5 /* SketchfabAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D48DE7829893FD3003531B5 /* SketchfabAPI.swift */; };
@@ -73,6 +69,10 @@
 		9DB7AC9C29A774AA0086ACBC /* EmailVerificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7AC9B29A774AA0086ACBC /* EmailVerificationPresenter.swift */; };
 		9DB7AC9F29A7B1750086ACBC /* EnterUserDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7AC9E29A7B1750086ACBC /* EnterUserDetailsPresenter.swift */; };
 		9DB7ACA129A7B19F0086ACBC /* EnterUserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7ACA029A7B19F0086ACBC /* EnterUserDetailsViewController.swift */; };
+		9DCB66F72A066A970072381C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9DCB66F62A066A970072381C /* FirebaseAuth */; };
+		9DCB66F92A066A970072381C /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DCB66F82A066A970072381C /* FirebaseDatabaseSwift */; };
+		9DCB66FB2A066A970072381C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DCB66FA2A066A970072381C /* FirebaseFirestoreSwift */; };
+		9DCB66FD2A066A970072381C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9DCB66FC2A066A970072381C /* FirebaseStorage */; };
 		9DD7D8DF29B3A3830052954C /* LiteraturePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7D8DE29B3A3830052954C /* LiteraturePresenter.swift */; };
 		9DD7D8E129B3A5120052954C /* LiteratureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7D8E029B3A5120052954C /* LiteratureViewController.swift */; };
 		9DD7D8E329B3AEBF0052954C /* LiteratureNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7D8E229B3AEBF0052954C /* LiteratureNC.swift */; };
@@ -171,10 +171,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D21D3C4299B93DE003E55B2 /* FirebaseDatabaseSwift in Frameworks */,
-				9D21D3C8299B93DE003E55B2 /* FirebaseStorage in Frameworks */,
-				9D21D3C2299B93DE003E55B2 /* FirebaseAuth in Frameworks */,
-				9D21D3C6299B93DE003E55B2 /* FirebaseFirestoreSwift in Frameworks */,
+				9DCB66F92A066A970072381C /* FirebaseDatabaseSwift in Frameworks */,
+				9DCB66FD2A066A970072381C /* FirebaseStorage in Frameworks */,
+				9DCB66F72A066A970072381C /* FirebaseAuth in Frameworks */,
+				9DCB66FB2A066A970072381C /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,10 +736,10 @@
 			);
 			name = ArchdocApp;
 			packageProductDependencies = (
-				9D21D3C1299B93DE003E55B2 /* FirebaseAuth */,
-				9D21D3C3299B93DE003E55B2 /* FirebaseDatabaseSwift */,
-				9D21D3C5299B93DE003E55B2 /* FirebaseFirestoreSwift */,
-				9D21D3C7299B93DE003E55B2 /* FirebaseStorage */,
+				9DCB66F62A066A970072381C /* FirebaseAuth */,
+				9DCB66F82A066A970072381C /* FirebaseDatabaseSwift */,
+				9DCB66FA2A066A970072381C /* FirebaseFirestoreSwift */,
+				9DCB66FC2A066A970072381C /* FirebaseStorage */,
 			);
 			productName = ArchdocApp;
 			productReference = 00C8EF88297C07930040C6D9 /* ArchdocApp.app */;
@@ -770,7 +770,7 @@
 			);
 			mainGroup = 00C8EF7F297C07930040C6D9;
 			packageReferences = (
-				9D21D3C0299B93DE003E55B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9DCB66F52A066A970072381C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 00C8EF89297C07930040C6D9 /* Products */;
 			projectDirPath = "";
@@ -1015,6 +1015,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1042,6 +1043,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1079,35 +1081,35 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9D21D3C0299B93DE003E55B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		9DCB66F52A066A970072381C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				minimumVersion = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9D21D3C1299B93DE003E55B2 /* FirebaseAuth */ = {
+		9DCB66F62A066A970072381C /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9D21D3C0299B93DE003E55B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9DCB66F52A066A970072381C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		9D21D3C3299B93DE003E55B2 /* FirebaseDatabaseSwift */ = {
+		9DCB66F82A066A970072381C /* FirebaseDatabaseSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9D21D3C0299B93DE003E55B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9DCB66F52A066A970072381C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
 		};
-		9D21D3C5299B93DE003E55B2 /* FirebaseFirestoreSwift */ = {
+		9DCB66FA2A066A970072381C /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9D21D3C0299B93DE003E55B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9DCB66F52A066A970072381C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
-		9D21D3C7299B93DE003E55B2 /* FirebaseStorage */ = {
+		9DCB66FC2A066A970072381C /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9D21D3C0299B93DE003E55B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9DCB66F52A066A970072381C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -54,7 +54,7 @@ class EnterUserDetailsViewController: UIViewController {
             doneButton.heightAnchor.constraint(equalToConstant: 60)])
         
         doneButton.setTitle("Finish", for: .normal)
-        doneButton.backgroundColor = .systemMint
+        doneButton.backgroundColor = .systemOrange
         doneButton.layer.cornerRadius = 10
         setDoneButtonIsEnabled(to: false)
     }
